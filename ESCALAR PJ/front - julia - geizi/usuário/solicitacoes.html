@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Escalar</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="../styles/styles.css">
+</head>
+
+<body>
+
+  <nav class="navbar navbar-custom d-flex justify-content-between align-items-center">
+    <a class="navbar-brand" href="#">Escalar</a>
+    <div class="d-flex">
+      <a href="#" class="nav-link">Calendário</a>
+      <a href="#" class="nav-link">Solicitações</a>
+    </div>
+  </nav>
+
+  <main class="main-container">
+    <!-- Trocas pendentes -->
+    <section class="pending-swaps">
+      <h5>Trocas pendentes</h5>
+
+      <!-- EXEMPLO DE COMO VAI FICAR AS TROCAS PENDENTES -->
+      <article class="swap-item d-flex align-items-center">
+        <div class="avatar"></div>
+        <div class="swap-info flex-grow-1 d-flex flex-column" style="min-width: 0;">
+          <span class="fw-bold"
+            style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><strong>Nome
+              completo</strong></span>
+          <span style="width: 100%;"><strong>Data:</strong> <a href="#" class="text-decoration-none">dd/mm/aa</a></span>
+          <select id="turno" name="turno" class="form-select" style="width: 90%; max-width: 220px;">
+            <option value="">Selecione</option>
+            <option value="dia">Dia</option>
+            <option value="noite">Noite</option>
+            <option value="madrugada">Madrugada</option>
+          </select>
+        </div>
+        <button type="button" class="btn btn-swap ms-2" style="width: 80px; min-width: unset;">Trocar</button>
+      </article>
+
+      <article class="swap-item d-flex align-items-center">
+        <div class="avatar"></div>
+        <div class="swap-info flex-grow-1 d-flex flex-column" style="min-width: 0;">
+          <span class="fw-bold"
+            style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><strong>Nome
+              completo</strong></span>
+          <span style="width: 100%;"><strong>Data:</strong> <a href="#" class="text-decoration-none">dd/mm/aa</a></span>
+          <select id="turno" name="turno" class="form-select" style="width: 90%; max-width: 220px;">
+            <option value="">Selecione</option>
+            <option value="dia">Dia</option>
+            <option value="noite">Noite</option>
+            <option value="madrugada">Madrugada</option>
+          </select>
+        </div>
+        <button type="button" class="btn btn-swap ms-2" style="width: 80px; min-width: unset;">Trocar</button>
+      </article>
+
+      <article class="swap-item d-flex align-items-center">
+        <div class="avatar"></div>
+        <div class="swap-info flex-grow-1 d-flex flex-column" style="min-width: 0;">
+          <span class="fw-bold"
+            style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><strong>Nome
+              completo</strong></span>
+          <span style="width: 100%;"><strong>Data:</strong> <a href="#" class="text-decoration-none">dd/mm/aa</a></span>
+          <select id="turno" name="turno" class="form-select" style="width: 90%; max-width: 220px;">
+            <option value="">Selecione</option>
+            <option value="dia">Dia</option>
+            <option value="noite">Noite</option>
+            <option value="madrugada">Madrugada</option>
+          </select>
+        </div>
+        <button type="button" class="btn btn-swap ms-2" style="width: 80px; min-width: unset;">Trocar</button>
+      </article>
+    </section>
+
+    <!-- FIM DO EXEMPLO DE COMO VAI FICAR AS TROCAS PENDENTES -->
+
+    <!-- Histórico de solicitações -->
+    <section class="requests-history">
+      <h5>Histórico de solicitações</h5>
+
+      <!-- EXEMPLO DE COMO VAI FICAR O HISTORICO DE SOLICITAÇÕES-->
+
+      <!-- Card aprovado -->
+      <article class="request-card">
+        <div class="request-line"><strong>Dia:</strong> dd/mm/aaaa &nbsp;&nbsp;&nbsp; Manhã</div>
+        <div class="request-line"><strong>Colega proposto:</strong> nome do colega</div>
+        <div class="request-line"><strong>Motivo:</strong> consulta médica</div>
+        <span class="request-status status-approved">Aprovado</span>
+        <span class="response-date">Respondido em: dd/mm/aaaa hh:mm</span>
+      </article>
+
+      <!-- Card rejeitado -->
+      <article class="request-card">
+        <div class="request-line"><strong>Dia:</strong> dd/mm/aaaa &nbsp;&nbsp;&nbsp; Manhã</div>
+        <div class="request-line"><strong>Colega proposto:</strong> nome do colega</div>
+        <div class="request-line"><strong>Motivo:</strong> consulta médica</div>
+        <span class="request-status status-rejected">Rejeitado</span>
+        <span class="response-date">Respondido em: dd/mm/aaaa hh:mm</span>
+      </article>
+
+      <!-- Card pendente -->
+      <article class="request-card">
+        <div class="request-line"><strong>Dia:</strong> dd/mm/aaaa &nbsp;&nbsp;&nbsp; Manhã</div>
+        <div class="request-line"><strong>Colega proposto:</strong> nome do colega</div>
+        <div class="request-line"><strong>Motivo:</strong> consulta médica</div>
+        <span class="request-status status-pending">Pendente</span>
+        <span class="response-date">Respondido em: dd/mm/aaaa hh:mm</span>
+      </article>
+    </section>
+
+    <!-- FIM DO EXEMPLO DE COMO VAI FICAR O HISTORICO DE SOLICITAÇÕES-->
+  </main>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
