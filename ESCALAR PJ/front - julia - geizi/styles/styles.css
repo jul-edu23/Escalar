@@ -143,23 +143,10 @@ button:hover {
 
 /* SOLICITACOES*/
 
-/* Navbar custom */
-.navbar-custom {
-    background-color: #d8dadb;
-    padding: 0.8rem 2rem;
-}
 
-.navbar-brand {
-    color: #0f3a59;
-    font-weight: 700;
-    font-size: 1.5rem;
-}
 
-.nav-link {
-    color: #2b5d73 !important;
-    font-weight: 500;
-    margin-left: 1.5rem;
-}
+
+
 
 /* Container das seções */
 .main-container {
