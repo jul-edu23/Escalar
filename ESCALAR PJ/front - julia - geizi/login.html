@@ -1,31 +1,81 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Login</title>
-    <link rel="stylesheet" href="styles/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escalar - Login</title>
+
+    <!--Google font - inter-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+
+    <!--Icones-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="assets/css/login.css">
+    <link rel="stylesheet" href="assets/css/global.css">
 
 </head>
+
 <body>
+    <div class="imagem-fundo">
+        <img src="#" alt="">
+        <div class="row justify-content-end">
+            <div class="container-login col-md-6">
+                <div class="logoEscalar mt-5 mb-5 text-center">
+                    <img src="assets/img/escalar-removebg-preview.png" class="img-fluid" alt="">
+                </div>
+                <div class="formulario-login mt-5">
+                    <div class="text-center m-4">
+                        <h2>Acessar a Plataforma</h2>
+                    </div>
+                    <form action="">
+                        <div class="mb-4">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Selecione o tipo de usuário</option>
+                                <option value="1">Administrador</option>
+                                <option value="2">Usuário</option>
+                            </select>
+                        </div>
+                        <div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Email:</label>
+                                <input type="email" class="form-control" id="exampleFormControlInput1"
+                                    placeholder="name@example.com">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="inputPassword5" class="form-label">Senha:</label>
+                            <input type="password" id="inputPassword5" class="form-control">
+                        </div>
+                        <div class="text-end">
+                            <button type="submit" class="botaoEntrar mt-4 mb-3 w-50"><i class="bi bi-box-arrow-in-right iconeEntrar"></i> Entrar</button>
+                        </div>
+                    </form>
 
-<div class="login-box">
-    <h2>Login</h2>
-    <form>
-        <select class="tipoUsuario" name="perfil" required>
-            <option value="coordenador">Coordenador</option>
-            <option value="aluno">Colaborador</option>
-        </select>
+                </div>
+            </div>
 
-        <label for="email">Email:</label>
-        <input id="email" type="email" placeholder="Digite seu email" required />
+        </div>
 
-        <label for="senha">Senha:</label>
-        <input id="senha" type="password" placeholder="Digite sua senha" required />
+    </div>
 
-        <button type="submit">Entrar</button>
-    </form>
-</div>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    
 </body>
+
 </html>

@@ -1,0 +1,34 @@
+.conatinerPrincipal h3{
+    font-weight: 600;
+}
+
+.btnSolicitarTroca{
+    color: #00466c;
+    text-decoration: #00466c underline;
+    font-weight: 500;
+}
+
+.btnTrocar{
+    background-color: #00466c;
+    color: #ffffff;
+    border: none;
+    border-radius: 30px;
+    padding: 0.4rem 4rem;
+    font-weight: 400;
+    font-size: 1.1rem;
+}
+
+.btnTrocar:hover{
+    background-color: #00334a;
+    color: #ffffff;
+}
+
+.modal-content  {
+    background-color: #d9d9d9;
+    border: none;
+    border-radius: 20px;
+    
+}
+.modal-body label{
+    font-weight: 500;
+}

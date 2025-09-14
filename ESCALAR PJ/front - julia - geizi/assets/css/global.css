@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+.navbar{
+    background-color: #00466c!important;
+    
+}
+
+.navbar .nav-link, .navbar .navbar-brand{
+    color: #ffffff!important;
+    font-weight: 400;
+}
+
+.navbar-toggler{
+    border: none;
+    background-color: #ffffff;
+}
+
+button:focus{
+    outline: none!important;
+    box-shadow: 0 0 0 3px rgba(0, 70, 108, 0.25);
+
+}

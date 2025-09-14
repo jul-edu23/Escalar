@@ -1,0 +1,44 @@
+/* login.css */
+.container-login{
+    background-color: #00466c;
+    opacity: 0.95;
+    color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 20px;
+    height: 100vh;
+    max-width: 100vh;
+}
+
+.logoEscalar img{
+    width: 20rem;
+    height: auto;
+}
+
+.formulario-login input, .formulario-login select{
+    background-color: #ffffff;
+    border: none;
+    border-radius: 30px;
+    padding: 0.7rem;
+    width: 100%;
+    
+}
+
+.botaoEntrar{
+    background-color: #ffffff;
+    color: #00466c;
+    border: none;
+    border-radius: 30px;
+    padding: 0.7rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.botaoEntrar:hover{
+    background-color: #e6e6e6;
+    color: #00466c;
+}
+
+.botaoEntrar .iconeEntrar{
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
