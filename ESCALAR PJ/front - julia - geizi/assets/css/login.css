@@ -1,8 +1,8 @@
 /* login.css */
 .container-login{
-    background-color: #00466c;
+    background-color: var(--azul);
     opacity: 0.95;
-    color: #ffffff;
+    color: var(--branco);
     padding: 1.5rem;
     border-radius: 20px;
     height: 100vh;
@@ -15,7 +15,7 @@
 }
 
 .formulario-login input, .formulario-login select{
-    background-color: #ffffff;
+    background-color: var(--branco);
     border: none;
     border-radius: 30px;
     padding: 0.7rem;
@@ -24,8 +24,8 @@
 }
 
 .botaoEntrar{
-    background-color: #ffffff;
-    color: #00466c;
+    background-color: var(--branco);
+    color: var(--azul);
     border: none;
     border-radius: 30px;
     padding: 0.7rem;
@@ -35,7 +35,7 @@
 
 .botaoEntrar:hover{
     background-color: #e6e6e6;
-    color: #00466c;
+    color: var(--azul);
 }
 
 .botaoEntrar .iconeEntrar{

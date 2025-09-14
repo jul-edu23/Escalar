@@ -5,19 +5,27 @@
     font-family: "Inter", sans-serif;
 }
 
+/* cores */
+:root {
+    --azul: #00466c;
+    --cinza: #d9d9d9;
+    --branco: #ffffff;
+    --preto: #000000;
+}
+
 .navbar{
-    background-color: #00466c!important;
+    background-color: var(--azul)!important;
     
 }
 
 .navbar .nav-link, .navbar .navbar-brand{
-    color: #ffffff!important;
+    color: var(--branco)!important;
     font-weight: 400;
 }
 
 .navbar-toggler{
     border: none;
-    background-color: #ffffff;
+    background-color: var(--branco);
 }
 
 button:focus{

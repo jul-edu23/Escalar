@@ -3,14 +3,14 @@
 }
 
 .btnSolicitarTroca{
-    color: #00466c;
-    text-decoration: #00466c underline;
+    color: var(--azul);
+    text-decoration: var(--azul) underline;
     font-weight: 500;
 }
 
 .btnTrocar{
-    background-color: #00466c;
-    color: #ffffff;
+    background-color:var(--azul);
+    color: var(--branco);
     border: none;
     border-radius: 30px;
     padding: 0.4rem 4rem;
@@ -19,12 +19,12 @@
 }
 
 .btnTrocar:hover{
-    background-color: #00334a;
-    color: #ffffff;
+    background-color: var(--azul);
+    color:var(--branco);
 }
 
 .modal-content  {
-    background-color: #d9d9d9;
+    background-color: var(--cinza);
     border: none;
     border-radius: 20px;
     

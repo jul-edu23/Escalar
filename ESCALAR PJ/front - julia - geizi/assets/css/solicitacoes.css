@@ -1,0 +1,12 @@
+.container_trocasPendentes{
+    background-color: var(--cinza);
+    border-radius: 20px;
+    padding: 1rem;
+    height: 90vh;
+    margin: 1rem 0;
+}
+
+.container_trocasPendentes h3{
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
