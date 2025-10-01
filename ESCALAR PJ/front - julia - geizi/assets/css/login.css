@@ -1,31 +1,98 @@
 /* login.css */
-.container-login{
+
+.container-login {
     background-color: var(--azul);
-    opacity: 0.95;
     color: var(--branco);
-    padding: 1.5rem;
-    border-radius: 20px;
     height: 100vh;
-    max-width: 100vh;
+    
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
-.logoEscalar img{
-    width: 20rem;
-    height: auto;
+/*logmarca*/
+
+.fundo {
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    opacity: 0.95;
+    background-color: rgba(0, 71, 108, 0.50);
 }
 
-.formulario-login input, .formulario-login select{
+
+
+/* Containers das caixas */
+.caixa {
+    z-index: 1;
+    background-color: var(--azul);
+    padding: 1.33rem 2.66rem;
+    margin: 2.66rem auto;
+    color: white;
+    font-size: 1.46rem;
+    font-family: Aldrich;
+    box-shadow: 10px 10px 0px #0c3a4e;
+}
+
+
+/* Centralizar os blocos */
+.container {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.logomarca .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+.logomarca .caixa {
+    margin: 5rem 2.5rem;
+    
+}
+
+
+/* container login */
+.textoSaudacao {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.textoSaudacao h2 {
+    color: var(--branco);
+    text-align: center;
+    font-family: Aldrich;
+    font-size: 3.9rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.formulario-login input {
     background-color: var(--branco);
     border: none;
     border-radius: 30px;
     padding: 0.7rem;
     width: 100%;
-    
+    filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
 }
 
-.botaoEntrar{
+.recuperarSenha a {
+    color: var(--branco);
+    font-weight: 300;
+    font-size: 0.95rem;
+}
+
+.botaoEntrar {
     background-color: var(--branco);
     color: var(--azul);
+    width: 183px;
+    height: 50px;
     border: none;
     border-radius: 30px;
     padding: 0.7rem;
@@ -33,12 +100,30 @@
     font-size: 1.1rem;
 }
 
-.botaoEntrar:hover{
+.botaoEntrar:hover {
     background-color: #e6e6e6;
     color: var(--azul);
 }
 
-.botaoEntrar .iconeEntrar{
+.botaoEntrar .iconeEntrar {
     font-size: 1.2rem;
     margin-right: 0.5rem;
 }
+
+/*exibição em mobile*/
+
+.logo-mobile {
+    display: none;
+}
+
+@media (max-width: 767.98px) {
+    .logomarca {
+        display: none !important;
+    }
+    .logo-mobile {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
