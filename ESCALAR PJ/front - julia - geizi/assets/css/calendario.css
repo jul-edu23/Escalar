@@ -32,3 +32,68 @@
 .modal-body label{
     font-weight: 500;
 }
+
+/* MODAL */
+
+.modal-notificacoes {
+            position: fixed;
+            top: 80px;
+            right: 30px;
+            width: 320px;
+            max-height: 400px;
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            display: none;
+            z-index: 1050;
+        }
+
+        .notificacoes-header{
+            background-color: var(--azul);
+            color: var(--branco);
+        }
+
+        .modal-notificacoes.ativo {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .notificacoes-body {
+            max-height: 340px;
+            overflow-y: auto;
+        }
+
+        .notificacao-item {
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s;
+        }
+
+        .notificacao-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .notificacao-item.nao-lida {
+            color: #0d6efd;
+            font-weight: 500;
+        }
+
+        .notificacao-item.lida {
+            color: #000;
+            font-weight: 400;
+        }
+/* fim modal */
