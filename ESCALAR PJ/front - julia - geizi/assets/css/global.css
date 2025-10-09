@@ -1,35 +1,165 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
 }
 
 /* cores */
 :root {
-    --azul: #00466c;
-    --cinza: #d9d9d9;
-    --branco: #ffffff;
-    --preto: #000000;
+  --azul: #00466c;
+  --cinza: #d9d9d9;
+  --branco: #ffffff;
+  --preto: #000000;
 }
 
-.navbar{
-    background-color: var(--azul)!important;
-    
+.navbar {
+  background-color: var(--azul) !important;
 }
 
-.navbar .nav-link, .navbar .navbar-brand{
-    color: var(--branco)!important;
-    font-weight: 400;
+.navbar-nav{
+  flex-direction: row;
 }
 
-.navbar-toggler{
-    border: none;
-    background-color: var(--branco);
+.navbar .nav-link,
+.navbar .navbar-brand {
+  color: var(--branco) !important;
+  font-weight: 400;
 }
 
-button:focus{
-    outline: none!important;
-    box-shadow: 0 0 0 3px rgba(0, 70, 108, 0.25);
+.navbar-toggler {
+  border: none;
+  background-color: var(--branco);
+}
 
+button:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(0, 70, 108, 0.25);
+
+}
+
+.navbar2 {
+  background-color: var(--cinza) !important;
+  display: flex;
+  justify-content: space-between; /* separa esquerda e direita */
+  align-items: center;            /* centraliza verticalmente */
+  padding: 2px 15px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  position: sticky; /* fixa no topo (funciona bem no mobile também) */
+  top: 0;
+  z-index: 1030;
+  
+}
+
+.navbar2 .container-fluid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-mobile .btn{
+  --bs-btn-font-size: 2rem;
+}
+
+.navbar2 .btn{
+  --bs-btn-font-size: 2rem;
+}
+
+.offcanvas-header{
+  display: flex;
+  justify-content: space-between; /* Logo na start, botão no end */
+  align-items: center;            /* Alinha verticalmente */
+  padding: 10px;
+}
+
+
+.sidebar {
+  background-color: var(--azul);
+  color: white;
+  min-height: 100vh;
+  transition: all 0.3s ease;
+  width: 240px;
+}
+
+.sidebar .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.item-atual{
+  background-color: rgba(255, 255, 255, 0.4);
+  color: var(--branco);
+  border-radius: 5px;
+  width: 100%;
+}
+
+/* ==== MENU DESKTOP ==== */
+.menu-desktop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background-color: var(--azul);
+  color: white;
+  z-index: 1040;
+}
+
+.menu-desktop .sidebar {
+  min-height: 100vh;
+}
+
+.menu-desktop .nav-link {
+  color: #fff;
+}
+
+.menu-desktop .nav-link:hover,
+.menu-desktop .item-atual .nav-link {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+@media (min-width: 992px) {
+  .navbar2 {
+    position: fixed;
+    top: 0;
+    left: 240px; /* compensa a largura do menu lateral */
+    width: calc(100% - 240px);
+    z-index: 1030;
+  }
+
+  .content {
+    margin-left: 240px;
+    margin-top: 70px; /* altura aproximada da navbar */
+  }
+}
+
+/* Layout geral para telas grandes */
+@media (min-width: 992px) {
+  /* Garante que o layout ocupe toda a largura */
+  body {
+    display: flex;
+  }
+
+  /* Compensa a largura do menu lateral fixo */
+  .content {
+    /* mesmo valor da sidebar */
+    width: calc(100% - 240px);
+    margin-left: 0;
+    margin-top: 0;
+  }
+
+  /* Ajusta o topo para a navbar fixa */
+  .navbar2 {
+    position: fixed;
+    top: 0;
+    left: 240px; /* começa depois do menu lateral */
+    width: calc(100% - 240px);
+    z-index: 1020;
+  }
+
+  /* Evita que o conteúdo fique escondido atrás da navbar */
+  main {
+    margin-top: 80px; /* altura aproximada da navbar */
+  }
 }
