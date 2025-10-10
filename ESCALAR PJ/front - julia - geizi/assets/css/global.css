@@ -137,7 +137,7 @@ button:focus {
 /* Layout geral para telas grandes */
 @media (min-width: 992px) {
   /* Garante que o layout ocupe toda a largura */
-  body {
+  .body {
     display: flex;
   }
 
@@ -162,4 +162,28 @@ button:focus {
   main {
     margin-top: 80px; /* altura aproximada da navbar */
   }
+}
+
+/*botões*/
+
+.btn-azul {
+    background-color: var(--azul);
+    color: var(--branco);
+    border: none;
+    padding: 7px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+    --sombra: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.btn-azul:hover {
+    background-color: var(--cinza);
+    color: var(--preto); 
+}
+
+/* espaçamento */
+.espaco {
+    height: 40px; /* altura aproximada da navbar */
 }
