@@ -34,5 +34,17 @@ h4 {
     font-weight: 600;
 }
 
+/*formulario*/
+
+input, select{
+    border: 1px solid var(--cinza);
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    box-shadow: var(--sombra);
+}
+
 
 
