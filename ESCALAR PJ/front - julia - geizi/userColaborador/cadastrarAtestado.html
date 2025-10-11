@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escalar | Cadastrar Férias</title>
+    <title>Escalar | Cadastrar Atestado</title>
 
     <!--Google font - inter-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -56,10 +56,10 @@
                             <li class="nav-item">
                                 <a href="solicitarTroca.html" class="nav-link text-white">Solicitar Troca</a>
                             </li>
-                            <li class="nav-item item-atual">
+                            <li class="nav-item">
                                 <a href="cadastrarFerias.html" class="nav-link text-white">Cadastrar Férias</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item item-atual">
                                 <a href="cadastrarAtestado.html" class="nav-link text-white">Cadastrar Atestado</a>
                             </li>
                             <li class="nav-item">
@@ -88,10 +88,10 @@
                         <li class="nav-item">
                             <a href="solicitarTroca.html" class="nav-link text-white">Solicitar Troca</a>
                         </li>
-                        <li class="nav-item item-atual">
+                        <li class="nav-item">
                             <a href="cadastrarFerias.html" class="nav-link text-white">Cadastrar Férias</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item item-atual">
                             <a href="cadastrarAtestado.html" class="nav-link text-white">Cadastrar Atestado</a>
                         </li>
                         <li class="nav-item">
@@ -162,18 +162,29 @@
                     <!--insira o conteudo aqui-->
                     <div class="espaco"></div>
                     <div class="centralizarConteiner">
-                        <h2>Cadastrar férias</h2>
+                        <h2>Cadastrar Atestado</h2>
                         <div class="container-cinza">
                             <div class="formulario-pedirTroca">
                                 <form action="">
                                     <div class="mt-2">
-                                        <label for="dataSubstituicao">Data de início:</label>
+                                        <label for="dataSubstituicao">Data:</label>
                                         <input type="date">
                                     </div>
-                                    <div class="mt-2 w-75">
-                                        <label for="qntdDias">Quantidade de dias:</label>
-                                        <input type="number" min="1" max="30">
+                                    <div class="mt-2 d-flex">
+                                        <div class="w-50 me-3 d-inline-block">
+                                            <label for="qntdDias">Quantidade de dias:</label>
+                                            <input type="number" min="1">
+                                        </div>
+                                        <div class="w-50 d-inline-block">
+                                            <label for="qntdDias">CID:</label>
+                                            <input type="text">
+                                        </div>
                                     </div>
+                                    <div class="mt-2">
+                                        <label for="fotoAtestado">Anexar foto do atestado</label>
+                                        <input type="file">
+                                    </div>
+
                                 </form>
                                 <div class="d-flex justify-content-end mt-5">
                                     <!-- Botão -->
