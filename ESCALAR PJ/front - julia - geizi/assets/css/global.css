@@ -11,6 +11,7 @@
   --cinza: #d9d9d9;
   --branco: #ffffff;
   --preto: #000000;
+  --sombra: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
 .navbar {
@@ -172,6 +173,17 @@ button:focus {
     box-shadow: var(--sombra);
 }
 
+
+/* centralizar conteiner */
+.centralizarConteiner {
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: start;
+}
+
 /*botões*/
 
 .btn-azul {
@@ -206,4 +218,17 @@ button:focus {
 /* espaçamento */
 .espaco {
     height: 40px; /* altura aproximada da navbar */
+}
+
+/* formulário */
+/*formulario*/
+input,
+select,
+textarea {
+    border: 1px solid var(--cinza);
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+    box-shadow: var(--sombra);
 }

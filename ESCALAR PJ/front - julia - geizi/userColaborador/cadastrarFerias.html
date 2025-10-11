@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escalar | Trocas Disponiveis</title>
+    <title>Escalar | Cadastrar Férias</title>
 
     <!--Google font - inter-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +24,6 @@
     <!--CSS global-->
     <link rel="stylesheet" href="../assets/css/global.css">
     <!--CSS da pagina-->
-    <link rel="stylesheet" href="../assets/css/trocasDisponiveis.css">
 
 </head>
 
@@ -51,13 +50,13 @@
                     <!--Alterar a classe "item-atual' de acordo com a pagina"-->
                     <div class="menu-lateral">
                         <ul class="nav nav-pills flex-column mb-auto" id="menu">
-                            <li class="nav-item item-atual">
+                            <li class="nav-item">
                                 <a href="trocasDisponiveis.html" class="nav-link text-white">Trocas Disponíveis</a>
                             </li>
                             <li class="nav-item">
                                 <a href="solicitarTroca.html" class="nav-link text-white">Solicitar Troca</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item item-atual">
                                 <a href="cadastrarFerias.html" class="nav-link text-white">Cadastrar Férias</a>
                             </li>
                             <li class="nav-item">
@@ -80,13 +79,13 @@
                 </div>
                 <div class="menu-lateral">
                     <ul class="nav nav-pills flex-column mb-auto" id="menu">
-                        <li class="nav-item item-atual">
+                        <li class="nav-item">
                             <a href="trocasDisponiveis.html" class="nav-link text-white">Trocas Disponíveis</a>
                         </li>
                         <li class="nav-item">
                             <a href="solicitarTroca.html" class="nav-link text-white">Solicitar Troca</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item item-atual">
                             <a href="cadastrarFerias.html" class="nav-link text-white">Cadastrar Férias</a>
                         </li>
                         <li class="nav-item">
@@ -152,109 +151,35 @@
             </header>
 
             <main>
-                <div class="espaco"></div>
-
-                <div class="container">
+                <div class="container mt-4">
 
                     <!--insira o conteudo aqui-->
-
-                    <div class="container-fluid container-cinza p-5">
-
-                        <!--Essa div sera reutilizada-->
-                        <div class="pedidoSubstituir">
-                            <div class="container justify-content-center">
-                                <div class="row align-items-center">
-                                    <!-- Coluna 1 -->
-                                    <div class="col-12 col-md-6 col-lg-1 text-center mb-3 mb-lg-0">
-                                        <div class="fotoPerfil">
-                                            <!-- imagem do perfil -->
-                                        </div>
+                    <div class="espaco"></div>
+                    <div class="centralizarConteiner">
+                        <h2>Cadastrar férias</h2>
+                        <div class="container-cinza">
+                            <div class="formulario-pedirTroca">
+                                <form action="">
+                                    <div class="mt-2">
+                                        <label for="dataSubstituicao">Data de início:</label>
+                                        <input type="date">
                                     </div>
-                                    <!-- Coluna 2 -->
-                                    <div class="col-12 col-md-6 col-lg-8 mb-3 mb-lg-0">
-                                        <h4>Substituição</h4>
-                                        <span class="placeholder w-75"></span>
-                                        <p>Local: <span class="placeholder w-50"></span></p>
+                                    <div class="mt-2 w-75">
+                                        <label for="qntdDias">Quantidade de dias:</label>
+                                        <input type="number" min="1" max="30">
                                     </div>
-                                    <!-- Coluna 3 -->
-                                    <div class="col-12 col-md-12 col-lg-3 text-md-start text-lg-end">
-                                        <p>Data: <span class="placeholder w-25"></span></p>
-                                        <!-- Botão do modal -->
-                                        <button type="button" class="btn btn-azul mt-2 mt-md-0" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
-                                            Propor Troca
-                                        </button>
-                                    </div>
+                                </form>
+                                <div class="d-flex justify-content-end mt-5">
+                                    <!-- Botão -->
+                                    <button type="button" class="btn btn-azul">
+                                        Enviar
+                                    </button>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModalToggle" aria-hidden="true"
-                            aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Propor Troca</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h5>Substituir:</h5>
-                                        <p><span class="placeholder w-50"></span></p>
-                                        <h5>Em:</h5>
-                                        <p><span class="placeholder w-50"></span></p>
-                                        <h5>Local:</h5>
-                                        <p><span class="placeholder w-50"></span></p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-azul" data-bs-target="#exampleModalToggle2"
-                                            data-bs-toggle="modal">Continuar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal fade" id="exampleModalToggle2" aria-hidden="true"
-                            aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Propor Troca</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="formulario-proporTroca">
-                                            <p>Indique uma data e local para a reposição:</p>
-                                            <form action="">
-                                                <div>
-                                                    <label for="dataReposicao">Data:</label>
-                                                    <input type="date">
-                                                </div>
-                                                <div>
-                                                    <label for="localReposicao">Local:</label>
-                                                    <select name="localReposicao" id="localReposicao">
-                                                        <option value="campus">Campus Major Gote</option>
-                                                        <option value="cce">Centro de Convenções e Eventos</option>
-                                                        <option value="ccv">Centro Clinico Veterinário</option>
-                                                        <option value="cco">Centro Clinico Odontologico</option>
-                                                    </select>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-azul" data-bs-target="#"
-                                            data-bs-toggle="modal">Continuar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
-                </div>
 
-        
+                </div>
 
             </main>
         </div>
