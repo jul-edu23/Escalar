@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escalar | Solicitar Troca </title>
+    <title>Escalar | Minhas Solicitações</title>
 
     <!--Google font - inter-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +24,7 @@
     <!--CSS global-->
     <link rel="stylesheet" href="../assets/css/global.css">
     <!--CSS da pagina-->
-    <link rel="stylesheet" href="../assets/css/solicitarTroca.css">
+    <link rel="stylesheet" href="../assets/css/minhasSolicitacoes.css">
 
 </head>
 
@@ -54,7 +54,7 @@
                             <li class="nav-item">
                                 <a href="trocasDisponiveis.html" class="nav-link text-white">Trocas Disponíveis</a>
                             </li>
-                            <li class="nav-item item-atual">
+                            <li class="nav-item">
                                 <a href="solicitarTroca.html" class="nav-link text-white">Solicitar Troca</a>
                             </li>
                             <li class="nav-item">
@@ -63,7 +63,7 @@
                             <li class="nav-item">
                                 <a href="cadastrarAtestado.html" class="nav-link text-white">Cadastrar Atestado</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item item-atual">
                                 <a href="minhasSolicitacoes.html" class="nav-link text-white">Minhas Solicitações</a>
                             </li>
                         </ul>
@@ -86,16 +86,16 @@
                         <li class="nav-item">
                             <a href="trocasDisponiveis.html" class="nav-link text-white">Trocas Disponíveis</a>
                         </li>
-                        <li class="nav-item item-atual">
+                        <li class="nav-item">
                             <a href="solicitarTroca.html" class="nav-link text-white">Solicitar Troca</a>
                         </li>
                         <li class="nav-item">
                             <a href="cadastrarFerias.html" class="nav-link text-white">Cadastrar Férias</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link text-white">Cadastrar Atestado</a>
+                            <a href="cadastrarAtestado.html" class="nav-link text-white">Cadastrar Atestado</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item item-atual">
                             <a href="minhasSolicitacoes.html" class="nav-link text-white">Minhas Solicitações</a>
                         </li>
                     </ul>
@@ -162,121 +162,58 @@
 
                     <!--insira o conteudo aqui-->
                     <div class="espaco"></div>
-                    <div class="centralizarConteiner">
-                        <h2>Solicitar Troca</h2>
-                        <div class="container-cinza">
-                            <div class="formulario-pedirTroca">
-                                <form action="">
-                                    <div class="mt-2">
-                                        <label for="dataSubstituicao">Data:</label>
-                                        <input type="date">
-                                    </div>
-                                    <div class="mt-2">
-                                        <label for="localSubstituicao">Local:</label>
-                                        <select name="localSubstituicao" id="localSubstituicao">
-                                            <option value="campus">Campus Major Gote</option>
-                                            <option value="cce">Centro de Convenções e Eventos</option>
-                                            <option value="ccv">Centro Clinico Veterinário</option>
-                                            <option value="cco">Centro Clinico Odontologico</option>
-                                        </select>
-                                    </div>
-                                    <div class="mt-2">
-                                        <label for="motivo">Motivo:</label>
-                                        <textarea name="motivo" id="motivo" cols="30" rows="5"
-                                            placeholder="Descreva o motivo da troca..."></textarea>
-                                    </div>
-                                </form>
-                                <div class="d-flex justify-content-end">
-                                    <!-- Botão -->
-                                    <button type="button" class="btn btn-azul" data-bs-toggle="modal"
-                                        data-bs-target="#staticBackdrop">
-                                        Continuar
-                                    </button>
-                                </div>
+                    <div class="row gap-3 p-3">
+                        <div class="col-sm container-cinza">
+                            <h4 class="mb-3">Trocas</h4>
+                            <div class="container-branco mb-3">
+                                teste
+                            </div>
+                            <div class="container-branco mb-3">
+                                teste
+                            </div>
+                        </div>
+                        <div class="col-sm container-cinza">
+                            <h4 class="mb-3">Férias</h4>
+                            <div class="container-branco mb-3">
+                                teste
+                            </div>
+                            <div class="container-branco mb-3">
+                                teste
+                            </div>
+                        </div>
+                        <div class="col-sm container-cinza">
+                            <h4 class="mb-3">Atestados</h4>
+                            <div class="container-branco mb-3">
+                                teste
+                            </div>
+                            <div class="container-branco mb-3">
+                                teste
                             </div>
                         </div>
                     </div>
 
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-
-                        <!-- Scrollable aqui dentro -->
-                        <div class="modal-dialog modal-dialog-scrollable">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="pt-3 ps-3">
-                                    <p>Deseja indicar outro colaborador para a troca?</p>
-                                </div>
-                                <div class="modal-body">
-
-                                    <div class="container-cinza">
-                                        <div class="pesquisa">
-                                            <input type="search" placeholder="Pesquisar">
-                                        </div>
-
-                                        <!--Retangulo com colaboradores a ser utilizada-->
-                                        <!--OBS: lembrar de apagar a classe "placeholder" quando integrar o back-->
-                                        <div class="container-branco">
-                                            <div class="fotoPerfil">
-                                                <!-- imagem do perfil -->
-                                            </div>
-                                            <div class="informacoes">
-                                                <span class=" w-75 placeholder"></span>
-                                                <div>
-                                                    <span class=" w-50 placeholder"></span>
-                                                    <span class=" w-50 placeholder"></span>
-                                                </div>
-                                            </div>
-                                            <div class="checkbox">
-                                                <input type="checkbox" name="" id="">
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                <div class="pt-3 ps-3">
-                                    <div class="checkbox">
-                                        <input type="checkbox" name="ninguemIndicar" value="ninguemIndicar" id="">
-                                        <p class="ms-1">Não tenho ninguém para indicar</p>
-                                    </div>
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-vermelho"
-                                        data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-azul">Continuar</button>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
+
             </main>
         </div>
+    </div>
 
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
 
-        <!--Offcanvas-->
-        <script>
-            const offcanvas = document.getElementById('offcanvasResponsive');
-            const bodyContent = document.getElementById('offcanvasBodyContent');
-            offcanvas.addEventListener('show.bs.offcanvas', function () {
-                bodyContent.style.display = 'block';
-            });
-            offcanvas.addEventListener('hide.bs.offcanvas', function () {
-                bodyContent.style.display = 'none';
-            });
-        </script>
+    <!--Offcanvas-->
+    <script>
+        const offcanvas = document.getElementById('offcanvasResponsive');
+        const bodyContent = document.getElementById('offcanvasBodyContent');
+        offcanvas.addEventListener('show.bs.offcanvas', function () {
+            bodyContent.style.display = 'block';
+        });
+        offcanvas.addEventListener('hide.bs.offcanvas', function () {
+            bodyContent.style.display = 'none';
+        });
+    </script>
 </body>
 
 </html>
