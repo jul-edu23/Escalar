@@ -7,13 +7,6 @@
     --sombra: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
-.container-cinza {
-    background-color: var(--cinza);
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: var(--sombra);
-}
-
 .pedidoSubstituir {
     background-color: var(--branco);
     border-radius: 8px;

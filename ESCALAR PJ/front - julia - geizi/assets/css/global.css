@@ -164,6 +164,14 @@ button:focus {
   }
 }
 
+/*container geral*/
+.container-cinza {
+    background-color: var(--cinza);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: var(--sombra);
+}
+
 /*botões*/
 
 .btn-azul {
@@ -181,6 +189,18 @@ button:focus {
 .btn-azul:hover {
     background-color: var(--cinza);
     color: var(--preto); 
+}
+
+.btn-vermelho {
+    background-color: #ff4d4d;
+    color: var(--branco);
+    border: none;
+    padding: 7px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+    --sombra: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
 /* espaçamento */
