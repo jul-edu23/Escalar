@@ -18,7 +18,7 @@
   background-color: var(--azul) !important;
 }
 
-.navbar-nav{
+.navbar-nav {
   flex-direction: row;
 }
 
@@ -42,14 +42,17 @@ button:focus {
 .navbar2 {
   background-color: var(--cinza) !important;
   display: flex;
-  justify-content: space-between; /* separa esquerda e direita */
-  align-items: center;            /* centraliza verticalmente */
+  justify-content: space-between;
+  /* separa esquerda e direita */
+  align-items: center;
+  /* centraliza verticalmente */
   padding: 2px 15px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-  position: sticky; /* fixa no topo (funciona bem no mobile também) */
+  position: sticky;
+  /* fixa no topo (funciona bem no mobile também) */
   top: 0;
   z-index: 1030;
-  
+
 }
 
 .navbar2 .container-fluid {
@@ -58,18 +61,20 @@ button:focus {
   align-items: center;
 }
 
-.menu-mobile .btn{
+.menu-mobile .btn {
   --bs-btn-font-size: 2rem;
 }
 
-.navbar2 .btn{
+.navbar2 .btn {
   --bs-btn-font-size: 2rem;
 }
 
-.offcanvas-header{
+.offcanvas-header {
   display: flex;
-  justify-content: space-between; /* Logo na start, botão no end */
-  align-items: center;            /* Alinha verticalmente */
+  justify-content: space-between;
+  /* Logo na start, botão no end */
+  align-items: center;
+  /* Alinha verticalmente */
   padding: 10px;
 }
 
@@ -87,7 +92,7 @@ button:focus {
   color: white;
 }
 
-.item-atual{
+.item-atual {
   background-color: rgba(255, 255, 255, 0.4);
   color: var(--branco);
   border-radius: 5px;
@@ -124,19 +129,22 @@ button:focus {
   .navbar2 {
     position: fixed;
     top: 0;
-    left: 240px; /* compensa a largura do menu lateral */
+    left: 240px;
+    /* compensa a largura do menu lateral */
     width: calc(100% - 240px);
     z-index: 1030;
   }
 
   .content {
     margin-left: 240px;
-    margin-top: 70px; /* altura aproximada da navbar */
+    margin-top: 70px;
+    /* altura aproximada da navbar */
   }
 }
 
 /* Layout geral para telas grandes */
 @media (min-width: 992px) {
+
   /* Garante que o layout ocupe toda a largura */
   .body {
     display: flex;
@@ -154,70 +162,95 @@ button:focus {
   .navbar2 {
     position: fixed;
     top: 0;
-    left: 240px; /* começa depois do menu lateral */
+    left: 240px;
+    /* começa depois do menu lateral */
     width: calc(100% - 240px);
     z-index: 1020;
   }
 
   /* Evita que o conteúdo fique escondido atrás da navbar */
   main {
-    margin-top: 80px; /* altura aproximada da navbar */
+    margin-top: 80px;
+    /* altura aproximada da navbar */
   }
 }
 
 /*container geral*/
 .container-cinza {
-    background-color: var(--cinza);
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: var(--sombra);
+  background-color: var(--cinza);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: var(--sombra);
 }
 
 
 /* centralizar conteiner */
 .centralizarConteiner {
-    display: flex;
-    padding: 20px;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: start;
+  display: flex;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: start;
 }
 
 /*botões*/
 
 .btn-azul {
-    background-color: var(--azul);
-    color: var(--branco);
-    border: none;
-    padding: 7px 25px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-size: 14px;
-    --sombra: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  background-color: var(--azul);
+  color: var(--branco);
+  border: none;
+  padding: 7px 25px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+  --sombra: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
 .btn-azul:hover {
-    background-color: var(--cinza);
-    color: var(--preto); 
+  background-color: var(--cinza);
+  color: var(--preto);
 }
 
 .btn-vermelho {
-    background-color: #ff4d4d;
-    color: var(--branco);
-    border: none;
-    padding: 7px 25px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-size: 14px;
-    --sombra: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  background-color: #ff4d4d;
+  color: var(--branco);
+  border: none;
+  padding: 7px 25px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+  --sombra: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.btn-vermelho:hover {
+  background-color: #a80101;
+  color: var(--branco);
+}
+
+.btn-verde {
+  background-color: #28a745;
+  color: var(--branco);
+  border: none;
+  padding: 7px 25px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+  --sombra: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.btn-verde:hover {
+  background-color: #19692c;
+  color: var(--branco);
 }
 
 /* espaçamento */
 .espaco {
-    height: 40px; /* altura aproximada da navbar */
+  height: 40px;
+  /* altura aproximada da navbar */
 }
 
 /* formulário */
@@ -225,11 +258,11 @@ button:focus {
 input,
 select,
 textarea {
-    border: 1px solid var(--cinza);
-    border-radius: 8px;
-    padding: 10px;
-    width: 100%;
-    margin-bottom: 10px;
-    box-shadow: var(--sombra);
-    background-color: var(--branco);
+  border: 1px solid var(--cinza);
+  border-radius: 8px;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+  box-shadow: var(--sombra);
+  background-color: var(--branco);
 }

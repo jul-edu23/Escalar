@@ -24,6 +24,7 @@
     <!--CSS global-->
     <link rel="stylesheet" href="../assets/css/global.css">
     <!--CSS da pagina-->
+    <link rel="stylesheet" href="../assets/css/solicitacoesAdm.css">
 
 </head>
 
@@ -37,7 +38,7 @@
                 aria-labelledby="offcanvasResponsiveLabel">
                 <div class="offcanvas-header">
                     <div class="logo mb-5 mt-3 text-center">
-                        <a class="navbar-brand" href="#">
+                        <a class="navbar-brand" href="calendarioAdm.html">
                             <img src="../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
                                 alt="Escalar">
                         </a>
@@ -54,7 +55,7 @@
                                 <a href="#" class="nav-link text-white">Quadro de colaboradores</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link text-white">Solicitações</a>
+                                <a href="solicitacoes.html" class="nav-link text-white">Solicitações</a>
                             </li>
                             <li class="nav-item">
                                 <div class="nav-link text-white" id="accordionExample">
@@ -96,18 +97,18 @@
         <div class="menu-desktop d-none d-lg-block bg-dark text-white">
             <div class="sidebar p-3 min-vh-100">
                 <div class="logo mb-5 mt-3 text-center">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="calendarioAdm.html">
                         <img src="../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
                             alt="Escalar">
                     </a>
                 </div>
                 <div class="menu-lateral">
                     <ul class="nav nav-pills flex-column mb-auto" id="menu">
-                        <li class="nav-item item-atual">
+                        <li class="nav-item ">
                             <a href="#" class="nav-link text-white">Quadro de colaboradores</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link text-white">Solicitações</a>
+                        <li class="nav-item item-atual">
+                            <a href="solicitacoes.html" class="nav-link text-white">Solicitações</a>
                         </li>
                         <li class="nav-item">
 
@@ -201,13 +202,95 @@
 
             <main>
                 <div class="container mt-4">
-
                     <!--insira o conteudo aqui-->
-                    <h1>Página Modelo</h1>
-                    <p>Conteúdo vai aqui.</p>
+                    <div class="espaco"></div>
+                    <div class="container">
+                        <h2>Solicitações Pendentes</h2>
+                        <div class="container-fluid container-cinza p-5">
 
+                            <!--Essa div sera reutilizada-->
+                            <div class="container-branco container">
+                                <div class="container justify-content-center">
+                                    <div class="row align-items-center">
+                                        <!-- Coluna 1 -->
+                                        <h4>Solicitação de Férias</h4>
+                                        <div class="col-12 col-md-6 col-lg-8 mb-3 mb-lg-0">
+
+                                            <p>Colaborador: <span class="placeholder w-75"></span></p>
+                                            <p>Início: <span class="placeholder w-25"></span></p>
+                                            <p>Fim: <span class="placeholder w-25"></span></p>
+                                        </div>
+                                        <!-- Coluna 2 -->
+                                        <div class="col-12 col-md-12 col-lg-4 text-md-start text-lg-end">
+                                            <p>Turno: <span class="placeholder w-25"></span></p>
+                                            <p>Escala: <span class="placeholder w-25"></span></p>
+                                            <p>Local: <span class="placeholder w-25"></span></p>
+                                            <!-- Botão do modal -->
+                                        </div>
+                                        <div class="justify-content-between d-flex mt-3">
+                                            <button class="btn-vermelho">Negar</button>
+                                            <button class="btn-verde">Autorizar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container-branco container">
+                                <div class="container justify-content-center">
+                                    <div class="row align-items-center">
+                                        <!-- Coluna 1 -->
+                                        <h4>Atestado</h4>
+                                        <div class="col-12 col-md-6 col-lg-8 mb-3 mb-lg-0">
+
+                                            <p>Colaborador: <span class="placeholder w-75"></span></p>
+                                            <p>Início: <span class="placeholder w-25"></span></p>
+                                            <p>Fim: <span class="placeholder w-25"></span></p>
+                                        </div>
+                                        <!-- Coluna 2 -->
+                                        <div class="col-12 col-md-12 col-lg-4 text-md-start text-lg-end">
+                                            <p>Turno: <span class="placeholder w-25"></span></p>
+                                            <p>Escala: <span class="placeholder w-25"></span></p>
+                                            <p>Local: <span class="placeholder w-25"></span></p>
+                                            <!-- Botão do modal -->
+                                        </div>
+                                        <div class="justify-content-end d-flex mt-3">
+                                            <button class="btn-verde">Autorizar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Essa div sera reutilizada-->
+                            <div class="container-branco container">
+                                <div class="container justify-content-center">
+                                    <div class="row align-items-center">
+                                        <!-- Coluna 1 -->
+                                        <h4>Solicitação de Substituição</h4>
+                                        <div class="col-12 col-md-6 col-lg-8 mb-3 mb-lg-0">
+
+                                            <p>Colaborador: <span class="placeholder w-75"></span></p>
+                                            <p>Data: <span class="placeholder w-25"></span></p>
+                                            <p>Substituido por: <span class="placeholder w-75"></span></p>
+                                            <p>Motivo: <span class="placeholder w-75"></span></p>
+                                        </div>
+                                        <!-- Coluna 2 -->
+                                        <div class="col-12 col-md-12 col-lg-4 text-md-start text-lg-end">
+                                            <p>Turno: <span class="placeholder w-25"></span></p>
+                                            <p>Escala: <span class="placeholder w-25"></span></p>
+                                            <p>Local: <span class="placeholder w-25"></span></p>
+                                            <!-- Botão do modal -->
+                                        </div>
+                                        <div class="justify-content-between d-flex mt-3">
+                                            <button class="btn-vermelho">Negar</button>
+                                            <button class="btn-verde">Autorizar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
-
             </main>
         </div>
     </div>
