@@ -1,0 +1,13 @@
+.container-branco {
+    background-color: var(--branco);
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: var(--sombra);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    /* Alinha verticalmente no centro */
+    justify-content: space-between;
+    /* Distribui espaço entre eles (opcional) */
+    gap: 20px;
+}
