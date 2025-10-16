@@ -86,12 +86,23 @@
     </header>
     <main>
         <div class="container containerPrincipal">
+
             <div class="row justify-content-center">
-                <div class="col-12 col-md-9 my-4 d-flex justify-content-center">
-                    <iframe
-                        src="https://calendar.google.com/calendar/embed?src=c_e87532557f6bee5da067e60894bfa0b982d61234fe812f0cb50152d74626f2a0%40group.calendar.google.com&ctz=America%2FSao_Paulo"
-                        style="border: 0; width: 100%; min-height: 400px; max-width: 800px;" height="600"
-                        frameborder="0" scrolling="no"></iframe>
+                <!-- Button trigger modal -->
+
+                <div class="col-12 col-md-9">
+                    <div style="background-color: #d9d9d9;">
+                        <button type="button" class="btn btn-filtro" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop">
+                            <i class="bi bi-filter"></i>
+                        </button>
+                        <div class="justify-content-center d-flex">
+                            <iframe
+                                src="https://calendar.google.com/calendar/embed?src=c_e87532557f6bee5da067e60894bfa0b982d61234fe812f0cb50152d74626f2a0%40group.calendar.google.com&ctz=America%2FSao_Paulo"
+                                style="border: 0; width: 100%; min-height: 400px; max-width: 800px;" height="600"
+                                frameborder="0" scrolling="no"></iframe>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-12 col-md-3 my-4">
                     <div class="containerLegenda">
@@ -119,10 +130,7 @@
         </div>
     </div>
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        Filtro
-    </button>
+
 
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"

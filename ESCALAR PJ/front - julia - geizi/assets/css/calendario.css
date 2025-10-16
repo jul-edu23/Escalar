@@ -97,3 +97,11 @@
             font-weight: 400;
         }
 /* fim modal */
+
+.btn-filtro{
+    border: none;
+    border-radius: 30px;
+    padding: 0.4rem 1.5rem;
+    font-size: 1.9rem;
+    
+}
