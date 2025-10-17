@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Escalar - API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .status {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .endpoint {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #007bff;
+        }
+        code {
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Sistema Escalar - API Backend</h1>
+        <p class="status">✓ Servidor Flask rodando com sucesso!</p>
+        
+        <h2>Endpoints Disponíveis:</h2>
+        
+        <div class="endpoint">
+            <h3>POST /api/cadastrar-colaborador</h3>
+            <p>Endpoint JSON para cadastro de colaboradores</p>
+            <p><strong>URL:</strong> <code>http://localhost:5000/api/cadastrar-colaborador</code></p>
+        </div>
+
+        <div class="endpoint">
+            <h3>POST /login</h3>
+            <p>Endpoint para autenticação de usuários</p>
+        </div>
+
+        <div class="endpoint">
+            <h3>GET /quadro-colaboradores</h3>
+            <p>Lista todos os colaboradores cadastrados (requer admin)</p>
+        </div>
+
+        <h2>Documentação:</h2>
+        <ul>
+            <li>Veja <code>ESCALAR PJ/INTEGRACAO.md</code> para detalhes da API</li>
+            <li>Veja <code>ESCALAR PJ/INICIO_RAPIDO.md</code> para guia rápido</li>
+        </ul>
+
+        <p><small>Servidor iniciado em: {{ now }}</small></p>
+    </div>
+</body>
+</html>
