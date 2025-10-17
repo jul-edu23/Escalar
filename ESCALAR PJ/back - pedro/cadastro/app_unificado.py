@@ -1,6 +1,6 @@
 """
-Servidor unificado - Flask servindo tanto API quanto arquivos estáticos
-Solução para redes universitárias que bloqueiam múltiplas portas
+Servidor unificado - Flask servindo API e arquivos estaticos.
+Solucao para redes que bloqueiam multiplas portas.
 """
 
 import os
@@ -17,7 +17,7 @@ app.config['SECRET_KEY'] = 'chave-secreta-para-desenvolvimento'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///escalar.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# CORS mais permissivo para rede universitária
+# CORS mais permissivo
 CORS(app, resources={
     r"/*": {
         "origins": "*",
@@ -35,28 +35,28 @@ FRONTEND_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), '..', '
 @app.route('/')
 def index():
     """
-    Página inicial - redireciona para cadastro
+    Pagina inicial, redireciona para cadastro
     """
     return redirect('/cadastro')
 
 @app.route('/cadastro')
 def pagina_cadastro():
     """
-    Serve a página HTML de cadastro
+    Serve a pagina HTML de cadastro
     """
     return send_from_directory(FRONTEND_PATH, 'cadastrarColaborador.html')
 
 @app.route('/teste-conexao')
 def pagina_teste():
     """
-    Serve a página HTML de teste
+    Serve a pagina HTML de teste
     """
     return send_from_directory(FRONTEND_PATH, 'teste_conexao.html')
 
 @app.route('/como-desativar-shields')
 def pagina_shields():
     """
-    Serve a página HTML de instruções Brave
+    Serve a pagina HTML de instrucoes Brave
     """
     return send_from_directory(FRONTEND_PATH, 'como_desativar_shields.html')
 
@@ -81,7 +81,7 @@ def serve_public(filename):
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """
-    Página de login
+    Pagina de login
     """
     if request.method == 'POST':
         email = request.form.get('email')
@@ -103,7 +103,7 @@ def login():
 @app.route('/logout')
 def logout():
     """
-    Realiza logout do usuário
+    Realiza logout do usuario
     """
     session.clear()
     flash('Você saiu do sistema.', 'info')
@@ -112,8 +112,8 @@ def logout():
 @app.route('/api/cadastrar-colaborador', methods=['POST'])
 def apiCadastrarColaborador():
     """
-    API JSON para cadastro de colaboradores
-    MESMA PORTA - solução para redes universitárias
+    API JSON para cadastro de colaboradores.
+    Funciona na mesma porta do servidor.
     """
     try:
         # Coleta os dados do JSON
@@ -143,10 +143,10 @@ def apiCadastrarColaborador():
         # Processa foto
         foto = dados.get('foto', 'default.jpg')
         
-        # Remove caracteres não numéricos do CPF
+        # Remove caracteres nao numericos do CPF
         cpf_limpo = re.sub(r'\D', '', dados_validacao['cpf'])
         
-        # Cria senha padrão (CPF)
+        # Cria senha padrao (CPF)
         senha_padrao = cpf_limpo
         senha_hash = gerarHashSenha(senha_padrao)
         
@@ -192,7 +192,7 @@ def quadroColaboradores():
 
 def criarUsuarioAdmin():
     """
-    Cria um usuário administrador padrão se não existir
+    Cria um usuario administrador padrao se nao existir
     """
     admin = Usuario.query.filter_by(email='admin@escalar.com').first()
     if not admin:
@@ -211,7 +211,7 @@ def criarUsuarioAdmin():
         )
         db.session.add(admin)
         db.session.commit()
-        print('Usuário administrador criado: admin@escalar.com / admin123')
+        print('Usuario administrador criado: admin@escalar.com / admin123')
 
 if __name__ == '__main__':
     with app.app_context():
@@ -219,13 +219,13 @@ if __name__ == '__main__':
         criarUsuarioAdmin()
     
     print("\n" + "="*60)
-    print("  🎓 SERVIDOR UNIFICADO - SOLUÇÃO PARA REDE UNIVERSITÁRIA")
+    print("  SERVIDOR UNIFICADO - SOLUCAO PARA REDE UNIVERSITARIA")
     print("="*60)
-    print("\n✅ Tudo rodando na MESMA PORTA: http://localhost:5000")
-    print("\n📋 Acesse:")
-    print("   • Cadastro: http://localhost:5000/cadastro")
-    print("   • Teste: http://localhost:5000/teste-conexao")
-    print("\n💡 Solução para redes que bloqueiam múltiplas portas!")
+    print("\nTudo rodando na MESMA PORTA: http://localhost:5000")
+    print("\nAcesse:")
+    print("   - Cadastro: http://localhost:5000/cadastro")
+    print("   - Teste: http://localhost:5000/teste-conexao")
+    print("\nSolucao para redes que bloqueiam multiplas portas!")
     print("="*60 + "\n")
     
     app.run(debug=True, host='0.0.0.0', port=5000)

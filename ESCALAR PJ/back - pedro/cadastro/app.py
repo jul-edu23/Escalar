@@ -1,5 +1,5 @@
 """
-Aplicação principal do sistema de cadastro de usuários
+Aplicacao principal do sistema de cadastro de usuarios
 """
 
 import os
@@ -16,8 +16,8 @@ app.config['SECRET_KEY'] = 'chave-secreta-para-desenvolvimento'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///escalar.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Habilita CORS para permitir requisições do frontend HTML
-# Configuração mais permissiva para desenvolvimento
+# Habilita CORS para permitir requisicoes do frontend HTML
+# Configuracao mais permissiva para desenvolvimento
 CORS(app, resources={
     r"/api/*": {
         "origins": ["http://localhost:8000", "http://127.0.0.1:8000", "file://", "*"],
@@ -33,7 +33,7 @@ db.init_app(app)
 @app.route('/')
 def index():
     """
-    Página inicial
+    Pagina inicial
     """
     from datetime import datetime
     return render_template('index.html', now=datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
@@ -41,7 +41,7 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """
-    Página de login
+    Pagina de login
     """
     if request.method == 'POST':
         email = request.form.get('email')
@@ -63,7 +63,7 @@ def login():
 @app.route('/logout')
 def logout():
     """
-    Realiza logout do usuário
+    Realiza logout do usuario
     """
     session.clear()
     flash('Você saiu do sistema.', 'info')
@@ -73,7 +73,7 @@ def logout():
 @verificarAdmin
 def cadastrarColaborador():
     """
-    Página de cadastro de colaboradores (apenas para administradores)
+    Pagina de cadastro de colaboradores (apenas para administradores)
     """
     if request.method == 'POST':
         # Coleta os dados do formulário
@@ -103,10 +103,10 @@ def cadastrarColaborador():
         # Processa o upload da foto (simplificado)
         foto = request.form.get('foto', 'default.jpg')
         
-        # Remove caracteres não numéricos do CPF
+        # Remove caracteres nao numericos do CPF
         cpf_limpo = re.sub(r'\D', '', dados['cpf'])
         
-        # Cria senha padrão (CPF) - em produção seria gerada automaticamente
+        # Cria senha padrao (CPF) - em producao seria gerada automaticamente
         senha_padrao = cpf_limpo
         senha_hash = gerarHashSenha(senha_padrao)
         
@@ -142,8 +142,8 @@ def cadastrarColaborador():
 @app.route('/api/cadastrar-colaborador', methods=['POST'])
 def apiCadastrarColaborador():
     """
-    API JSON para cadastro de colaboradores (sem necessidade de autenticação para teste)
-    Em produção, adicionar autenticação JWT ou similar
+    API JSON para cadastro de colaboradores (sem autenticacao para teste).
+    Em producao, adicionar autenticacao JWT ou similar.
     """
     try:
         # Coleta os dados do JSON
@@ -173,10 +173,10 @@ def apiCadastrarColaborador():
         # Processa foto
         foto = dados.get('foto', 'default.jpg')
         
-        # Remove caracteres não numéricos do CPF
+        # Remove caracteres nao numericos do CPF
         cpf_limpo = re.sub(r'\D', '', dados_validacao['cpf'])
         
-        # Cria senha padrão (CPF)
+        # Cria senha padrao (CPF)
         senha_padrao = cpf_limpo
         senha_hash = gerarHashSenha(senha_padrao)
         
@@ -222,7 +222,7 @@ def quadroColaboradores():
 
 def criarUsuarioAdmin():
     """
-    Cria um usuário administrador padrão se não existir
+    Cria um usuario administrador padrao se nao existir
     """
     admin = Usuario.query.filter_by(email='admin@escalar.com').first()
     if not admin:
@@ -241,7 +241,7 @@ def criarUsuarioAdmin():
         )
         db.session.add(admin)
         db.session.commit()
-        print('Usuário administrador criado: admin@escalar.com / admin123')
+        print('Usuario administrador criado: admin@escalar.com / admin123')
 
 if __name__ == '__main__':
     with app.app_context():

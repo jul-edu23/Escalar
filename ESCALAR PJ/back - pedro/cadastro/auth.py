@@ -1,5 +1,5 @@
 """
-Sistema de autenticação e controle de acesso
+Sistema de autenticacao e controle de acesso
 """
 
 from functools import wraps
@@ -21,8 +21,8 @@ def verificarSenha(senha_hash, senha):
 
 def autenticarUsuario(email, senha):
     """
-    Autentica um usuário verificando email e senha
-    Retorna o usuário se autenticado, None caso contrário
+    Autentica um usuario verificando email e senha.
+    Retorna o usuario se autenticado, None caso contrario.
     """
     usuario = Usuario.query.filter_by(email=email).first()
     
@@ -32,7 +32,7 @@ def autenticarUsuario(email, senha):
 
 def verificarAdmin(f):
     """
-    Decorator para verificar se o usuário é administrador
+    Decorator para verificar se o usuario e administrador
     """
     @wraps(f)
     def decoratedFunction(*args, **kwargs):
@@ -50,7 +50,7 @@ def verificarAdmin(f):
 
 def obterUsuarioAtual():
     """
-    Retorna o usuário atual logado
+    Retorna o usuario atual logado
     """
     if 'usuario_id' in session:
         return Usuario.query.get(session['usuario_id'])

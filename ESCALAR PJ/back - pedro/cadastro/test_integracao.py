@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Script de teste para verificar a integração HTML + Flask
-Testa o endpoint /api/cadastrar-colaborador
+Script de teste para verificar a integracao HTML + Flask.
+Testa o endpoint /api/cadastrar-colaborador.
 """
 
 import requests
@@ -37,14 +37,14 @@ def print_step(number, text):
 
 def print_success(text):
     """Imprime mensagem de sucesso"""
-    print(f"   ✓ {text}")
+    print(f"   [OK] {text}")
 
 def print_error(text):
     """Imprime mensagem de erro"""
-    print(f"   ✗ {text}")
+    print(f"   [ERRO] {text}")
 
 def check_server():
-    """Verifica se o servidor Flask está online"""
+    """Verifica se o servidor Flask esta online"""
     print_step(1, "Verificando servidor Flask...")
     try:
         response = requests.get(BASE_URL, timeout=3)
@@ -80,11 +80,11 @@ def test_cadastro():
         if response.status_code == 201:
             data = response.json()
             print_success("Colaborador cadastrado com sucesso!")
-            print(f"\n   📋 Dados do colaborador:")
+            print(f"\n   Dados do colaborador:")
             print(f"      ID: {data.get('id')}")
             print(f"      Nome: {data.get('nome')}")
             print(f"      Email: {data.get('email')}")
-            print(f"      🔑 Senha padrão: {data.get('senha_padrao')}")
+            print(f"      Senha padrao: {data.get('senha_padrao')}")
             return True
             
         elif response.status_code == 400:
@@ -118,7 +118,7 @@ def test_cadastro():
         return False
 
 def main():
-    """Função principal"""
+    """Funcao principal"""
     print_header("TESTE DE INTEGRAÇÃO - CADASTRO DE COLABORADOR")
     
     # Verifica servidor
