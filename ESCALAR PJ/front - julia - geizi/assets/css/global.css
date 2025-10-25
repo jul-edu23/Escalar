@@ -5,6 +5,10 @@
   font-family: "Inter", sans-serif;
 }
 
+p{
+  margin-bottom: 0rem !important;
+}
+
 /* cores */
 :root {
   --azul: #00466c;
