@@ -222,16 +222,20 @@
                     <div class="container-cinza mb-4">
 
                         <h1>Cadastrar Colaborador</h1>
-                        <form action="">
+                        
+                        <!-- Mensagens de feedback -->
+                        <div id="mensagem" style="display: none;" class="alert" role="alert"></div>
+                        
+                        <form id="formCadastro">
                             <div class="row">
                                 <div class="col-12 col-md-10 col-lg-10">
                                     <div>
-                                        <label for="nome">Nome:</label>
-                                        <input type="text" id="nome">
+                                        <label for="nome">Nome: *</label>
+                                        <input type="text" id="nome" required>
                                     </div>
                                     <div>
-                                        <label for="email">Email:</label>
-                                        <input type="email" id="email">
+                                        <label for="email">Email: *</label>
+                                        <input type="email" id="email" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-2 col-lg-2">
@@ -241,58 +245,66 @@
                             <div class="row">
                                 <div class="col-12 col-md-6 col-lg-6">
                                     <div>
-                                        <label for="apelido">Apelido</label>
-                                        <input type="text" id="apelido">
+                                        <label for="apelido">Apelido: *</label>
+                                        <input type="text" id="apelido" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-6">
-                                    <label for="cpf">CPF:</label>
-                                    <input type="text" id="cpf">
+                                    <label for="cpf">CPF: *</label>
+                                    <input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12 col-md-6 col-lg-6">
                                     <div>
-                                        <label for="dataNascimento">Data de Nascimento:</label>
-                                        <input type="date" id="dataNascimento">
+                                        <label for="dataNascimento">Data de Nascimento: *</label>
+                                        <input type="date" id="dataNascimento" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-6">
-                                    <label for="tipoEscala">Escala:</label>
-                                    <select name="tipoEscala" id="tipoEscala">
+                                    <label for="tipoEscala">Escala: *</label>
+                                    <select name="tipoEscala" id="tipoEscala" required>
                                         <option value="">Selecionar</option>
-                                        <option value="12X36">12 X 36</option>
-                                        <option value="5X1">5 X 1</option>
+                                        <option value="12x36">12 X 36</option>
+                                        <option value="6x1">6 X 1</option>
+                                        <option value="5x2">5 X 2</option>
+                                        <option value="5x1">5 X 1</option>
+                                        <option value="4x3">4 X 3</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12 col-md-6 col-lg-6">
                                     <div>
-                                        <label for="turno">Turno:</label>
-                                        <select name="turno" id="turno">
+                                        <label for="turno">Turno: *</label>
+                                        <select name="turno" id="turno" required>
                                             <option value="">Selecionar</option>
-                                            <option value="diurno1">Diurno 1</option>
-                                            <option value="diurno2">Diurno 2</option>
-                                            <option value="noturno1">Noturno 1</option>
-                                            <option value="noturno2">Noturno 2</option>
+                                            <option value="diurno">Diurno</option>
+                                            <option value="noturno">Noturno</option>
+                                            <option value="misto">Misto</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-6">
-                                    <label for="local">Local:</label>
-                                    <select name="localReposicao" id="localReposicao">
+                                    <label for="local">Local: *</label>
+                                    <select name="local" id="local" required>
                                         <option value="">Selecionar</option>
-                                        <option value="campus">Campus Major Gote</option>
-                                        <option value="cce">Centro de Convenções e Eventos</option>
-                                        <option value="ccv">Centro Clinico Veterinário</option>
-                                        <option value="cco">Centro Clinico Odontologico</option>
+                                        <option value="Campus">Campus Major Gote</option>
+                                        <option value="CCE">Centro de Convenções e Eventos</option>
+                                        <option value="CCV">Centro Clinico Veterinário</option>
+                                        <option value="CCO">Centro Clinico Odontologico</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="d-flex justify-content-center mt-4">
-                                <button class="btn btn-azul">Cadastrar</button>
+                                <button type="submit" class="btn btn-azul" id="btnCadastrar">
+                                    <span id="btnTexto">Cadastrar</span>
+                                    <span id="btnLoading" style="display: none;">
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                        Cadastrando...
+                                    </span>
+                                </button>
                             </div>
                         </form>
 
@@ -322,6 +334,120 @@
             bodyContent.style.display = 'none';
         });
     </script>
+
+    <!-- Script de Integração com Backend -->
+    <script>
+        // Formatação automática do CPF
+        document.getElementById('cpf').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 11) {
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+                e.target.value = value;
+            }
+        });
+
+        // Função para mostrar mensagem
+        function mostrarMensagem(tipo, texto) {
+            const mensagemDiv = document.getElementById('mensagem');
+            mensagemDiv.className = `alert alert-${tipo}`;
+            mensagemDiv.innerHTML = texto;
+            mensagemDiv.style.display = 'block';
+            
+            // Scroll para a mensagem
+            mensagemDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Remove a mensagem após 5 segundos
+            setTimeout(() => {
+                mensagemDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // Submissão do formulário
+        document.getElementById('formCadastro').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Mostra loading
+            const btnTexto = document.getElementById('btnTexto');
+            const btnLoading = document.getElementById('btnLoading');
+            const btnCadastrar = document.getElementById('btnCadastrar');
+            
+            btnTexto.style.display = 'none';
+            btnLoading.style.display = 'inline-block';
+            btnCadastrar.disabled = true;
+            
+            // Coleta os dados do formulário
+            const dados = {
+                nome: document.getElementById('nome').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                apelido: document.getElementById('apelido').value.trim(),
+                cpf: document.getElementById('cpf').value.replace(/\D/g, ''), // Remove formatação
+                data_nascimento: document.getElementById('dataNascimento').value,
+                escala: document.getElementById('tipoEscala').value,
+                turno: document.getElementById('turno').value,
+                local: document.getElementById('local').value,
+                foto: 'default.jpg' // Foto padrão por enquanto
+            };
+            
+            try {
+                // Envia para o backend
+                const response = await fetch('http://localhost:5000/api/cadastrar-colaborador', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(dados)
+                });
+                
+                const resultado = await response.json();
+                
+                if (response.ok) {
+                    // Sucesso!
+                    mostrarMensagem('success', `
+                        <strong>✅ Sucesso!</strong><br>
+                        Colaborador <strong>${resultado.nome}</strong> cadastrado com sucesso!<br>
+                        <strong>Email:</strong> ${resultado.email}<br>
+                        <strong>Senha padrão:</strong> ${resultado.senha_padrao}<br>
+                        <small>A senha é o CPF do colaborador.</small>
+                    `);
+                    
+                    // Limpa o formulário
+                    document.getElementById('formCadastro').reset();
+                    
+                } else {
+                    // Erro de validação
+                    let errosHtml = '<strong>❌ Erro ao cadastrar:</strong><ul>';
+                    
+                    if (resultado.errors && Array.isArray(resultado.errors)) {
+                        resultado.errors.forEach(erro => {
+                            errosHtml += `<li>${erro}</li>`;
+                        });
+                    } else {
+                        errosHtml += `<li>${resultado.error || 'Erro desconhecido'}</li>`;
+                    }
+                    
+                    errosHtml += '</ul>';
+                    mostrarMensagem('danger', errosHtml);
+                }
+                
+            } catch (error) {
+                // Erro de conexão
+                console.error('Erro:', error);
+                mostrarMensagem('danger', `
+                    <strong>❌ Erro de Conexão!</strong><br>
+                    Não foi possível conectar ao servidor.<br>
+                    <small>Verifique se o servidor Flask está rodando em http://localhost:5000</small><br>
+                    <small>Execute: <code>python app_unificado.py</code></small>
+                `);
+            } finally {
+                // Remove loading
+                btnTexto.style.display = 'inline-block';
+                btnLoading.style.display = 'none';
+                btnCadastrar.disabled = false;
+            }
+        });
+    </script>
 </body>
 
-</html>                        
+</html>                        
