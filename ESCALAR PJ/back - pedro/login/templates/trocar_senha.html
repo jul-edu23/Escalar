@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trocar Senha | Escalar</title>
+
+    <!--Google font - inter-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!--Icones-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --azul: #00466c;
+            --cinza: #d9d9d9;
+            --branco: #ffffff;
+            --preto: #000000;
+            --sombra: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .navbar-custom {
+            background-color: var(--azul);
+            box-shadow: var(--sombra);
+        }
+
+        .navbar-brand, .nav-link {
+            color: var(--branco) !important;
+        }
+
+        .nav-link:hover {
+            color: var(--cinza) !important;
+        }
+
+        .card-custom {
+            border: none;
+            border-radius: 12px;
+            box-shadow: var(--sombra);
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .btn-custom {
+            background-color: var(--azul);
+            color: var(--branco);
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #003d5e;
+            color: var(--branco);
+            transform: translateY(-2px);
+        }
+
+        .form-label {
+            color: var(--azul);
+            font-weight: 600;
+        }
+
+        .form-control {
+            border: 2px solid var(--cinza);
+            border-radius: 8px;
+        }
+
+        .form-control:focus {
+            border-color: var(--azul);
+            box-shadow: 0 0 0 0.2rem rgba(0, 70, 108, 0.25);
+        }
+
+        .password-toggle {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 38px;
+            color: var(--azul);
+        }
+
+        .password-field-wrapper {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="bi bi-calendar-check"></i> ESCALAR
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i class="bi bi-house-door"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/perfil">
+                            <i class="bi bi-person-circle"></i> {{ usuario.apelido }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">
+                            <i class="bi bi-box-arrow-right"></i> Sair
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="card card-custom">
+            <div class="card-body p-4">
+                <h3 class="card-title text-center mb-4" style="color: var(--azul);">
+                    <i class="bi bi-key-fill"></i> Trocar Senha
+                </h3>
+
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <form action="/trocar-senha" method="POST" id="formTrocarSenha">
+                    <div class="mb-3 password-field-wrapper">
+                        <label for="senha_atual" class="form-label">
+                            <i class="bi bi-lock"></i> Senha Atual:
+                        </label>
+                        <input type="password" name="senha_atual" class="form-control" id="senha_atual" required
+                               placeholder="Digite sua senha atual">
+                        <i class="bi bi-eye password-toggle" onclick="togglePassword('senha_atual')"></i>
+                    </div>
+
+                    <div class="mb-3 password-field-wrapper">
+                        <label for="senha_nova" class="form-label">
+                            <i class="bi bi-key"></i> Nova Senha:
+                        </label>
+                        <input type="password" name="senha_nova" class="form-control" id="senha_nova" required
+                               placeholder="Digite a nova senha (mínimo 6 caracteres)"
+                               minlength="6">
+                        <i class="bi bi-eye password-toggle" onclick="togglePassword('senha_nova')"></i>
+                        <small class="text-muted">A senha deve ter no mínimo 6 caracteres.</small>
+                    </div>
+
+                    <div class="mb-4 password-field-wrapper">
+                        <label for="senha_confirmacao" class="form-label">
+                            <i class="bi bi-key-fill"></i> Confirmar Nova Senha:
+                        </label>
+                        <input type="password" name="senha_confirmacao" class="form-control" id="senha_confirmacao" required
+                               placeholder="Digite novamente a nova senha"
+                               minlength="6">
+                        <i class="bi bi-eye password-toggle" onclick="togglePassword('senha_confirmacao')"></i>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-custom">
+                            <i class="bi bi-check-circle"></i> Alterar Senha
+                        </button>
+                        <a href="/" class="btn btn-outline-secondary">
+                            <i class="bi bi-x-circle"></i> Cancelar
+                        </a>
+                    </div>
+                </form>
+
+                <hr class="my-4">
+                
+                <div class="alert alert-info mb-0">
+                    <h6><i class="bi bi-shield-check"></i> Dicas de Segurança:</h6>
+                    <ul class="mb-0">
+                        <li>Use uma senha forte com letras, números e símbolos</li>
+                        <li>Não compartilhe sua senha com ninguém</li>
+                        <li>Troque sua senha regularmente</li>
+                        <li>Não use a mesma senha em outros sistemas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center mt-5 mb-3">
+        <small class="text-muted">
+            ESCALAR - Sistema de Gestão de Escalas | UNIPAM © 2025
+        </small>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <script>
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            const icon = field.parentElement.querySelector('.password-toggle');
+            
+            if (field.type === 'password') {
+                field.type = 'text';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                field.type = 'password';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        }
+
+        // Validacao de confirmacao de senha
+        document.getElementById('formTrocarSenha').addEventListener('submit', function(e) {
+            const senhaNova = document.getElementById('senha_nova').value;
+            const senhaConfirmacao = document.getElementById('senha_confirmacao').value;
+            
+            if (senhaNova !== senhaConfirmacao) {
+                e.preventDefault();
+                alert('As senhas não coincidem. Por favor, verifique.');
+                document.getElementById('senha_confirmacao').focus();
+            }
+        });
+    </script>
+</body>
+
+</html>

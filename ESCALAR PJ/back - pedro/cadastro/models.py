@@ -1,5 +1,5 @@
 """
-Modelos de dados para o sistema de cadastro de usuarios
+models do banco de dados - tabela de usuarios
 """
 
 from datetime import datetime
@@ -9,7 +9,7 @@ db = SQLAlchemy()
 
 class Usuario(db.Model):
     """
-    Modelo para armazenar dados dos usuarios
+    tabela usuarios - guarda os dados de todo mundo
     """
     __tablename__ = 'usuarios'
     

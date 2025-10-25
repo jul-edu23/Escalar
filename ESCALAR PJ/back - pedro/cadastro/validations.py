@@ -1,35 +1,35 @@
 """
-Funcoes de validacao para o cadastro de usuarios
+validacoes dos campos do cadastro
 """
 
 import re
 from datetime import datetime, date
 from models import Usuario
 
-# Valores permitidos para cada campo
+# opcoes validas pra cada campo
 ESCALAS_VALIDAS = ['12x36', '6x1', '5x2', '5x1', '4x3']
 TURNOS_VALIDOS = ['diurno', 'noturno', 'misto']
 LOCAIS_VALIDOS = ['CCE', 'CCV', 'Campus', 'CCO']
 
 def validarEmail(email):
     """
-    Valida o formato do e-mail usando regex
+    checa se o email ta no formato certo
     """
     padrao = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     return re.match(padrao, email) is not None
 
 def validarCPF(cpf):
     """
-    Valida o formato basico do CPF (apenas digitos e tamanho)
+    valida formato basico do CPF (tem que ter 11 digitos)
     """
-    # Remove caracteres nao numericos
+    # tira tudo que nao for numero
     cpf_limpo = re.sub(r'\D', '', cpf)
     
-    # Verifica se tem 11 digitos
+    # ve se tem 11 digitos
     if len(cpf_limpo) != 11:
         return False
     
-    # Verifica se nao e uma sequencia repetida (ex: 111.111.111-11)
+    # nao pode ser tudo numero igual tipo 111.111.111-11
     if cpf_limpo == cpf_limpo[0] * 11:
         return False
     
@@ -37,12 +37,12 @@ def validarCPF(cpf):
 
 def validarIdadeMinima(data_nascimento, idade_minima=18):
     """
-    Valida se o usuario tem idade minima
+    ve se o cara tem pelo menos 18 anos
     """
     hoje = date.today()
     idade = hoje.year - data_nascimento.year
     
-    # Ajusta se ainda nao fez aniversario este ano
+    # ajusta se ainda nao fez aniversario esse ano
     if (hoje.month, hoje.day) < (data_nascimento.month, data_nascimento.day):
         idade -= 1
     
@@ -50,7 +50,7 @@ def validarIdadeMinima(data_nascimento, idade_minima=18):
 
 def verificarEmailUnico(email, usuario_id=None):
     """
-    Verifica se o e-mail ja esta cadastrado no sistema
+    checa se ja tem alguem com esse email
     """
     query = Usuario.query.filter_by(email=email)
     if usuario_id:
@@ -59,7 +59,7 @@ def verificarEmailUnico(email, usuario_id=None):
 
 def verificarCPFUnico(cpf, usuario_id=None):
     """
-    Verifica se o CPF ja esta cadastrado no sistema
+    checa se ja tem esse CPF cadastrado
     """
     cpf_limpo = re.sub(r'\D', '', cpf)
     query = Usuario.query.filter_by(cpf=cpf_limpo)
@@ -69,42 +69,42 @@ def verificarCPFUnico(cpf, usuario_id=None):
 
 def validarEscala(escala):
     """
-    Valida se a escala esta entre os valores permitidos
+    ve se a escala ta na lista de opcoes validas
     """
     return escala in ESCALAS_VALIDAS
 
 def validarTurno(turno):
     """
-    Valida se o turno esta entre os valores permitidos
+    ve se o turno ta valido
     """
     return turno in TURNOS_VALIDOS
 
 def validarLocal(local):
     """
-    Valida se o local esta entre os valores permitidos
+    ve se o local ta na lista valida
     """
     return local in LOCAIS_VALIDOS
 
 def validarCadastroCompleto(dados):
     """
-    Realiza todas as validacoes necessarias para o cadastro.
-    Retorna uma tupla (valido, lista_de_erros).
+    faz todas as validacoes do cadastro
+    retorna (True/False, lista de erros)
     """
     erros = []
     
-    # Validacao de e-mail
+    # valida email
     if not validarEmail(dados['email']):
         erros.append('E-mail inválido.')
     elif not verificarEmailUnico(dados['email']):
         erros.append('E-mail já cadastrado no sistema.')
     
-    # Validacao de CPF
+    # valida CPF
     if not validarCPF(dados['cpf']):
         erros.append('CPF inválido.')
     elif not verificarCPFUnico(dados['cpf']):
         erros.append('CPF já cadastrado no sistema.')
     
-    # Validacao de data de nascimento
+    # valida data de nascimento
     try:
         data_nasc = datetime.strptime(dados['data_nascimento'], '%Y-%m-%d').date()
         if not validarIdadeMinima(data_nasc):
@@ -112,15 +112,15 @@ def validarCadastroCompleto(dados):
     except ValueError:
         erros.append('Data de nascimento inválida.')
     
-    # Validacao de escala
+    # valida escala
     if not validarEscala(dados['escala']):
         erros.append(f'Escala inválida. Opções válidas: {", ".join(ESCALAS_VALIDAS)}')
     
-    # Validacao de turno
+    # valida turno
     if not validarTurno(dados['turno']):
         erros.append(f'Turno inválido. Opções válidas: {", ".join(TURNOS_VALIDOS)}')
     
-    # Validacao de local
+    # valida local
     if not validarLocal(dados['local']):
         erros.append(f'Local inválido. Opções válidas: {", ".join(LOCAIS_VALIDOS)}')
     

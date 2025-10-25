@@ -1,5 +1,5 @@
 """
-Sistema de autenticacao e controle de acesso
+funcoes de autenticacao e controle de acesso do sistema
 """
 
 from functools import wraps
@@ -9,20 +9,20 @@ from models import Usuario, db
 
 def gerarHashSenha(senha):
     """
-    Gera um hash seguro da senha
+    gera hash seguro da senha
     """
     return generate_password_hash(senha)
 
 def verificarSenha(senha_hash, senha):
     """
-    Verifica se a senha corresponde ao hash
+    checa se a senha bate com o hash
     """
     return check_password_hash(senha_hash, senha)
 
 def autenticarUsuario(email, senha):
     """
-    Autentica um usuario verificando email e senha.
-    Retorna o usuario se autenticado, None caso contrario.
+    faz autenticacao do usuario com email e senha
+    retorna o usuario se deu certo, None se nao
     """
     usuario = Usuario.query.filter_by(email=email).first()
     
@@ -32,7 +32,7 @@ def autenticarUsuario(email, senha):
 
 def verificarAdmin(f):
     """
-    Decorator para verificar se o usuario e administrador
+    decorator pra checar se o usuario é admin
     """
     @wraps(f)
     def decoratedFunction(*args, **kwargs):
@@ -50,7 +50,7 @@ def verificarAdmin(f):
 
 def obterUsuarioAtual():
     """
-    Retorna o usuario atual logado
+    pega o usuario que ta logado agora
     """
     if 'usuario_id' in session:
         return Usuario.query.get(session['usuario_id'])
