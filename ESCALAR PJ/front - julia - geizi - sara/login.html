@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="assets/css/global.css">
 
     <style>
-        /* Estilos adicionais para mensagens */
+        
         #mensagem {
             border-radius: 10px;
             margin-bottom: 1rem;
@@ -72,7 +72,6 @@
             </div>
             <div class="col-md-6 container-login d-flex flex-column justify-content-center align-items-center">
 
-                <!-- responsivo para mobile -->
                 <div class="logo logo-mobile mb-4" style="display: none; max-width: 319px;">
                     <img src="assets/img/escalar-removebg-preview.png" class="img-fluid" alt="Escalar">
                 </div>
@@ -81,7 +80,7 @@
                         <h2 style="font-size: 2.5rem;">Bem-vindo!</h2>
                     </div>
 
-                    <!-- Mensagens de feedback -->
+                    <!-- Mensagens de feedback la -->
                     <div id="mensagem" class="alert alert-dismissible fade" role="alert" style="display: none;">
                         <span id="mensagem-texto"></span>
                         <button type="button" class="btn-close" onclick="fecharMensagem()"></button>
@@ -127,10 +126,10 @@
                 crossorigin="anonymous"></script>
 
             <script>
-                // URL da API de login
+                // URL da API de login,substituir dps
                 const API_URL = 'http://127.0.0.1:5001';
 
-                // Função para mostrar mensagens
+                // mostrar mensagens
                 function mostrarMensagem(texto, tipo = 'info') {
                     const mensagemDiv = document.getElementById('mensagem');
                     const mensagemTexto = document.getElementById('mensagem-texto');
@@ -150,7 +149,7 @@
                     mensagemDiv.style.display = 'none';
                 }
 
-                // Função de login
+                // login
                 async function fazerLogin(event) {
                     event.preventDefault();
                     
@@ -158,7 +157,7 @@
                     const email = document.getElementById('email').value.trim();
                     const senha = document.getElementById('senha').value;
                     
-                    // Desabilita o botão durante o processo
+                    // Desabilita o botão 
                     btnEntrar.disabled = true;
                     btnEntrar.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Entrando...';
                     
@@ -193,14 +192,14 @@
                     }
                 }
 
-                // Verifica se já está logado ao carregar a página
+                // Verifica
                 window.addEventListener('DOMContentLoaded', async () => {
                     try {
                         const response = await fetch(`${API_URL}/verificar-sessao`);
                         const data = await response.json();
                         
                         if (data.logado) {
-                            // Se já está logado, redireciona para o dashboard
+                            // Se já  logado, redireciona para o dashboard
                             const redirect = data.usuario.nivel_acesso === 'administrador' 
                                 ? '/dashboard-admin' 
                                 : '/dashboard-colaborador';

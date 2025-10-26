@@ -29,10 +29,10 @@ O Escalar é um sistema de gestão de plantões para a segurança do Centro de U
 O sistema terá quatro telas: login, calendário, cadastro de colaboradores e avisos
  
 3.3 Tecnologias Utilizadas
-As tecnologias usadas serão HTML, CSS (Bootstrap) e JavaScript, Python, SQL e IA.
+As tecnologias usadas serão HTML, CSS (Bootstrap) e JavaScript, Python e SQL.
  
 3.4 Matriz de Responsabilidades
-Front-End: Júlia e Geizilane
+Front-End: Júlia, Geizilane e Sara
 Back-End: Pedro
 Banco de Dados: Laís
-IA: Sara
+

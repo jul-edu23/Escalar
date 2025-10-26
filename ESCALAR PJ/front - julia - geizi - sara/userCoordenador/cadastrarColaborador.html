@@ -1,9 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<!--ESSA SERA UMA PAGINA MODELO COM O MENU LATERAL E A NAVBAR PADRÃO-->
-<!--copiar e colar nas paginas que usam menu lateral-->
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +19,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.x.x/font/bootstrap-icons.css">
     <!--CSS global-->
     <link rel="stylesheet" href="../assets/css/global.css">
-    <!--CSS da pagina-->
+    <!--CSS local-->
 
 
 </head>
@@ -32,7 +28,6 @@
 
     <div class="body">
 
-        <!--Menu lateral - mobile-->
         <div class="menu-mobile">
             <div class="offcanvas-lg offcanvas-start sidebar" tabindex="-1" id="offcanvasResponsive"
                 aria-labelledby="offcanvasResponsiveLabel">
@@ -48,7 +43,6 @@
                 </div>
                 <div class="offcanvas-body" id="offcanvasBodyContent" style="display: none;">
 
-                    <!--Alterar a classe "item-atual' de acordo com a pagina"-->
                     <div class="menu-lateral">
                         <ul class="nav nav-pills flex-column mb-auto" id="menu">
                             <li class="nav-item item-atual">
@@ -97,7 +91,6 @@
             </div>
         </div>
 
-        <!-- MENU LATERAL DESKTOP -->
         <div class="menu-desktop d-none d-lg-block bg-dark text-white">
             <div class="sidebar p-3 min-vh-100">
                 <div class="logo mb-5 mt-3 text-center">
@@ -152,7 +145,6 @@
             </div>
         </div>
 
-        <!-- Conteúdo principal -->
         <div class="content flex-grow-1">
 
             <header>
@@ -209,7 +201,6 @@
             <main>
                 <div class="container mt-4">
 
-                    <!--insira o conteudo aqui-->
                     <div class="espaco"></div>
 
                     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -323,7 +314,6 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 
-    <!--Offcanvas-->
     <script>
         const offcanvas = document.getElementById('offcanvasResponsive');
         const bodyContent = document.getElementById('offcanvasBodyContent');
@@ -335,7 +325,7 @@
         });
     </script>
 
-    <!-- Script de Integração com Backend -->
+    <!-- Script it back -->
     <script>
         // Formatação automática do CPF
         document.getElementById('cpf').addEventListener('input', function(e) {
@@ -348,7 +338,7 @@
             }
         });
 
-        // Função para mostrar mensagem
+        // Função q mostra mensagem
         function mostrarMensagem(tipo, texto) {
             const mensagemDiv = document.getElementById('mensagem');
             mensagemDiv.className = `alert alert-${tipo}`;
@@ -364,7 +354,6 @@
             }, 5000);
         }
 
-        // Submissão do formulário
         document.getElementById('formCadastro').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -377,7 +366,7 @@
             btnLoading.style.display = 'inline-block';
             btnCadastrar.disabled = true;
             
-            // Coleta os dados do formulário
+            // Coleta 
             const dados = {
                 nome: document.getElementById('nome').value.trim(),
                 email: document.getElementById('email').value.trim(),
@@ -387,11 +376,11 @@
                 escala: document.getElementById('tipoEscala').value,
                 turno: document.getElementById('turno').value,
                 local: document.getElementById('local').value,
-                foto: 'default.jpg' // Foto padrão por enquanto
+                foto: 'default.jpg' // Foto padrão por enquanto, ve c muda dps
             };
             
             try {
-                // Envia para o backend
+                // Envia pro back
                 const response = await fetch('http://localhost:5000/api/cadastrar-colaborador', {
                     method: 'POST',
                     headers: {
@@ -416,7 +405,7 @@
                     document.getElementById('formCadastro').reset();
                     
                 } else {
-                    // Erro de validação
+                    // Erroo
                     let errosHtml = '<strong>❌ Erro ao cadastrar:</strong><ul>';
                     
                     if (resultado.errors && Array.isArray(resultado.errors)) {

@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<!--ESSA SERA UMA PAGINA MODELO COM O MENU LATERAL E A NAVBAR PADRÃO-->
-<!--copiar e colar nas paginas que usam menu lateral-->
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escalar | Férias</title>
+    <title>Escalar | Solicitações</title>
 
     <!--Google font - inter-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,9 +19,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.x.x/font/bootstrap-icons.css">
     <!--CSS global-->
-    <link rel="stylesheet" href="../../assets/css/global.css">
-    <!--CSS da pagina-->
-    <link rel="stylesheet" href="../../assets/css/historicoAdm.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <!--CSS local-->
+    <link rel="stylesheet" href="../assets/css/solicitacoesAdm.css">
 
 </head>
 
@@ -32,14 +29,13 @@
 
     <div class="body">
 
-        <!--Menu lateral - mobile-->
         <div class="menu-mobile">
             <div class="offcanvas-lg offcanvas-start sidebar" tabindex="-1" id="offcanvasResponsive"
                 aria-labelledby="offcanvasResponsiveLabel">
                 <div class="offcanvas-header">
                     <div class="logo mb-5 mt-3 text-center">
-                        <a class="navbar-brand" href="../calendarioAdm.html">
-                            <img src="../../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
+                        <a class="navbar-brand" href="calendarioAdm.html">
+                            <img src="../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
                                 alt="Escalar">
                         </a>
                     </div>
@@ -48,14 +44,13 @@
                 </div>
                 <div class="offcanvas-body" id="offcanvasBodyContent" style="display: none;">
 
-                    <!--Alterar a classe "item-atual' de acordo com a pagina"-->
                     <div class="menu-lateral">
                         <ul class="nav nav-pills flex-column mb-auto" id="menu">
-                            <li class="nav-item">
-                                <a href="../quadroColaboradores.htm" class="nav-link text-white">Quadro de colaboradores</a>
+                            <li class="nav-item item-atual">
+                                <a href="quadroColaboradores.htm" class="nav-link text-white">Quadro de colaboradores</a>
                             </li>
                             <li class="nav-item">
-                                <a href="../solicitacoes.html" class="nav-link text-white">Solicitações</a>
+                                <a href="solicitacoes.html" class="nav-link text-white">Solicitações</a>
                             </li>
                             <li class="nav-item">
                                 <div class="nav-link text-white" id="accordionExample">
@@ -67,20 +62,21 @@
                                                 Histórico
                                             </button>
                                         </h2>
-                                        <div id="collapseOne" class="accordion-collapse collapse show"
+                                        <div id="collapseOne" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionExample">
                                             <div class="">
                                                 <ul class="nav nav-pills flex-column mb-auto" id="menu">
-                                                    <li class="nav-item">
-                                                        <a href="trocas.html" class="nav-link text-white">Trocas</a>
-                                                    </li>
-                                                    <li class="nav-item  item-atual">
-                                                        <a href="ferias.html" class="nav-link text-white">Férias</a>
+                                                    <li class="nav-item ">
+                                                        <a href="historico.html/trocas.html" class="nav-link text-white">Trocas</a>
                                                     </li>
                                                     <li class="nav-item ">
-                                                        <a href="Atestados.html" class="nav-link text-white">Atestados</a>
+                                                        <a href="#" class="nav-link text-white">Férias</a>
+                                                    </li>
+                                                    <li class="nav-item ">
+                                                        <a href="#" class="nav-link text-white">Atestados</a>
                                                     </li>
                                                 </ul>
+
                                             </div>
                                         </div>
                                     </div>
@@ -92,22 +88,21 @@
             </div>
         </div>
 
-        <!-- MENU LATERAL DESKTOP -->
         <div class="menu-desktop d-none d-lg-block bg-dark text-white">
             <div class="sidebar p-3 min-vh-100">
                 <div class="logo mb-5 mt-3 text-center">
-                    <a class="navbar-brand" href="../calendarioAdm.html">
-                        <img src="../../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
+                    <a class="navbar-brand" href="calendarioAdm.html">
+                        <img src="../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
                             alt="Escalar">
                     </a>
                 </div>
                 <div class="menu-lateral">
                     <ul class="nav nav-pills flex-column mb-auto" id="menu">
-                        <li class="nav-item">
-                            <a href="../quadroColaboradores.htm" class="nav-link text-white">Quadro de colaboradores</a>
+                        <li class="nav-item ">
+                            <a href="quadroColaboradores.htm" class="nav-link text-white">Quadro de colaboradores</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="../solicitacoes.html" class="nav-link text-white">Solicitações</a>
+                        <li class="nav-item item-atual">
+                            <a href="solicitacoes.html" class="nav-link text-white">Solicitações</a>
                         </li>
                         <li class="nav-item">
 
@@ -120,18 +115,18 @@
                                             Histórico
                                         </button>
                                     </h2>
-                                    <div id="collapseOne" class="accordion-collapse collapse show"
+                                    <div id="collapseOne" class="accordion-collapse collapse"
                                         data-bs-parent="#accordionExample">
                                         <div class="">
                                             <ul class="nav nav-pills flex-column mb-auto" id="menu">
-                                                <li class="nav-item">
-                                                    <a href="trocas.html" class="nav-link text-white">Trocas</a>
-                                                </li>
-                                                <li class="nav-item  item-atual">
-                                                    <a href="ferias.html" class="nav-link text-white">Férias</a>
+                                                <li class="nav-item ">
+                                                    <a href="historico.html/trocas.html" class="nav-link text-white">Trocas</a>
                                                 </li>
                                                 <li class="nav-item ">
-                                                    <a href="Atestados.html" class="nav-link text-white">Atestados</a>
+                                                    <a href="#" class="nav-link text-white">Férias</a>
+                                                </li>
+                                                <li class="nav-item ">
+                                                    <a href="#" class="nav-link text-white">Atestados</a>
                                                 </li>
                                             </ul>
 
@@ -145,7 +140,6 @@
             </div>
         </div>
 
-        <!-- Conteúdo principal -->
         <div class="content flex-grow-1">
 
             <header>
@@ -201,33 +195,91 @@
 
             <main>
                 <div class="container mt-4">
-
-                    <!--insira o conteudo aqui-->
                     <div class="espaco"></div>
-                    <h2>Férias</h2>
-                    <div class="container container-cinza">
+                    <div class="container">
+                        <h2>Solicitações Pendentes</h2>
+                        <div class="container-fluid container-cinza p-5 mb-4">
 
-                        <div class="container-branco">
-                            <div class="container justify-content-center ">
-                                <div class="row align-items-center">
-                                    <!-- Coluna 1 -->
-                                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-lg-0">
-                                        <p>Nome: <span></span></p>
-                                        <p>Início: <span></span></p>
-                                        <p>Fim: <span></span></p>
-                                    </div>
-                                    <!-- Coluna 2 -->
-                                    <div class="col-12 col-md-12 col-lg-6 text-md-start text-lg-end">
-                                        <p>Status: <span></span></p>
+                            <!--div reutilizada-->
+                            <div class="container-branco container">
+                                <div class="container justify-content-center">
+                                    <div class="row align-items-center">
+                                        <!-- Coluna 1 -->
+                                        <h4>Solicitação de Férias</h4>
+                                        <div class="col-12 col-md-6 col-lg-8 mb-3 mb-lg-0">
+
+                                            <p>Colaborador: <span></span></p>
+                                            <p>Início: <span></span></p>
+                                            <p>Fim: <span></span></p>
+                                        </div>
+                                        <!-- Coluna 2 -->
+                                        <div class="col-12 col-md-12 col-lg-4 text-md-start text-lg-end">
+                                            <p>Turno: <span></span></p>
+                                            <p>Escala: <span></span></p>
+                                            <p>Local: <span></span></p>
+                                        </div>
+                                        <div class="justify-content-between d-flex mt-3">
+                                            <button class="btn-vermelho">Negar</button>
+                                            <button class="btn-verde">Autorizar</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="container-branco container">
+                                <div class="container justify-content-center">
+                                    <div class="row align-items-center">
+                                        <!-- Coluna 1 -->
+                                        <h4>Atestado</h4>
+                                        <div class="col-12 col-md-6 col-lg-8 mb-3 mb-lg-0">
+
+                                            <p>Colaborador: <span></span></p>
+                                            <p>Início: <span></span></p>
+                                            <p>Fim: <span></span></p>
+                                        </div>
+                                        <!-- Coluna 2 -->
+                                        <div class="col-12 col-md-12 col-lg-4 text-md-start text-lg-end">
+                                            <p>Turno: <span></span></p>
+                                            <p>Escala: <span></span></p>
+                                            <p>Local: <span></span></p>
+                                        </div>
+                                        <div class="justify-content-end d-flex mt-3">
+                                            <button class="btn-verde">Autorizar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--divreutilizada-->
+                            <div class="container-branco container">
+                                <div class="container justify-content-center">
+                                    <div class="row align-items-center">
+                                        <!-- Coluna 1 -->
+                                        <h4>Solicitação de Substituição</h4>
+                                        <div class="col-12 col-md-6 col-lg-8 mb-3 mb-lg-0">
+
+                                            <p>Colaborador: <span></span></p>
+                                            <p>Data: <span></span></p>
+                                            <p>Substituido por: <span></span></p>
+                                            <p>Motivo: <span></span></p>
+                                        </div>
+                                        <!-- Coluna 2 -->
+                                        <div class="col-12 col-md-12 col-lg-4 text-md-start text-lg-end">
+                                            <p>Turno: <span></span></p>
+                                            <p>Escala: <span></span></p>
+                                            <p>Local: <span></span></p>
+                                        </div>
+                                        <div class="justify-content-between d-flex mt-3">
+                                            <button class="btn-vermelho">Negar</button>
+                                            <button class="btn-verde">Autorizar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-
                     </div>
-
                 </div>
-
             </main>
         </div>
     </div>
@@ -237,7 +289,6 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 
-    <!--Offcanvas-->
     <script>
         const offcanvas = document.getElementById('offcanvasResponsive');
         const bodyContent = document.getElementById('offcanvasBodyContent');

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Coordenador - Escalar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="stylesheet" href="ccalendario.css">
+</head>
+<body class="antialiased">
+    <div id="notification-panel" class="hidden fixed top-0 right-0 h-full w-full max-w-sm bg-white shadow-lg z-50 p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-semibold text-gray-800">Notificações</h2>
+            <button id="close-notify-btn" class="text-gray-500 hover:text-gray-800">
+                <i class="fas fa-times fa-lg"></i>
+            </button>
+        </div>
+        <div class="space-y-4">
+            <a href="#" class="block p-4 bg-blue-50 hover:bg-blue-100 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
+                <p class="font-semibold text-blue-800"><i class="fas fa-exchange-alt mr-2"></i> Solicitação de substituição</p>
+                <p class="text-sm text-blue-700">Maria pediu para trocar com João no dia 28/09.</p>
+            </a>
+            <a href="#" class="block p-4 bg-blue-50 hover:bg-blue-100 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
+                <p class="font-semibold text-blue-800"><i class="fas fa-umbrella-beach mr-2"></i> Solicitação de férias</p>
+                <p class="text-sm text-blue-700">Carlos solicitou férias de 10/10 a 20/10.</p>
+            </a>
+            <a href="#" class="block p-4 bg-blue-50 hover:bg-blue-100 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
+                <p class="font-semibold text-blue-800"><i class="fas fa-file-medical mr-2"></i> Cadastro de atestado</p>
+                <p class="text-sm text-blue-700">Júlia enviou um atestado para 25/09.</p>
+            </a>
+             <a href="#" class="block p-4 bg-blue-50 hover:bg-blue-100 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
+                <p class="font-semibold text-blue-800"><i class="fas fa-exchange-alt mr-2"></i> Solicitação de substituição</p>
+                <p class="text-sm text-blue-700">Antonio pediu para trocar com Luiz no dia 30/09.</p>
+            </a>
+        </div>
+    </div>
+
+    <header class="escalar-bg text-white shadow-md">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <div>
+                <img src="escalar-removebg-preview.png"
+                     alt="Logo Escalar" 
+                     class="h-10 w-auto"
+                     onerror="this.src='https://placehold.co/140x40/0A214E/FFFFFF?text=ESCALAR&font=inter';">
+            </div>
+            
+            <!-- Links de Navegação (Atualizado para Coordenador) -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#" class="text-lg font-semibold border-b-2 border-blue-400 pb-1">Calendário</a>
+                <a href="#" class="text-lg text-gray-300 hover:text-white transition-all duration-200 hover:scale-105">Painel do Coordenador</a>
+            </div>
+            
+            <!-- Ícones (Notificação e Usuário) -->
+            <div class="flex items-center space-x-5">
+                <button id="notify-btn" class="relative text-gray-300 hover:text-white transition-all duration-200 hover:scale-110">
+                    <i class="fas fa-bell fa-lg"></i>
+                    <!-- Ponto de notificação -->
+                    <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
+                </button>
+                <button class="text-gray-300 hover:text-white transition-all duration-200 hover:scale-110">
+                    <i class="fas fa-user-circle fa-2x"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="container mx-auto p-6 lg:p-12">
+        <div class="flex flex-col lg:flex-row gap-8">
+
+            <!-- Calendário (Esquerda) -->
+            <div class="flex-grow">
+                <!-- Seletor de Mês/Ano e Título -->
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex items-center space-x-4">
+                        <select id="month-select" class="text-3xl font-bold text-gray-800 bg-transparent border-none focus:ring-0 p-0 pr-8" style="appearance: none; background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 20%27 fill=%27currentColor%27%3e%3cpath fill-rule=%27evenodd%27 d=%27M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z%27 clip-rule=%27evenodd%27 /%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 0.1rem center; background-size: 1.5em 1.5em;">
+                        </select>
+                        <select id="year-select" class="text-3xl font-bold text-gray-800 bg-transparent border-none focus:ring-0 p-0 pr-8" style="appearance: none; background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 20%27 fill=%27currentColor%27%3e%3cpath fill-rule=%27evenodd%27 d=%27M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z%27 clip-rule=%27evenodd%27 /%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 0.1rem center; background-size: 1.5em 1.5em;">
+                        </select>
+                    </div>
+                    <div class="flex items-center space-x-2 text-xl font-semibold text-gray-700">
+                        <span>Quadro geral</span>
+                        <button class="text-gray-500 hover:text-gray-900">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Container do Calendário -->
+                <div class="bg-gray-200 p-4 rounded-lg shadow-inner">
+                    <!-- Dias da Semana -->
+                    <div class="grid grid-cols-7 gap-2 mb-2">
+                        <div class="text-center font-semibold text-gray-600">Dom</div>
+                        <div class="text-center font-semibold text-gray-600">Seg</div>
+                        <div class="text-center font-semibold text-gray-600">Ter</div>
+                        <div class="text-center font-semibold text-gray-600">Qua</div>
+                        <div class="text-center font-semibold text-gray-600">Qui</div>
+                        <div class="text-center font-semibold text-gray-600">Sex</div>
+                        <div class="text-center font-semibold text-gray-600">Sáb</div>
+                    </div>
+                    
+                    <!-- Grid dos Dias (será preenchido pelo JS) -->
+                    <div id="calendar-grid" class="grid grid-cols-7 gap-2">
+                        <!-- Dias aparecerão aqui -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Legenda (Direita - Atualizada para Coordenador) -->
+            <aside class="w-full lg:w-64 flex-shrink-0">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Legenda</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <span class="h-5 w-5 rounded-full escalar-trabalho mr-3"></span>
+                        <span>Dia de Trabalho</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="h-5 w-5 rounded-full escalar-folga mr-3"></span>
+                        <span>Dia de Folga</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="h-5 w-5 rounded-full escalar-falta mr-3"></span>
+                        <span>Falta</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="h-5 w-5 rounded-full escalar-falta-justificada mr-3"></span>
+                        <span>Falta Justificada</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="h-5 w-5 rounded-full escalar-ferias mr-3"></span>
+                        <span>Férias</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="h-5 w-5 rounded-full escalar-substituicao mr-3"></span>
+                        <span>Substituição</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="h-5 w-5 rounded-full escalar-atestado mr-3"></span>
+                        <span>Atestado</span>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+    
+    <!-- Link para o JavaScript do Coordenador -->
+    <script src="ccalendario.js"></script>
+</body>
+</html>
+

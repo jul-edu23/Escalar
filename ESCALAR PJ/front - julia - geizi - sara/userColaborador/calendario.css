@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F3F4F6; /* Fundo cinza */
+}
+/* Cores p muda dps */
+.escalar-bg { background-color: #0A214E; }
+.escalar-trabalho { background-color: #3B82F6; color: white; }
+.escalar-folga { background-color: #C084FC; color: white; }
+.escalar-falta { background-color: #F97116; color: white; }
+.escalar-ferias { background-color: #A5F3FC; color: #0E7490; }
+.escalar-substituicao { background-color: #EAB308; color: white; }
+.escalar-atestado { background-color: #92400E; color: white; }
+

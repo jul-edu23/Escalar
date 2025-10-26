@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<!--ESSA SERA UMA PAGINA MODELO COM O MENU LATERAL E A NAVBAR PADRÃO-->
-<!--copiar e colar nas paginas que usam menu lateral-->
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escalar | Cadastrar Férias</title>
+    <title>Pagina Modelo</title>
 
     <!--Google font - inter-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,7 +21,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.x.x/font/bootstrap-icons.css">
     <!--CSS global-->
     <link rel="stylesheet" href="../assets/css/global.css">
-    <!--CSS da pagina-->
+    <!--CSS local-->
 
 </head>
 
@@ -31,13 +29,12 @@
 
     <div class="body">
 
-        <!--Menu lateral - mobile-->
         <div class="menu-mobile">
             <div class="offcanvas-lg offcanvas-start sidebar" tabindex="-1" id="offcanvasResponsive"
                 aria-labelledby="offcanvasResponsiveLabel">
                 <div class="offcanvas-header">
                     <div class="logo mb-5 mt-3 text-center">
-                        <a class="navbar-brand" href="calendario.html">
+                        <a class="navbar-brand" href="#">
                             <img src="../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
                                 alt="Escalar">
                         </a>
@@ -46,24 +43,43 @@
                         aria-label="Close"><i class="bi bi-list"></i></button>
                 </div>
                 <div class="offcanvas-body" id="offcanvasBodyContent" style="display: none;">
-
-                    <!--Alterar a classe "item-atual' de acordo com a pagina"-->
                     <div class="menu-lateral">
                         <ul class="nav nav-pills flex-column mb-auto" id="menu">
-                            <li class="nav-item">
-                                <a href="trocasDisponiveis.html" class="nav-link text-white">Trocas Disponíveis</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="solicitarTroca.html" class="nav-link text-white">Solicitar Troca</a>
-                            </li>
                             <li class="nav-item item-atual">
-                                <a href="cadastrarFerias.html" class="nav-link text-white">Cadastrar Férias</a>
+                                <a href="#" class="nav-link text-white">Quadro de colaboradores</a>
                             </li>
                             <li class="nav-item">
-                                <a href="cadastrarAtestado.html" class="nav-link text-white">Cadastrar Atestado</a>
+                                <a href="#" class="nav-link text-white">Solicitações</a>
                             </li>
                             <li class="nav-item">
-                                <a href="minhasSolicitacoes.html" class="nav-link text-white">Minhas Solicitações</a>
+                                <div class="nav-link text-white" id="accordionExample">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapseOne" aria-expanded="false"
+                                                aria-controls="collapseOne">
+                                                Histórico
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionExample">
+                                            <div class="">
+                                                <ul class="nav nav-pills flex-column mb-auto" id="menu">
+                                                    <li class="nav-item ">
+                                                        <a href="#" class="nav-link text-white">Trocas</a>
+                                                    </li>
+                                                    <li class="nav-item ">
+                                                        <a href="#" class="nav-link text-white">Férias</a>
+                                                    </li>
+                                                    <li class="nav-item ">
+                                                        <a href="#" class="nav-link text-white">Atestados</a>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -71,38 +87,58 @@
             </div>
         </div>
 
-        <!-- MENU LATERAL DESKTOP -->
         <div class="menu-desktop d-none d-lg-block bg-dark text-white">
             <div class="sidebar p-3 min-vh-100">
                 <div class="logo mb-5 mt-3 text-center">
-                    <a class="navbar-brand" href="calendario.html">
+                    <a class="navbar-brand" href="#">
                         <img src="../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
                             alt="Escalar">
                     </a>
                 </div>
                 <div class="menu-lateral">
                     <ul class="nav nav-pills flex-column mb-auto" id="menu">
-                        <li class="nav-item">
-                            <a href="trocasDisponiveis.html" class="nav-link text-white">Trocas Disponíveis</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="solicitarTroca.html" class="nav-link text-white">Solicitar Troca</a>
-                        </li>
                         <li class="nav-item item-atual">
-                            <a href="cadastrarFerias.html" class="nav-link text-white">Cadastrar Férias</a>
+                            <a href="#" class="nav-link text-white">Quadro de colaboradores</a>
                         </li>
                         <li class="nav-item">
-                            <a href="cadastrarAtestado.html" class="nav-link text-white">Cadastrar Atestado</a>
+                            <a href="#" class="nav-link text-white">Solicitações</a>
                         </li>
                         <li class="nav-item">
-                            <a href="minhasSolicitacoes.html" class="nav-link text-white">Minhas Solicitações</a>
+
+                            <div class="nav-link text-white" id="accordionExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseOne" aria-expanded="false"
+                                            aria-controls="collapseOne">
+                                            Histórico
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionExample">
+                                        <div class="">
+                                            <ul class="nav nav-pills flex-column mb-auto" id="menu">
+                                                <li class="nav-item ">
+                                                    <a href="#" class="nav-link text-white">Trocas</a>
+                                                </li>
+                                                <li class="nav-item ">
+                                                    <a href="#" class="nav-link text-white">Férias</a>
+                                                </li>
+                                                <li class="nav-item ">
+                                                    <a href="#" class="nav-link text-white">Atestados</a>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <!-- Conteúdo principal -->
         <div class="content flex-grow-1">
 
             <header>
@@ -159,31 +195,8 @@
             <main>
                 <div class="container mt-4">
 
-                    <!--insira o conteudo aqui-->
-                    <div class="espaco"></div>
-                    <div class="centralizarConteiner">
-                        <h2>Cadastrar férias</h2>
-                        <div class="container-cinza">
-                            <div class="formulario-pedirTroca">
-                                <form action="">
-                                    <div class="mt-2">
-                                        <label for="dataSubstituicao">Data de início:</label>
-                                        <input type="date">
-                                    </div>
-                                    <div class="mt-2 w-75">
-                                        <label for="qntdDias">Quantidade de dias:</label>
-                                        <input type="number" min="1" max="30">
-                                    </div>
-                                </form>
-                                <div class="d-flex justify-content-end mt-5">
-                                    <!-- Botão -->
-                                    <button type="button" class="btn btn-azul">
-                                        Enviar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <h1>Página Modelo</h1>
+                    <p>Conteúdo vai aqui.</p>
 
                 </div>
 
@@ -196,7 +209,6 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 
-    <!--Offcanvas-->
     <script>
         const offcanvas = document.getElementById('offcanvasResponsive');
         const bodyContent = document.getElementById('offcanvasBodyContent');

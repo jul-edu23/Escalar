@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escalar | Solicitar Troca </title>
+    <title>Escalar | Atestados</title>
 
     <!--Google font - inter-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,9 +22,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.x.x/font/bootstrap-icons.css">
     <!--CSS global-->
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <!--CSS da pagina-->
-    <link rel="stylesheet" href="../assets/css/solicitarTroca.css">
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <!--CSS local-->
+    <link rel="stylesheet" href="../../assets/css/historicoAdm.css">
 
 </head>
 
@@ -32,14 +32,13 @@
 
     <div class="body">
 
-        <!--Menu lateral - mobile-->
         <div class="menu-mobile">
             <div class="offcanvas-lg offcanvas-start sidebar" tabindex="-1" id="offcanvasResponsive"
                 aria-labelledby="offcanvasResponsiveLabel">
                 <div class="offcanvas-header">
                     <div class="logo mb-5 mt-3 text-center">
-                        <a class="navbar-brand" href="calendario.html">
-                            <img src="../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
+                        <a class="navbar-brand" href="../calendarioAdm.html">
+                            <img src="../../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
                                 alt="Escalar">
                         </a>
                     </div>
@@ -48,23 +47,42 @@
                 </div>
                 <div class="offcanvas-body" id="offcanvasBodyContent" style="display: none;">
 
-                    <!--Alterar a classe "item-atual' de acordo com a pagina"-->
                     <div class="menu-lateral">
                         <ul class="nav nav-pills flex-column mb-auto" id="menu">
                             <li class="nav-item">
-                                <a href="trocasDisponiveis.html" class="nav-link text-white">Trocas Disponíveis</a>
-                            </li>
-                            <li class="nav-item item-atual">
-                                <a href="solicitarTroca.html" class="nav-link text-white">Solicitar Troca</a>
+                                <a href="../quadroColaboradores.htm" class="nav-link text-white">Quadro de colaboradores</a>
                             </li>
                             <li class="nav-item">
-                                <a href="cadastrarFerias.html" class="nav-link text-white">Cadastrar Férias</a>
+                                <a href="../solicitacoes.html" class="nav-link text-white">Solicitações</a>
                             </li>
                             <li class="nav-item">
-                                <a href="cadastrarAtestado.html" class="nav-link text-white">Cadastrar Atestado</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="minhasSolicitacoes.html" class="nav-link text-white">Minhas Solicitações</a>
+                                <div class="nav-link text-white" id="accordionExample">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapseOne" aria-expanded="false"
+                                                aria-controls="collapseOne">
+                                                Histórico
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse show"
+                                            data-bs-parent="#accordionExample">
+                                            <div class="">
+                                                <ul class="nav nav-pills flex-column mb-auto" id="menu">
+                                                    <li class="nav-item">
+                                                        <a href="trocas.html" class="nav-link text-white">Trocas</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="ferias.html" class="nav-link text-white">Férias</a>
+                                                    </li>
+                                                    <li class="nav-item item-atual">
+                                                        <a href="Atestados.html" class="nav-link text-white">Atestados</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -72,38 +90,58 @@
             </div>
         </div>
 
-        <!-- MENU LATERAL DESKTOP -->
         <div class="menu-desktop d-none d-lg-block bg-dark text-white">
             <div class="sidebar p-3 min-vh-100">
                 <div class="logo mb-5 mt-3 text-center">
-                    <a class="navbar-brand" href="#">
-                        <img src="../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
+                    <a class="navbar-brand" href="../calendarioAdm.html">
+                        <img src="../../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
                             alt="Escalar">
                     </a>
                 </div>
                 <div class="menu-lateral">
                     <ul class="nav nav-pills flex-column mb-auto" id="menu">
                         <li class="nav-item">
-                            <a href="trocasDisponiveis.html" class="nav-link text-white">Trocas Disponíveis</a>
-                        </li>
-                        <li class="nav-item item-atual">
-                            <a href="solicitarTroca.html" class="nav-link text-white">Solicitar Troca</a>
+                            <a href="../quadroColaboradores.htm" class="nav-link text-white">Quadro de colaboradores</a>
                         </li>
                         <li class="nav-item">
-                            <a href="cadastrarFerias.html" class="nav-link text-white">Cadastrar Férias</a>
+                            <a href="../solicitacoes.html" class="nav-link text-white">Solicitações</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link text-white">Cadastrar Atestado</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="minhasSolicitacoes.html" class="nav-link text-white">Minhas Solicitações</a>
+
+                            <div class="nav-link text-white" id="accordionExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseOne" aria-expanded="false"
+                                            aria-controls="collapseOne">
+                                            Histórico
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse show"
+                                        data-bs-parent="#accordionExample">
+                                        <div class="">
+                                            <ul class="nav nav-pills flex-column mb-auto" id="menu">
+                                                <li class="nav-item">
+                                                    <a href="trocas.html" class="nav-link text-white">Trocas</a>
+                                                </li>
+                                                <li class="nav-item ">
+                                                    <a href="ferias.html" class="nav-link text-white">Férias</a>
+                                                </li>
+                                                <li class="nav-item item-atual">
+                                                    <a href="Atestados.html" class="nav-link text-white">Atestados</a>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <!-- Conteúdo principal -->
         <div class="content flex-grow-1">
 
             <header>
@@ -160,123 +198,54 @@
             <main>
                 <div class="container mt-4">
 
-                    <!--insira o conteudo aqui-->
                     <div class="espaco"></div>
-                    <div class="centralizarConteiner">
-                        <h2>Solicitar Troca</h2>
-                        <div class="container-cinza">
-                            <div class="formulario-pedirTroca">
-                                <form action="">
-                                    <div class="mt-2">
-                                        <label for="dataSubstituicao">Data:</label>
-                                        <input type="date">
+                    <h2>Atestados</h2>
+                    <div class="container container-cinza">
+
+                        <div class="container-branco">
+                            <div class="container justify-content-center ">
+                                <div class="row align-items-center">
+                                    <!-- Coluna 1 -->
+                                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-lg-0">
+                                        <p>Nome: <span></span></p>
+                                        <p>Período: <span></span></p>
+                                        <p>CID: <span></span></p>
                                     </div>
-                                    <div class="mt-2">
-                                        <label for="localSubstituicao">Local:</label>
-                                        <select name="localSubstituicao" id="localSubstituicao">
-                                            <option value="campus">Campus Major Gote</option>
-                                            <option value="cce">Centro de Convenções e Eventos</option>
-                                            <option value="ccv">Centro Clinico Veterinário</option>
-                                            <option value="cco">Centro Clinico Odontologico</option>
-                                        </select>
+                                    <!-- Coluna 2 -->
+                                    <div class="col-12 col-md-6 col-lg-3 mb-3 mb-lg-0">
+                                        <p>Anexo: <span></span></p>
                                     </div>
-                                    <div class="mt-2">
-                                        <label for="motivo">Motivo:</label>
-                                        <textarea name="motivo" id="motivo" cols="30" rows="5"
-                                            placeholder="Descreva o motivo da troca..."></textarea>
-                                    </div>
-                                </form>
-                                <div class="d-flex justify-content-end">
-                                    <!-- Botão -->
-                                    <button type="button" class="btn btn-azul" data-bs-toggle="modal"
-                                        data-bs-target="#staticBackdrop">
-                                        Continuar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-
-                        <!-- Scrollable aqui dentro -->
-                        <div class="modal-dialog modal-dialog-scrollable">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="pt-3 ps-3">
-                                    <p>Deseja indicar outro colaborador para a troca?</p>
-                                </div>
-                                <div class="modal-body">
-
-                                    <div class="container-cinza">
-                                        <div class="pesquisa">
-                                            <input type="search" placeholder="Pesquisar">
-                                        </div>
-
-                                        <!--Retangulo com colaboradores a ser utilizada-->
-                                        <!--OBS: lembrar de apagar a classe "placeholder" quando integrar o back-->
-                                        <div class="container-branco">
-                                            <div class="fotoPerfil">
-                                                <!-- imagem do perfil -->
-                                            </div>
-                                            <div class="informacoes">
-                                                <p>Nome: <span></span></p>
-                                                <div>
-                                                    <p>Turno: <span></span></p>
-                                                    <p>Local: <span></span></p>
-                                                </div>
-                                            </div>
-                                            <div class="checkbox">
-                                                <input type="checkbox" name="" id="">
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                <div class="pt-3 ps-3">
-                                    <div class="checkbox">
-                                        <input type="checkbox" name="ninguemIndicar" value="ninguemIndicar" id="">
-                                        <p class="ms-1">Não tenho ninguém para indicar</p>
+                                    <!-- Coluna 3 -->
+                                    <div class="col-12 col-md-12 col-lg-3 text-md-start text-lg-end">
+                                        <p>Status: </span></p>
                                     </div>
                                 </div>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-vermelho"
-                                        data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-azul">Continuar</button>
-                                </div>
-
                             </div>
                         </div>
 
                     </div>
+
                 </div>
+
             </main>
         </div>
+    </div>
 
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
 
-        <!--Offcanvas-->
-        <script>
-            const offcanvas = document.getElementById('offcanvasResponsive');
-            const bodyContent = document.getElementById('offcanvasBodyContent');
-            offcanvas.addEventListener('show.bs.offcanvas', function () {
-                bodyContent.style.display = 'block';
-            });
-            offcanvas.addEventListener('hide.bs.offcanvas', function () {
-                bodyContent.style.display = 'none';
-            });
-        </script>
+    <script>
+        const offcanvas = document.getElementById('offcanvasResponsive');
+        const bodyContent = document.getElementById('offcanvasBodyContent');
+        offcanvas.addEventListener('show.bs.offcanvas', function () {
+            bodyContent.style.display = 'block';
+        });
+        offcanvas.addEventListener('hide.bs.offcanvas', function () {
+            bodyContent.style.display = 'none';
+        });
+    </script>
 </body>
 
 </html>
