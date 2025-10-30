@@ -6,10 +6,22 @@ body {
 }
 /* Cores p muda dps */
 .escalar-bg { background-color: #0A214E; }
-.escalar-trabalho { background-color: #3B82F6; color: white; }
-.escalar-folga { background-color: #C084FC; color: white; }
-.escalar-falta { background-color: #F97116; color: white; }
-.escalar-ferias { background-color: #A5F3FC; color: #0E7490; }
-.escalar-substituicao { background-color: #EAB308; color: white; }
-.escalar-atestado { background-color: #92400E; color: white; }
+.escalar-trabalho { 
+    background-color: rgba(70, 130, 180, 1); 
+    color:black; }
+.escalar-folga { 
+    background-color: rgba(127, 38, 193, 0.5);
+    color: black;  }
+.escalar-falta { 
+    background-color: rgba(255, 102, 71, 0.8); 
+    color: black; }
+.escalar-ferias { 
+    background-color:rgba(176, 224, 300, 1); 
+    color: black; }
+.escalar-substituicao { 
+    background-color:rgba(255, 204, 0, 1); 
+    color:black; }
+.escalar-atestado { 
+    background-color: rgba(134, 83, 0, 1);
+    color: black; }
 
