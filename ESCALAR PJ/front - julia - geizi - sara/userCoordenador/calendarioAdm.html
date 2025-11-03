@@ -1,72 +1,97 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel do Coordenador - Escalar</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <link rel="stylesheet" href="ccalendario.css">
-</head>
-<body class="antialiased">
-    <div id="notification-panel" class="hidden fixed top-0 right-0 h-full w-full max-w-sm bg-white shadow-lg z-50 p-6">
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-semibold text-gray-800">Notificações</h2>
-            <button id="close-notify-btn" class="text-gray-500 hover:text-gray-800">
-                <i class="fas fa-times fa-lg"></i>
-            </button>
-        </div>
-        <div class="space-y-4">
-            <a href="#" class="block p-4 bg-blue-50 hover:bg-blue-100 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
-                <p class="font-semibold text-blue-800"><i class="fas fa-exchange-alt mr-2"></i> Solicitação de substituição</p>
-                <p class="text-sm text-blue-700">Maria pediu para trocar com João no dia 28/09.</p>
-            </a>
-            <a href="#" class="block p-4 bg-blue-50 hover:bg-blue-100 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
-                <p class="font-semibold text-blue-800"><i class="fas fa-umbrella-beach mr-2"></i> Solicitação de férias</p>
-                <p class="text-sm text-blue-700">Carlos solicitou férias de 10/10 a 20/10.</p>
-            </a>
-            <a href="#" class="block p-4 bg-blue-50 hover:bg-blue-100 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
-                <p class="font-semibold text-blue-800"><i class="fas fa-file-medical mr-2"></i> Cadastro de atestado</p>
-                <p class="text-sm text-blue-700">Júlia enviou um atestado para 25/09.</p>
-            </a>
-             <a href="#" class="block p-4 bg-blue-50 hover:bg-blue-100 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
-                <p class="font-semibold text-blue-800"><i class="fas fa-exchange-alt mr-2"></i> Solicitação de substituição</p>
-                <p class="text-sm text-blue-700">Antonio pediu para trocar com Luiz no dia 30/09.</p>
-            </a>
-        </div>
-    </div>
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
-    <header class="escalar-bg text-white shadow-md">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <!-- Logo -->
-            <div>
-                <img src="escalar-removebg-preview.png"
-                     alt="Logo Escalar" 
-                     class="h-10 w-auto"
-                     onerror="this.src='https://placehold.co/140x40/0A214E/FFFFFF?text=ESCALAR&font=inter';">
-            </div>
-            
-            <!-- Links de Navegação (Atualizado para Coordenador) -->
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="#" class="text-lg font-semibold border-b-2 border-blue-400 pb-1">Calendário</a>
-                <a href="#" class="text-lg text-gray-300 hover:text-white transition-all duration-200 hover:scale-105">Painel do Coordenador</a>
-            </div>
-            
-            <!-- Ícones (Notificação e Usuário) -->
-            <div class="flex items-center space-x-5">
-                <button id="notify-btn" class="relative text-gray-300 hover:text-white transition-all duration-200 hover:scale-110">
-                    <i class="fas fa-bell fa-lg"></i>
-                    <!-- Ponto de notificação -->
-                    <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
+
+    <!--Icones-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.x.x/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/calendario.css">
+
+    <link rel="stylesheet" href="ccalendario.css">
+
+    <!--******************************** ATENÇÃO *****************************-->
+    <!--Os links para o bootstrap já estão todos nessa página, não precisa adicionar nenhum outro link; e eu apaguei os links do tailwind, por isso o calendário vai estar todo deesconfigurado. É so alterar as classes para as classes do bootstrap-->
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid mx-5 p-3">
+                <a class="navbar-brand" href="#">
+                    <img src="../assets/img/escalar-removebg-preview.png" width="150rem" height="auto" alt="Escalar">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
-                <button class="text-gray-300 hover:text-white transition-all duration-200 hover:scale-110">
-                    <i class="fas fa-user-circle fa-2x"></i>
-                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="calendarioAdm.html">Calendário</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="quadroColaboradores.htm">Painel do
+                                Coordenador</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="23" viewBox="0 0 37 34" fill="none">
+                                    <g clip-path="url(#clip0_205_352)">
+                                        <path
+                                            d="M18.5 33.9998C19.7266 33.9998 20.903 33.5521 21.7704 32.755C22.6377 31.958 23.125 30.877 23.125 29.7498H13.875C13.875 30.877 14.3623 31.958 15.2296 32.755C16.097 33.5521 17.2734 33.9998 18.5 33.9998ZM20.8009 2.33522C20.8332 2.03975 20.7977 1.74134 20.6968 1.45924C20.5959 1.17714 20.4317 0.917611 20.2149 0.697393C19.9981 0.477176 19.7335 0.301158 19.4381 0.180692C19.1427 0.060226 18.8232 -0.00201416 18.5 -0.00201416C18.1768 -0.00201416 17.8573 0.060226 17.5619 0.180692C17.2665 0.301158 17.0019 0.477176 16.7851 0.697393C16.5683 0.917611 16.4041 1.17714 16.3032 1.45924C16.2023 1.74134 16.1668 2.03975 16.1991 2.33522C13.5849 2.82302 11.2347 4.12641 9.54673 6.0245C7.85879 7.92259 6.93696 10.2986 6.9375 12.7498C6.9375 15.0831 5.78125 25.4998 2.3125 27.6248H34.6875C31.2188 25.4998 30.0625 15.0831 30.0625 12.7498C30.0625 7.60734 26.085 3.31484 20.8009 2.33522Z"
+                                            fill="white" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_205_352">
+                                            <rect width="37" height="34" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="29" viewBox="0 0 52 53" fill="none">
+                                    <g clip-path="url(#clip0_205_334)">
+                                        <path
+                                            d="M35.75 19.875C35.75 22.5106 34.7228 25.0382 32.8943 26.9019C31.0658 28.7655 28.5859 29.8125 26 29.8125C23.4141 29.8125 20.9342 28.7655 19.1057 26.9019C17.2772 25.0382 16.25 22.5106 16.25 19.875C16.25 17.2394 17.2772 14.7118 19.1057 12.8481C20.9342 10.9845 23.4141 9.9375 26 9.9375C28.5859 9.9375 31.0658 10.9845 32.8943 12.8481C34.7228 14.7118 35.75 17.2394 35.75 19.875Z"
+                                            fill="white" />
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M0 26.5C0 19.4718 2.73928 12.7314 7.61522 7.76167C12.4912 2.79196 19.1044 0 26 0C32.8956 0 39.5088 2.79196 44.3848 7.76167C49.2607 12.7314 52 19.4718 52 26.5C52 33.5282 49.2607 40.2686 44.3848 45.2383C39.5088 50.208 32.8956 53 26 53C19.1044 53 12.4912 50.208 7.61522 45.2383C2.73928 40.2686 0 33.5282 0 26.5ZM26 3.3125C21.7158 3.31273 17.5187 4.54595 13.8918 6.87022C10.2649 9.19448 7.35567 12.5153 5.49888 16.4505C3.6421 20.3857 2.91326 24.7753 3.39624 29.1141C3.87923 33.4529 5.55442 37.5644 8.229 40.9756C10.5365 37.1861 15.6163 33.125 26 33.125C36.3838 33.125 41.4603 37.1828 43.771 40.9756C46.4456 37.5644 48.1208 33.4529 48.6038 29.1141C49.0867 24.7753 48.3579 20.3857 46.5011 16.4505C44.6443 12.5153 41.7351 9.19448 38.1082 6.87022C34.4813 4.54595 30.2842 3.31273 26 3.3125Z"
+                                            fill="white" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_205_334">
+                                            <rect width="52" height="53" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
 
+    <!-- Botão de Filtro separado do resptante do main POR ENQUANTO -->
+    <button type="button" class="btn btn-filtro" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <i class="bi bi-filter"></i>
+    </button>
+
+    <!--CALENDÁRIO-->
+    <!--alterar as classees para serem compativeis com o bootstrap-->
+    <!--deixar responsivo para mobile tambem-->
     <!-- Conteúdo Principal -->
     <main class="container mx-auto p-6 lg:p-12">
         <div class="flex flex-col lg:flex-row gap-8">
@@ -76,9 +101,13 @@
                 <!-- Seletor de Mês/Ano e Título -->
                 <div class="flex justify-between items-center mb-6">
                     <div class="flex items-center space-x-4">
-                        <select id="month-select" class="text-3xl font-bold text-gray-800 bg-transparent border-none focus:ring-0 p-0 pr-8" style="appearance: none; background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 20%27 fill=%27currentColor%27%3e%3cpath fill-rule=%27evenodd%27 d=%27M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z%27 clip-rule=%27evenodd%27 /%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 0.1rem center; background-size: 1.5em 1.5em;">
+                        <select id="month-select"
+                            class="text-3xl font-bold text-gray-800 bg-transparent border-none focus:ring-0 p-0 pr-8"
+                            style="appearance: none; background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 20%27 fill=%27currentColor%27%3e%3cpath fill-rule=%27evenodd%27 d=%27M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z%27 clip-rule=%27evenodd%27 /%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 0.1rem center; background-size: 1.5em 1.5em;">
                         </select>
-                        <select id="year-select" class="text-3xl font-bold text-gray-800 bg-transparent border-none focus:ring-0 p-0 pr-8" style="appearance: none; background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 20%27 fill=%27currentColor%27%3e%3cpath fill-rule=%27evenodd%27 d=%27M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z%27 clip-rule=%27evenodd%27 /%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 0.1rem center; background-size: 1.5em 1.5em;">
+                        <select id="year-select"
+                            class="text-3xl font-bold text-gray-800 bg-transparent border-none focus:ring-0 p-0 pr-8"
+                            style="appearance: none; background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 20%27 fill=%27currentColor%27%3e%3cpath fill-rule=%27evenodd%27 d=%27M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z%27 clip-rule=%27evenodd%27 /%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 0.1rem center; background-size: 1.5em 1.5em;">
                         </select>
                     </div>
                     <div class="flex items-center space-x-2 text-xl font-semibold text-gray-700">
@@ -101,7 +130,7 @@
                         <div class="text-center font-semibold text-gray-600">Sex</div>
                         <div class="text-center font-semibold text-gray-600">Sáb</div>
                     </div>
-                    
+
                     <!-- Grid dos Dias (será preenchido pelo JS) -->
                     <div id="calendar-grid" class="grid grid-cols-7 gap-2">
                         <!-- Dias aparecerão aqui -->
@@ -145,9 +174,171 @@
             </aside>
         </div>
     </main>
-    
+    <!--Fim do calendário-->
+
+    <!-- Modal de Notificações -->
+    <div id="modalNotificacoes" class="modal-notificacoes shadow-lg">
+        <div class="notificacoes-header d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
+            <h6 class="mb-0">Notificações</h6>
+            <button class="btn-close btn-sm" id="fecharNotificacoes"></button>
+        </div>
+        <div class="notificacoes-body" id="listaNotificacoes">
+            <p class="text-center text-muted m-3">Sem notificações</p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content" style="background-color: #fff!important;">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="bi bi-filter"></i> Filtar por:</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-cinza mb-3">
+                        <h5>Turno:</h5>
+                        <form action="" id="turno">
+                            <div class="d-lg-flex d-md-flex justify-content-between">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="diurno1" id="turnoDiurno1">
+                                    <label class="form-check-label mt-1" for="turnoDiurno1">
+                                        Diurno 1
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="diurno2" id="turnoDiurno2">
+                                    <label class="form-check-label mt-1" for="turnoDiurno2">
+                                        Diurno 2
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="noturno1" id="turnoNoturno1">
+                                    <label class="form-check-label mt-1" for="turnoNoturno1">
+                                        Noturno 1
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="noturno2" id="turnoNoturno2">
+                                    <label class="form-check-label mt-1" for="turnoNoturno2">
+                                        Noturno 2
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="container-cinza mb-3">
+                        <h5>Tipo de escala:</h5>
+                        <form action="" id="tipoEscala">
+                            <div class="d-lg-flex d-md-flex justify-content-between">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="dozeTrintaESeis"
+                                        id="dozeTrintaESeis">
+                                    <label class="form-check-label mt-1" for="dozeTrintaESeis">
+                                        12 X 36
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="cincoPorDois"
+                                        id="cincoPorDois">
+                                    <label class="form-check-label mt-1" for="cincoPorDois">
+                                        5 X 2
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="container-cinza mb-3">
+                        <h5>Tipo de escala:</h5>
+                        <form action="" id="local">
+                            <div class="d-lg-flex d-md-flex justify-content-between">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="campusPrincipal"
+                                        id="campusPrincipal">
+                                    <label class="form-check-label mt-1" for="campusPrincipal">
+                                        Campus Principal
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="cce" id="cce">
+                                    <label class="form-check-label mt-1" for="cce">
+                                        <abbr title="Centro de Convenções e Eventos">CCE</abbr>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="cco" id="cco">
+                                    <label class="form-check-label mt-1" for="cco">
+                                        <abbr title="Centro Clínico Odontologico">CCO</abbr>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="ccv" id="ccv">
+                                    <label class="form-check-label mt-1" for="ccv">
+                                        <abbr title="Centro Clínico Veterinário">CCV</abbr>
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <hr>
+
+                    <form action="" id="outrosFiltros">
+                        <div class="d-lg-flex d-md-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="atestados" id="atestados">
+                                <label class="form-check-label mt-1" for="atestados">
+                                    Atestados
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="atestados" id="atestados">
+                                <label class="form-check-label mt-1" for="atestados">
+                                    Substituições
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="atestados" id="atestados">
+                                <label class="form-check-label mt-1 for=" atestados">
+                                    Férias
+                                </label>
+                            </div>
+                        </div>
+                        <div class="d-lg-flex d-md-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="atestados" id="atestados">
+                                <label class="form-check-label mt-1 for=" atestados">
+                                    Faltas
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="atestados" id="atestados">
+                                <label class="form-check-label mt-1" for="atestados">
+                                    Dias de trabalho regulares
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-vermelho" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-azul">Filtar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/JScoordenador/calendarioADM.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
     <!-- Link para o JavaScript do Coordenador -->
     <script src="ccalendario.js"></script>
 </body>
-</html>
 
+</html>
