@@ -223,25 +223,27 @@ def quadroColaboradores():
 def criarUsuarioAdmin():
     """
     Cria um usuario administrador padrao se nao existir
+    IMPORTANTE: Senha padrao = CPF (00000000000)
     """
     admin = Usuario.query.filter_by(email='admin@escalar.com').first()
     if not admin:
+        cpf_admin = '00000000000'
         admin = Usuario(
             nome='Administrador',
             email='admin@escalar.com',
             foto='default.jpg',
             apelido='Admin',
-            cpf='00000000000',
+            cpf=cpf_admin,
             data_nascimento=datetime(1990, 1, 1).date(),
             escala='12x36',
             turno='diurno',
             local='Campus',
             nivel_acesso='administrador',
-            senha=gerarHashSenha('admin123')
+            senha=gerarHashSenha(cpf_admin)  # senha = CPF
         )
         db.session.add(admin)
         db.session.commit()
-        print('Usuario administrador criado: admin@escalar.com / admin123')
+        print(f'Usuario administrador criado: admin@escalar.com / {cpf_admin}')
 
 if __name__ == '__main__':
     with app.app_context():

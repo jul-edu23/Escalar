@@ -80,6 +80,16 @@
                         <h2 style="font-size: 2.5rem;">Bem-vindo!</h2>
                     </div>
 
+                    <!-- Aviso se não estiver na origem correta -->
+                    <div id="aviso-origem" class="alert alert-warning alert-dismissible fade" role="alert" style="display: none;">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        <strong>Atenção!</strong> Para o login funcionar, acesse: 
+                        <a href="http://127.0.0.1:5001/login" style="color: #856404; text-decoration: underline;">
+                            http://127.0.0.1:5001/login
+                        </a>
+                        <button type="button" class="btn-close" onclick="document.getElementById('aviso-origem').style.display='none'"></button>
+                    </div>
+
                     <!-- Mensagens de feedback la -->
                     <div id="mensagem" class="alert alert-dismissible fade" role="alert" style="display: none;">
                         <span id="mensagem-texto"></span>
@@ -126,8 +136,26 @@
                 crossorigin="anonymous"></script>
 
             <script>
-                // URL da API de login,substituir dps
-                const API_URL = 'http://127.0.0.1:5001';
+                // Detecta automaticamente a origem (sempre use o servidor Flask!)
+                const API_URL = window.location.origin.includes('5001') 
+                    ? '' // Se já está em 5001, usa caminho relativo
+                    : 'http://127.0.0.1:5001'; // Se está em outra porta (Live Server), aponta para Flask
+                
+                console.log('API_URL:', API_URL || 'caminho relativo (mesma origem)');
+                
+                // Aviso se estiver usando Live Server ou file://
+                if (!window.location.origin.includes('5001')) {
+                    console.warn('⚠️ AVISO: Você está acessando de uma origem diferente!');
+                    console.warn('Para o login funcionar corretamente, acesse: http://127.0.0.1:5001/login');
+                    console.warn('O Live Server não é compatível com autenticação por sessão.');
+                    
+                    // Mostra aviso visual
+                    const avisoDiv = document.getElementById('aviso-origem');
+                    if (avisoDiv) {
+                        avisoDiv.className = 'alert alert-warning alert-dismissible fade show';
+                        avisoDiv.style.display = 'block';
+                    }
+                }
 
                 // mostrar mensagens
                 function mostrarMensagem(texto, tipo = 'info') {
@@ -167,6 +195,7 @@
                             headers: {
                                 'Content-Type': 'application/json',
                             },
+                            credentials: 'include',  // Importante: envia cookies de sessão
                             body: JSON.stringify({ email, senha })
                         });
                         
@@ -177,7 +206,7 @@
                             
                             // Aguarda 1 segundo e redireciona
                             setTimeout(() => {
-                                window.location.href = `${API_URL}${data.redirect}`;
+                                window.location.href = data.redirect;  // Usa caminho relativo
                             }, 1000);
                         } else {
                             mostrarMensagem(data.error || 'Erro ao fazer login', 'danger');
@@ -192,23 +221,8 @@
                     }
                 }
 
-                // Verifica
-                window.addEventListener('DOMContentLoaded', async () => {
-                    try {
-                        const response = await fetch(`${API_URL}/verificar-sessao`);
-                        const data = await response.json();
-                        
-                        if (data.logado) {
-                            // Se já  logado, redireciona para o dashboard
-                            const redirect = data.usuario.nivel_acesso === 'administrador' 
-                                ? '/dashboard-admin' 
-                                : '/dashboard-colaborador';
-                            window.location.href = `${API_URL}${redirect}`;
-                        }
-                    } catch (error) {
-                        console.log('Não está logado ou servidor offline');
-                    }
-                });
+                // Remove a verificacao de sessao pra evitar refresh infinito
+                // A sessao so e verificada apos o login bem-sucedido
             </script>
 
 

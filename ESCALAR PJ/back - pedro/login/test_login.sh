@@ -57,7 +57,7 @@ echo ""
 echo "4. Testando POST /api/login (admin valido)"
 RESPONSE=$(curl -s -X POST http://127.0.0.1:5001/api/login \
     -H "Content-Type: application/json" \
-    -d '{"email":"admin@escalar.com","senha":"admin123"}')
+    -d '{"email":"admin@escalar.com","senha":"00000000000"}')
 
 if echo "$RESPONSE" | grep -q '"success": true'; then
     echo "   Login de administrador funcionando"
@@ -77,7 +77,8 @@ echo "URL do sistema: http://127.0.0.1:5001"
 echo "Pagina de login: http://127.0.0.1:5001/login"
 echo ""
 echo "Credenciais de teste:"
-echo "   Admin: admin@escalar.com / admin123"
+echo "   Admin: admin@escalar.com / 00000000000 (CPF)"
+echo "   IMPORTANTE: Senha padrao = CPF do usuario"
 echo ""
 echo "Para testar o login completo, acesse:"
 echo "   http://127.0.0.1:5001/login"
