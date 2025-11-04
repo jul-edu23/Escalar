@@ -1,6 +1,4 @@
-"""
-Aplicacao principal do sistema de cadastro de usuarios
-"""
+
 
 import os
 import re
@@ -13,11 +11,17 @@ from validations import validarCadastroCompleto, ESCALAS_VALIDAS, TURNOS_VALIDOS
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'chave-secreta-para-desenvolvimento'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///escalar.db'
+
+DB_USER = os.getenv('DB_USER', 'root')
+DB_PASS = os.getenv('DB_PASS', 'escalar123')
+DB_HOST = os.getenv('DB_HOST', 'localhost')
+DB_PORT = os.getenv('DB_PORT', '3306')
+DB_NAME = os.getenv('DB_NAME', 'escalar')
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Habilita CORS para permitir requisicoes do frontend HTML
-# Configuracao mais permissiva para desenvolvimento
 CORS(app, resources={
     r"/api/*": {
         "origins": ["http://localhost:8000", "http://127.0.0.1:8000", "file://", "*"],
@@ -27,22 +31,39 @@ CORS(app, resources={
     }
 })
 
-# Inicializa o banco de dados
 db.init_app(app)
+
+from api_escalas import api_escalas
+from api_trocas import api_trocas
+from api_ferias import api_ferias
+from api_atestados import api_atestados
+from api_notificacoes import api_notificacoes
+from api_historico import api_historico
+
+app.register_blueprint(api_escalas, url_prefix='/api')
+app.register_blueprint(api_trocas, url_prefix='/api')
+app.register_blueprint(api_ferias, url_prefix='/api')
+app.register_blueprint(api_atestados, url_prefix='/api')
+app.register_blueprint(api_notificacoes, url_prefix='/api')
+app.register_blueprint(api_historico, url_prefix='/api')
+
+print(" Todos os blueprints de API registrados:")
+print("   - /api/escalas")
+print("   - /api/trocas")
+print("   - /api/ferias")
+print("   - /api/atestados")
+print("   - /api/notificacoes")
+print("   - /api/historico")
 
 @app.route('/')
 def index():
-    """
-    Pagina inicial
-    """
+    
     from datetime import datetime
     return render_template('index.html', now=datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    """
-    Pagina de login
-    """
+    
     if request.method == 'POST':
         email = request.form.get('email')
         senha = request.form.get('senha')
@@ -52,7 +73,7 @@ def login():
         if usuario:
             session['usuario_id'] = usuario.id
             session['usuario_nome'] = usuario.nome
-            session['usuario_nivel'] = usuario.nivel_acesso
+            session['usuario_cargo'] = usuario.cargo
             flash(f'Bem-vindo, {usuario.nome}!', 'success')
             return redirect(url_for('index'))
         else:
@@ -62,9 +83,7 @@ def login():
 
 @app.route('/logout')
 def logout():
-    """
-    Realiza logout do usuario
-    """
+    
     session.clear()
     flash('Você saiu do sistema.', 'info')
     return redirect(url_for('login'))
@@ -72,56 +91,61 @@ def logout():
 @app.route('/cadastrar-colaborador', methods=['GET', 'POST'])
 @verificarAdmin
 def cadastrarColaborador():
-    """
-    Pagina de cadastro de colaboradores (apenas para administradores)
-    """
+    
     if request.method == 'POST':
-        # Coleta os dados do formulário
+        
         dados = {
             'nome': request.form.get('nome'),
-            'email': request.form.get('email'),
             'apelido': request.form.get('apelido'),
-            'cpf': request.form.get('cpf'),
             'data_nascimento': request.form.get('data_nascimento'),
-            'escala': request.form.get('escala'),
-            'turno': request.form.get('turno'),
-            'local': request.form.get('local')
+            'email': request.form.get('email'),
+            'cpf': request.form.get('cpf'),
+            'turno': request.form.get('turno', 'diurno'),
+            'escala': request.form.get('escala', '12x36'),
+            'local': request.form.get('local', 'Campus'),
+            'foto': request.form.get('foto', 'default.jpg')
         }
-        
-        # Valida os dados
-        valido, erros = validarCadastroCompleto(dados)
-        
-        if not valido:
-            for erro in erros:
-                flash(erro, 'danger')
-            return render_template('cadastrar_colaborador.html', 
-                                   dados=dados,
-                                   escalas=ESCALAS_VALIDAS,
-                                   turnos=TURNOS_VALIDOS,
-                                   locais=LOCAIS_VALIDOS)
-        
-        # Processa o upload da foto (simplificado)
-        foto = request.form.get('foto', 'default.jpg')
-        
-        # Remove caracteres nao numericos do CPF
+
+        if not dados['nome'] or not dados['email'] or not dados['cpf']:
+            flash('Nome, email e CPF são obrigatórios.', 'danger')
+            return render_template('cadastrar_colaborador.html', dados=dados)
+
         cpf_limpo = re.sub(r'\D', '', dados['cpf'])
-        
-        # Cria senha padrao (CPF) - em producao seria gerada automaticamente
+
+        if len(cpf_limpo) != 11:
+            flash('CPF deve ter 11 dígitos.', 'danger')
+            return render_template('cadastrar_colaborador.html', dados=dados)
+
+        if Usuario.query.filter_by(email=dados['email']).first():
+            flash('E-mail já cadastrado.', 'danger')
+            return render_template('cadastrar_colaborador.html', dados=dados)
+
+        if Usuario.query.filter_by(cpf=cpf_limpo).first():
+            flash('CPF já cadastrado.', 'danger')
+            return render_template('cadastrar_colaborador.html', dados=dados)
+
         senha_padrao = cpf_limpo
         senha_hash = gerarHashSenha(senha_padrao)
-        
-        # Cria o novo usuário
+
+        data_nasc = None
+        if dados['data_nascimento']:
+            try:
+                data_nasc = datetime.strptime(dados['data_nascimento'], '%Y-%m-%d').date()
+            except:
+                pass
+
         novo_usuario = Usuario(
             nome=dados['nome'],
+            apelido=dados['apelido'] or dados['nome'].split()[0],
+            data_nascimento=data_nasc,
             email=dados['email'],
-            foto=foto,
-            apelido=dados['apelido'],
+            foto=dados['foto'],
             cpf=cpf_limpo,
-            data_nascimento=datetime.strptime(dados['data_nascimento'], '%Y-%m-%d').date(),
-            escala=dados['escala'],
             turno=dados['turno'],
+            escala=dados['escala'],
             local=dados['local'],
-            nivel_acesso='comum',
+            cargo='colaborador',
+            status='ativo',
             senha=senha_hash
         )
         
@@ -141,57 +165,60 @@ def cadastrarColaborador():
 
 @app.route('/api/cadastrar-colaborador', methods=['POST'])
 def apiCadastrarColaborador():
-    """
-    API JSON para cadastro de colaboradores (sem autenticacao para teste).
-    Em producao, adicionar autenticacao JWT ou similar.
-    """
+    
     try:
-        # Coleta os dados do JSON
+        
         dados = request.get_json()
         
         if not dados:
             return jsonify({'error': 'Nenhum dado recebido'}), 400
-        
-        # Prepara dados para validação
-        dados_validacao = {
-            'nome': dados.get('nome', ''),
-            'email': dados.get('email', ''),
-            'apelido': dados.get('apelido', ''),
-            'cpf': dados.get('cpf', ''),
-            'data_nascimento': dados.get('data_nascimento', ''),
-            'escala': dados.get('escala', ''),
-            'turno': dados.get('turno', ''),
-            'local': dados.get('local', '')
-        }
-        
-        # Valida os dados
-        valido, erros = validarCadastroCompleto(dados_validacao)
-        
-        if not valido:
-            return jsonify({'errors': erros}), 400
-        
-        # Processa foto
+
+        nome = dados.get('nome', '').strip()
+        email = dados.get('email', '').strip()
+        cpf = dados.get('cpf', '').strip()
+        apelido = dados.get('apelido', '').strip() or nome.split()[0] if nome else ''
+        data_nascimento = dados.get('data_nascimento', '').strip()
+        turno = dados.get('turno', 'diurno')
+        escala = dados.get('escala', '12x36')
+        local = dados.get('local', 'Campus')
         foto = dados.get('foto', 'default.jpg')
         
-        # Remove caracteres nao numericos do CPF
-        cpf_limpo = re.sub(r'\D', '', dados_validacao['cpf'])
-        
-        # Cria senha padrao (CPF)
+        if not nome or not email or not cpf:
+            return jsonify({'error': 'Nome, email e CPF são obrigatórios'}), 400
+
+        cpf_limpo = re.sub(r'\D', '', cpf)
+
+        if len(cpf_limpo) != 11:
+            return jsonify({'error': 'CPF deve ter 11 dígitos'}), 400
+
+        if Usuario.query.filter_by(email=email).first():
+            return jsonify({'error': 'E-mail já cadastrado'}), 400
+
+        if Usuario.query.filter_by(cpf=cpf_limpo).first():
+            return jsonify({'error': 'CPF já cadastrado'}), 400
+
         senha_padrao = cpf_limpo
         senha_hash = gerarHashSenha(senha_padrao)
-        
-        # Cria o novo usuário
+
+        data_nasc = None
+        if data_nascimento:
+            try:
+                data_nasc = datetime.strptime(data_nascimento, '%Y-%m-%d').date()
+            except:
+                pass
+
         novo_usuario = Usuario(
-            nome=dados_validacao['nome'],
-            email=dados_validacao['email'],
+            nome=nome,
+            apelido=apelido,
+            data_nascimento=data_nasc,
+            email=email,
             foto=foto,
-            apelido=dados_validacao['apelido'],
             cpf=cpf_limpo,
-            data_nascimento=datetime.strptime(dados_validacao['data_nascimento'], '%Y-%m-%d').date(),
-            escala=dados_validacao['escala'],
-            turno=dados_validacao['turno'],
-            local=dados_validacao['local'],
-            nivel_acesso='comum',
+            turno=turno,
+            escala=escala,
+            local=local,
+            cargo='colaborador',
+            status='ativo',
             senha=senha_hash
         )
         
@@ -203,6 +230,7 @@ def apiCadastrarColaborador():
             'message': 'Colaborador cadastrado com sucesso!',
             'id': novo_usuario.id,
             'nome': novo_usuario.nome,
+            'apelido': novo_usuario.apelido,
             'email': novo_usuario.email,
             'senha_padrao': senha_padrao
         }), 201
@@ -214,36 +242,30 @@ def apiCadastrarColaborador():
 @app.route('/quadro-colaboradores')
 @verificarAdmin
 def quadroColaboradores():
-    """
-    Lista todos os colaboradores cadastrados
-    """
+    
     colaboradores = Usuario.query.all()
     return render_template('quadro_colaboradores.html', colaboradores=colaboradores)
 
 def criarUsuarioAdmin():
-    """
-    Cria um usuario administrador padrao se nao existir
-    IMPORTANTE: Senha padrao = CPF (00000000000)
-    """
-    admin = Usuario.query.filter_by(email='admin@escalar.com').first()
-    if not admin:
-        cpf_admin = '00000000000'
-        admin = Usuario(
-            nome='Administrador',
-            email='admin@escalar.com',
-            foto='default.jpg',
-            apelido='Admin',
-            cpf=cpf_admin,
-            data_nascimento=datetime(1990, 1, 1).date(),
-            escala='12x36',
-            turno='diurno',
-            local='Campus',
-            nivel_acesso='administrador',
-            senha=gerarHashSenha(cpf_admin)  # senha = CPF
-        )
-        db.session.add(admin)
-        db.session.commit()
-        print(f'Usuario administrador criado: admin@escalar.com / {cpf_admin}')
+
+    coordenador = Usuario.query.filter_by(cargo='coordenador').first()
+    if coordenador:
+        print(f'Coordenador já existe no banco: {coordenador.email}')
+        return
+
+    print('AVISO: Nenhum coordenador encontrado no MySQL. Criando usuário padrão...')
+    cpf_admin = '00000000000'
+    admin = Usuario(
+        nome='Coordenador Padrão',
+        email='coordenador@escalar.com',
+        cpf=cpf_admin,
+        cargo='coordenador',
+        status='ativo',
+        senha=gerarHashSenha(cpf_admin)
+    )
+    db.session.add(admin)
+    db.session.commit()
+    print(f'Coordenador padrão criado: coordenador@escalar.com / senha: {cpf_admin}')
 
 if __name__ == '__main__':
     with app.app_context():

@@ -158,30 +158,38 @@
                     <div class="espaco"></div>
                     <div class="centralizarConteiner">
                         <h2>Solicitar Troca</h2>
+                        
+                        <!-- Mensagem de feedback -->
+                        <div id="mensagem" style="display: none;" class="alert alert-dismissible fade show mb-3" role="alert">
+                            <span id="mensagem-texto"></span>
+                            <button type="button" class="btn-close" onclick="fecharMensagem()"></button>
+                        </div>
+                        
                         <div class="container-cinza">
                             <div class="formulario-pedirTroca">
-                                <form action="">
+                                <form id="formTroca">
                                     <div class="mt-2">
-                                        <label for="dataSubstituicao">Data:</label>
-                                        <input type="date">
+                                        <label for="dataSolicitada">Data: *</label>
+                                        <input type="date" id="dataSolicitada" name="dataSolicitada" required>
                                     </div>
                                     <div class="mt-2">
-                                        <label for="localSubstituicao">Local:</label>
-                                        <select name="localSubstituicao" id="localSubstituicao">
-                                            <option value="campus">Campus Major Gote</option>
-                                            <option value="cce">Centro de Convenções e Eventos</option>
-                                            <option value="ccv">Centro Clinico Veterinário</option>
-                                            <option value="cco">Centro Clinico Odontologico</option>
+                                        <label for="localSubstituicao">Local: *</label>
+                                        <select name="localSubstituicao" id="localSubstituicao" required>
+                                            <option value="">Selecionar</option>
+                                            <option value="Campus">Campus Major Gote</option>
+                                            <option value="CCE">Centro de Convenções e Eventos</option>
+                                            <option value="CCV">Centro Clinico Veterinário</option>
+                                            <option value="CCO">Centro Clinico Odontologico</option>
                                         </select>
                                     </div>
                                     <div class="mt-2">
-                                        <label for="motivo">Motivo:</label>
-                                        <textarea name="motivo" id="motivo" cols="30" rows="5"
-                                            placeholder="Descreva o motivo da troca..."></textarea>
+                                        <label for="motivo">Motivo: *</label>
+                                        <textarea name="motivo" id="motivo" cols="30" rows="5" required
+                                            placeholder="Descreva o motivo da troca (mínimo 10 caracteres)..."></textarea>
                                     </div>
                                 </form>
                                 <div class="d-flex justify-content-end">
-                                    <button type="button" class="btn btn-azul" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-azul" id="btnContinuar" data-bs-toggle="modal"
                                         data-bs-target="#staticBackdrop">
                                         Continuar
                                     </button>
@@ -197,6 +205,7 @@
                         <div class="modal-dialog modal-dialog-scrollable">
                             <div class="modal-content">
                                 <div class="modal-header">
+                                    <h5 class="modal-title">Indicar Substituto</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
@@ -206,40 +215,52 @@
                                 <div class="modal-body">
 
                                     <div class="container-cinza">
-                                        <div class="pesquisa">
-                                            <input type="search" placeholder="Pesquisar">
+                                        <div class="pesquisa mb-3">
+                                            <input type="search" id="pesquisaColaborador" placeholder="Pesquisar por nome...">
                                         </div>
 
-                                        <!--apagar a classe "placeholder" quando integrar o backkk-->
-                                        <div class="container-branco">
-                                            <div class="fotoPerfil">
+                                        <!-- Loading -->
+                                        <div id="loading-colaboradores" class="text-center py-3" style="display: none;">
+                                            <div class="spinner-border spinner-border-sm text-primary" role="status">
+                                                <span class="visually-hidden">Carregando...</span>
                                             </div>
-                                            <div class="informacoes">
-                                                <p>Nome: <span></span></p>
-                                                <div>
-                                                    <p>Turno: <span></span></p>
-                                                    <p>Local: <span></span></p>
-                                                </div>
-                                            </div>
-                                            <div class="checkbox">
-                                                <input type="checkbox" name="" id="">
-                                            </div>
+                                            <p class="mt-2 small">Buscando colaboradores...</p>
                                         </div>
 
+                                        <!-- Lista de colaboradores -->
+                                        <div id="lista-colaboradores">
+                                            <!-- Será preenchido via JavaScript -->
+                                        </div>
+                                        
+                                        <!-- Mensagem quando não há colaboradores -->
+                                        <div id="sem-colaboradores" class="text-center text-muted py-3" style="display: none;">
+                                            <i class="bi bi-person-x" style="font-size: 2rem;"></i>
+                                            <p class="mt-2">Nenhum colaborador disponível</p>
+                                        </div>
                                     </div>
 
                                 </div>
-                                <div class="pt-3 ps-3">
+                                <div class="pt-3 ps-3 pe-3">
                                     <div class="checkbox">
-                                        <input type="checkbox" name="ninguemIndicar" value="ninguemIndicar" id="">
-                                        <p class="ms-1">Não tenho ninguém para indicar</p>
+                                        <input type="checkbox" name="ninguemIndicar" id="checkboxSemSubstituto" 
+                                               onchange="toggleSubstituto()">
+                                        <label for="checkboxSemSubstituto" class="ms-2">
+                                            Não tenho ninguém para indicar
+                                        </label>
                                     </div>
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-vermelho"
-                                        data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-azul">Continuar</button>
+                                    <button type="button" class="btn btn-vermelho" data-bs-dismiss="modal">
+                                        Cancelar
+                                    </button>
+                                    <button type="button" class="btn btn-azul" id="btnEnviarSolicitacao" onclick="enviarSolicitacao()">
+                                        <span id="btnTexto">Enviar Solicitação</span>
+                                        <span id="btnLoading" style="display: none;">
+                                            <span class="spinner-border spinner-border-sm"></span>
+                                            Enviando...
+                                        </span>
+                                    </button>
                                 </div>
 
                             </div>
@@ -255,6 +276,10 @@
             integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
             crossorigin="anonymous"></script>
 
+        <!-- Importar validations.js e api.js -->
+        <script src="../assets/js/validations.js"></script>
+        <script src="../assets/js/api.js"></script>
+
         <script>
             const offcanvas = document.getElementById('offcanvasResponsive');
             const bodyContent = document.getElementById('offcanvasBodyContent');
@@ -264,6 +289,219 @@
             offcanvas.addEventListener('hide.bs.offcanvas', function () {
                 bodyContent.style.display = 'none';
             });
+        </script>
+        
+        <script>
+            let colaboradoresDisponiveis = [];
+            let substitutoSelecionado = null;
+            const modal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+
+            function mostrarMensagem(texto, tipo = 'info') {
+                const mensagemDiv = document.getElementById('mensagem');
+                const mensagemTexto = document.getElementById('mensagem-texto');
+                
+                mensagemDiv.className = `alert alert-${tipo} alert-dismissible fade show`;
+                mensagemTexto.innerHTML = texto;
+                mensagemDiv.style.display = 'block';
+                mensagemDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                setTimeout(() => fecharMensagem(), 5000);
+            }
+
+            function fecharMensagem() {
+                document.getElementById('mensagem').style.display = 'none';
+            }
+
+            function mostrarSucesso(texto) {
+                mostrarMensagem(texto, 'success');
+            }
+
+            function mostrarErro(texto) {
+                mostrarMensagem(texto, 'danger');
+            }
+
+            document.getElementById('btnContinuar').addEventListener('click', () => {
+                const dados = {
+                    data_solicitada: document.getElementById('dataSolicitada').value.trim(),
+                    local: document.getElementById('localSubstituicao').value,
+                    motivo: document.getElementById('motivo').value.trim()
+                };
+                
+                const validacao = validarFormularioSolicitacaoTroca(dados);
+                
+                if (!validacao.valido) {
+                    mostrarErro('<strong> Erro de Validação:</strong><br>' + 
+                               validacao.erros.map(e => `• ${e}`).join('<br>'));
+                    return;
+                }
+                
+                carregarColaboradores();
+            });
+
+            async function carregarColaboradores() {
+                const loading = document.getElementById('loading-colaboradores');
+                const listaDiv = document.getElementById('lista-colaboradores');
+                const semColaboradores = document.getElementById('sem-colaboradores');
+                
+                loading.style.display = 'block';
+                listaDiv.innerHTML = '';
+                semColaboradores.style.display = 'none';
+                
+                try {
+                    const response = await fetch('http://localhost:5000/api/usuarios?cargo=colaborador', {
+                        credentials: 'include'
+                    });
+                    const data = await response.json();
+                    
+                    if (!response.ok) throw new Error(data.error || 'Erro ao buscar colaboradores');
+                    
+                    const usuarioLogadoId = parseInt(localStorage.getItem('usuario_id'));
+                    
+                    colaboradoresDisponiveis = data.filter(u => u.id !== usuarioLogadoId);
+                    
+                    if (colaboradoresDisponiveis.length === 0) {
+                        semColaboradores.style.display = 'block';
+                    } else {
+                        renderizarColaboradores(colaboradoresDisponiveis);
+                    }
+                    
+                } catch (error) {
+                    console.error('Erro ao carregar colaboradores:', error);
+                    mostrarErro(' Erro ao carregar colaboradores: ' + error.message);
+                } finally {
+                    loading.style.display = 'none';
+                }
+            }
+
+            function renderizarColaboradores(colaboradores) {
+                const listaDiv = document.getElementById('lista-colaboradores');
+                
+                if (colaboradores.length === 0) {
+                    document.getElementById('sem-colaboradores').style.display = 'block';
+                    listaDiv.innerHTML = '';
+                    return;
+                }
+                
+                document.getElementById('sem-colaboradores').style.display = 'none';
+                
+                listaDiv.innerHTML = colaboradores.map(colaborador => `
+                    <div class="container-branco mb-2">
+                        <div class="fotoPerfil">
+                            <img src="../assets/img/${colaborador.foto || 'default.jpg'}" 
+                                 alt="${colaborador.nome}" 
+                                 style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                        </div>
+                        <div class="informacoes">
+                            <p><strong>${colaborador.nome}</strong> (${colaborador.apelido})</p>
+                            <div class="d-flex gap-3">
+                                <p><small>Turno: ${colaborador.turno}</small></p>
+                                <p><small>Local: ${colaborador.local}</small></p>
+                            </div>
+                        </div>
+                        <div class="checkbox">
+                            <input type="radio" 
+                                   name="substituto" 
+                                   value="${colaborador.id}" 
+                                   id="colaborador-${colaborador.id}"
+                                   onchange="selecionarSubstituto(${colaborador.id})">
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function selecionarSubstituto(id) {
+                substitutoSelecionado = id;
+                document.getElementById('checkboxSemSubstituto').checked = false;
+                console.log(' Substituto selecionado:', id);
+            }
+
+            function toggleSubstituto() {
+                const checkbox = document.getElementById('checkboxSemSubstituto');
+                
+                if (checkbox.checked) {
+                    document.querySelectorAll('input[name="substituto"]').forEach(radio => {
+                        radio.checked = false;
+                    });
+                    substitutoSelecionado = null;
+                    console.log(' Solicitação sem substituto indicado');
+                }
+            }
+
+            document.getElementById('pesquisaColaborador').addEventListener('input', (e) => {
+                const termo = e.target.value.toLowerCase().trim();
+                
+                if (termo === '') {
+                    renderizarColaboradores(colaboradoresDisponiveis);
+                } else {
+                    const filtrados = colaboradoresDisponiveis.filter(c => 
+                        c.nome.toLowerCase().includes(termo) ||
+                        c.apelido.toLowerCase().includes(termo)
+                    );
+                    renderizarColaboradores(filtrados);
+                }
+            });
+
+            async function enviarSolicitacao() {
+                const btnTexto = document.getElementById('btnTexto');
+                const btnLoading = document.getElementById('btnLoading');
+                const btnEnviar = document.getElementById('btnEnviarSolicitacao');
+                
+                btnTexto.style.display = 'none';
+                btnLoading.style.display = 'inline-block';
+                btnEnviar.disabled = true;
+                
+                const dados = {
+                    solicitante_id: parseInt(localStorage.getItem('usuario_id')),
+                    data_solicitada: document.getElementById('dataSolicitada').value,
+                    local: document.getElementById('localSubstituicao').value,
+                    motivo: document.getElementById('motivo').value.trim(),
+                    substituto_id: substitutoSelecionado
+                };
+                
+                console.log(' Enviando solicitação:', dados);
+                
+                try {
+                    const resultado = await TrocasAPI.solicitar(dados);
+                    
+                    console.log(' Solicitação enviada:', resultado);
+                    
+                    modal.hide();
+                    
+                    mostrarSucesso(`
+                        <strong> Solicitação enviada com sucesso!</strong><br>
+                        ${substitutoSelecionado 
+                            ? 'Aguarde a aprovação do coordenador e confirmação do substituto.' 
+                            : 'Aguarde a aprovação do coordenador.'}
+                    `);
+                    
+                    document.getElementById('formTroca').reset();
+                    substitutoSelecionado = null;
+                    document.getElementById('checkboxSemSubstituto').checked = false;
+                    
+                    document.getElementById('lista-colaboradores').innerHTML = '';
+                    document.getElementById('pesquisaColaborador').value = '';
+                    
+                } catch (error) {
+                    console.error(' Erro ao enviar solicitação:', error);
+                    mostrarErro(`
+                        <strong> Erro ao enviar solicitação:</strong><br>
+                        ${error.message || 'Erro desconhecido'}
+                    `);
+                } finally {
+                    btnTexto.style.display = 'inline-block';
+                    btnLoading.style.display = 'none';
+                    btnEnviar.disabled = false;
+                }
+            }
+
+            window.addEventListener('DOMContentLoaded', () => {
+                const hoje = new Date().toISOString().split('T')[0];
+                document.getElementById('dataSolicitada').setAttribute('min', hoje);
+                
+                console.log(' SolicitarTroca.html carregado - Data mínima:', hoje);
+            });
+
+            console.log(' Sistema de solicitação de troca integrado!');
         </script>
 </body>
 

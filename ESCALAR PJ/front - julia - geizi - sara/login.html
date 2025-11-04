@@ -135,21 +135,18 @@
                 integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
                 crossorigin="anonymous"></script>
 
+            <!-- Importar validations.js -->
+            <script src="assets/js/validations.js"></script>
+
             <script>
-                // Detecta automaticamente a origem (sempre use o servidor Flask!)
-                const API_URL = window.location.origin.includes('5001') 
-                    ? '' // Se já está em 5001, usa caminho relativo
-                    : 'http://127.0.0.1:5001'; // Se está em outra porta (Live Server), aponta para Flask
+                const API_BASE_URL = 'http://localhost:5000';
                 
-                console.log('API_URL:', API_URL || 'caminho relativo (mesma origem)');
+                console.log(' API Base URL:', API_BASE_URL);
                 
-                // Aviso se estiver usando Live Server ou file://
-                if (!window.location.origin.includes('5001')) {
-                    console.warn('⚠️ AVISO: Você está acessando de uma origem diferente!');
-                    console.warn('Para o login funcionar corretamente, acesse: http://127.0.0.1:5001/login');
-                    console.warn('O Live Server não é compatível com autenticação por sessão.');
+                if (window.location.protocol === 'file:' || !window.location.origin.includes('5000')) {
+                    console.warn(' AVISO: Acesse via servidor Flask para melhor compatibilidade!');
+                    console.warn('URL recomendada: http://localhost:5000/login');
                     
-                    // Mostra aviso visual
                     const avisoDiv = document.getElementById('aviso-origem');
                     if (avisoDiv) {
                         avisoDiv.className = 'alert alert-warning alert-dismissible fade show';
@@ -157,19 +154,22 @@
                     }
                 }
 
-                // mostrar mensagens
                 function mostrarMensagem(texto, tipo = 'info') {
                     const mensagemDiv = document.getElementById('mensagem');
                     const mensagemTexto = document.getElementById('mensagem-texto');
                     
                     mensagemDiv.className = `alert alert-${tipo} alert-dismissible fade show`;
-                    mensagemTexto.textContent = texto;
+                    mensagemTexto.innerHTML = texto; // Usar innerHTML para permitir HTML
                     mensagemDiv.style.display = 'block';
                     
-                    // Auto-fechar após 5 segundos
-                    setTimeout(() => {
-                        fecharMensagem();
-                    }, 5000);
+                    // Scroll para a mensagem
+                    mensagemDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    if (tipo !== 'danger') {
+                        setTimeout(() => {
+                            fecharMensagem();
+                        }, 5000);
+                    }
                 }
 
                 function fecharMensagem() {
@@ -177,7 +177,14 @@
                     mensagemDiv.style.display = 'none';
                 }
 
-                // login
+                function mostrarSucesso(texto) {
+                    mostrarMensagem(texto, 'success');
+                }
+
+                function mostrarErro(texto) {
+                    mostrarMensagem(texto, 'danger');
+                }
+
                 async function fazerLogin(event) {
                     event.preventDefault();
                     
@@ -185,44 +192,92 @@
                     const email = document.getElementById('email').value.trim();
                     const senha = document.getElementById('senha').value;
                     
-                    // Desabilita o botão 
+                    const validacao = validarFormularioLogin({ email, senha });
+                    
+                    if (!validacao.valido) {
+                        mostrarErro('<strong> Erro de Validação:</strong><br>' + 
+                                   validacao.erros.map(e => `• ${e}`).join('<br>'));
+                        return;
+                    }
+                    
                     btnEntrar.disabled = true;
+                    const textoOriginal = btnEntrar.innerHTML;
                     btnEntrar.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Entrando...';
                     
                     try {
-                        const response = await fetch(`${API_URL}/api/login`, {
+                        const response = await fetch(`${API_BASE_URL}/login`, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
                             },
-                            credentials: 'include',  // Importante: envia cookies de sessão
+                            credentials: 'include',
                             body: JSON.stringify({ email, senha })
                         });
                         
                         const data = await response.json();
                         
                         if (response.ok && data.success) {
-                            mostrarMensagem(data.message, 'success');
+                            localStorage.setItem('usuario_id', data.usuario_id);
+                            localStorage.setItem('usuario_nome', data.usuario_nome);
+                            localStorage.setItem('usuario_cargo', data.usuario_cargo);
                             
-                            // Aguarda 1 segundo e redireciona
+                            mostrarSucesso(`
+                                <strong> Login bem-sucedido!</strong><br>
+                                Bem-vindo(a), <strong>${data.usuario_nome}</strong>!<br>
+                                <small>Redirecionando...</small>
+                            `);
+                            
                             setTimeout(() => {
-                                window.location.href = data.redirect;  // Usa caminho relativo
-                            }, 1000);
+                                if (data.usuario_cargo === 'coordenador') {
+                                    window.location.href = 'userCoordenador/calendarioAdm.html';
+                                } else {
+                                    window.location.href = 'userColaborador/calendario.html';
+                                }
+                            }, 1500);
+                            
                         } else {
-                            mostrarMensagem(data.error || 'Erro ao fazer login', 'danger');
+                            let mensagemErro = data.error || 'Email ou senha incorretos';
+                            
+                            if (mensagemErro.includes('CPF')) {
+                                mensagemErro += '<br><small><i class="bi bi-info-circle"></i> <strong>Primeira vez?</strong> Use seu CPF como senha (somente números).</small>';
+                            }
+                            
+                            mostrarErro(`<strong> Erro ao fazer login:</strong><br>${mensagemErro}`);
+                            
                             btnEntrar.disabled = false;
-                            btnEntrar.innerHTML = '<i class="bi bi-box-arrow-in-right iconeEntrar"></i> Entrar';
+                            btnEntrar.innerHTML = textoOriginal;
                         }
+                        
                     } catch (error) {
-                        console.error('Erro:', error);
-                        mostrarMensagem('Erro ao conectar com o servidor. Verifique se o sistema está rodando.', 'danger');
+                        console.error('Erro de conexão:', error);
+                        mostrarErro(`
+                            <strong> Erro de Conexão!</strong><br>
+                            Não foi possível conectar ao servidor.<br>
+                            <small>Verifique se o Flask está rodando em <code>http://localhost:5000</code></small><br>
+                            <small>Execute: <code>python app.py</code></small>
+                        `);
+                        
                         btnEntrar.disabled = false;
-                        btnEntrar.innerHTML = '<i class="bi bi-box-arrow-in-right iconeEntrar"></i> Entrar';
+                        btnEntrar.innerHTML = textoOriginal;
                     }
                 }
 
-                // Remove a verificacao de sessao pra evitar refresh infinito
-                // A sessao so e verificada apos o login bem-sucedido
+                window.addEventListener('DOMContentLoaded', () => {
+                    const usuarioId = localStorage.getItem('usuario_id');
+                    const usuarioCargo = localStorage.getItem('usuario_cargo');
+                    
+                    if (usuarioId && usuarioCargo) {
+                        console.log(' Usuário já está logado, redirecionando...');
+                        
+                        if (usuarioCargo === 'coordenador') {
+                            window.location.href = 'userCoordenador/calendarioAdm.html';
+                        } else {
+                            window.location.href = 'userColaborador/calendario.html';
+                        }
+                    }
+                });
+
+                console.log(' Login.html carregado - Sistema de autenticação pronto!');
             </script>
 
 

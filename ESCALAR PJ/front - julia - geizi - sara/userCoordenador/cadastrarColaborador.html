@@ -327,7 +327,6 @@
 
     <!-- Script it back -->
     <script>
-        // Formatação automática do CPF
         document.getElementById('cpf').addEventListener('input', function(e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length <= 11) {
@@ -338,17 +337,14 @@
             }
         });
 
-        // Função q mostra mensagem
         function mostrarMensagem(tipo, texto) {
             const mensagemDiv = document.getElementById('mensagem');
             mensagemDiv.className = `alert alert-${tipo}`;
             mensagemDiv.innerHTML = texto;
             mensagemDiv.style.display = 'block';
             
-            // Scroll para a mensagem
             mensagemDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
             
-            // Remove a mensagem após 5 segundos
             setTimeout(() => {
                 mensagemDiv.style.display = 'none';
             }, 5000);
@@ -357,7 +353,6 @@
         document.getElementById('formCadastro').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Mostra loading
             const btnTexto = document.getElementById('btnTexto');
             const btnLoading = document.getElementById('btnLoading');
             const btnCadastrar = document.getElementById('btnCadastrar');
@@ -366,21 +361,19 @@
             btnLoading.style.display = 'inline-block';
             btnCadastrar.disabled = true;
             
-            // Coleta 
             const dados = {
                 nome: document.getElementById('nome').value.trim(),
                 email: document.getElementById('email').value.trim(),
                 apelido: document.getElementById('apelido').value.trim(),
-                cpf: document.getElementById('cpf').value.replace(/\D/g, ''), // Remove formatação
+                cpf: document.getElementById('cpf').value.replace(/\D/g, ''),
                 data_nascimento: document.getElementById('dataNascimento').value,
                 escala: document.getElementById('tipoEscala').value,
                 turno: document.getElementById('turno').value,
                 local: document.getElementById('local').value,
-                foto: 'default.jpg' // Foto padrão por enquanto, ve c muda dps
+                foto: 'default.jpg'
             };
             
             try {
-                // Envia pro back
                 const response = await fetch('http://localhost:5000/api/cadastrar-colaborador', {
                     method: 'POST',
                     headers: {
@@ -392,21 +385,18 @@
                 const resultado = await response.json();
                 
                 if (response.ok) {
-                    // Sucesso!
                     mostrarMensagem('success', `
-                        <strong>✅ Sucesso!</strong><br>
+                        <strong> Sucesso!</strong><br>
                         Colaborador <strong>${resultado.nome}</strong> cadastrado com sucesso!<br>
                         <strong>Email:</strong> ${resultado.email}<br>
                         <strong>Senha padrão:</strong> ${resultado.senha_padrao}<br>
                         <small>A senha é o CPF do colaborador.</small>
                     `);
                     
-                    // Limpa o formulário
                     document.getElementById('formCadastro').reset();
                     
                 } else {
-                    // Erroo
-                    let errosHtml = '<strong>❌ Erro ao cadastrar:</strong><ul>';
+                    let errosHtml = '<strong> Erro ao cadastrar:</strong><ul>';
                     
                     if (resultado.errors && Array.isArray(resultado.errors)) {
                         resultado.errors.forEach(erro => {
@@ -421,16 +411,14 @@
                 }
                 
             } catch (error) {
-                // Erro de conexão
                 console.error('Erro:', error);
                 mostrarMensagem('danger', `
-                    <strong>❌ Erro de Conexão!</strong><br>
+                    <strong> Erro de Conexão!</strong><br>
                     Não foi possível conectar ao servidor.<br>
                     <small>Verifique se o servidor Flask está rodando em http://localhost:5000</small><br>
                     <small>Execute: <code>python app_unificado.py</code></small>
                 `);
             } finally {
-                // Remove loading
                 btnTexto.style.display = 'inline-block';
                 btnLoading.style.display = 'none';
                 btnCadastrar.disabled = false;

@@ -153,22 +153,52 @@
 
                     <div class="espaco"></div>
                     <div class="centralizarConteiner">
-                        <h2>Cadastrar férias</h2>
+                        <h2>Solicitar Férias</h2>
+                        
+                        <!-- Mensagem de feedback -->
+                        <div id="mensagem" style="display: none;" class="alert alert-dismissible fade show mb-3" role="alert">
+                            <span id="mensagem-texto"></span>
+                            <button type="button" class="btn-close" onclick="fecharMensagem()"></button>
+                        </div>
+                        
                         <div class="container-cinza">
                             <div class="formulario-pedirTroca">
-                                <form action="">
+                                <form id="formFerias">
                                     <div class="mt-2">
-                                        <label for="dataSubstituicao">Data de início:</label>
-                                        <input type="date">
+                                        <label for="dataInicio">Data de Início: *</label>
+                                        <input type="date" id="dataInicio" name="dataInicio" required>
+                                        <small class="text-muted">A data deve ser futura</small>
                                     </div>
+                                    
+                                    <div class="mt-2">
+                                        <label for="dataFim">Data de Fim: *</label>
+                                        <input type="date" id="dataFim" name="dataFim" required>
+                                    </div>
+                                    
                                     <div class="mt-2 w-75">
-                                        <label for="qntdDias">Quantidade de dias:</label>
-                                        <input type="number" min="1" max="30">
+                                        <label for="diasSolicitados">Quantidade de Dias:</label>
+                                        <input type="number" id="diasSolicitados" name="diasSolicitados" 
+                                               min="5" max="30" readonly 
+                                               placeholder="Calculado automaticamente"
+                                               style="background-color: #f0f0f0;">
+                                        <small class="text-muted">Mínimo 5 dias, máximo 30 dias</small>
+                                    </div>
+                                    
+                                    <div class="mt-2">
+                                        <label for="observacoes">Observações: (Opcional)</label>
+                                        <textarea id="observacoes" name="observacoes" rows="3" 
+                                                  placeholder="Adicione informações adicionais sobre suas férias..."></textarea>
                                     </div>
                                 </form>
-                                <div class="d-flex justify-content-end mt-5">
-                                    <button type="button" class="btn btn-azul">
-                                        Enviar
+                                <div class="d-flex justify-content-end mt-4">
+                                    <button type="button" class="btn btn-azul" id="btnEnviar" onclick="enviarSolicitacao()">
+                                        <span id="btnTexto">
+                                            <i class="bi bi-send"></i> Solicitar Férias
+                                        </span>
+                                        <span id="btnLoading" style="display: none;">
+                                            <span class="spinner-border spinner-border-sm"></span>
+                                            Enviando...
+                                        </span>
                                     </button>
                                 </div>
                             </div>
@@ -186,6 +216,10 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 
+    <!-- Importar validations.js e api.js -->
+    <script src="../assets/js/validations.js"></script>
+    <script src="../assets/js/api.js"></script>
+
     <script>
         const offcanvas = document.getElementById('offcanvasResponsive');
         const bodyContent = document.getElementById('offcanvasBodyContent');
@@ -195,6 +229,153 @@
         offcanvas.addEventListener('hide.bs.offcanvas', function () {
             bodyContent.style.display = 'none';
         });
+    </script>
+    
+    <script>
+        // Mostra mensagens pro usuário (sucesso, erro, etc)
+        function mostrarMensagem(texto, tipo = 'info') {
+            const mensagemDiv = document.getElementById('mensagem');
+            const mensagemTexto = document.getElementById('mensagem-texto');
+            
+            mensagemDiv.className = `alert alert-${tipo} alert-dismissible fade show`;
+            mensagemTexto.innerHTML = texto;
+            mensagemDiv.style.display = 'block';
+            mensagemDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            setTimeout(() => fecharMensagem(), 6000);
+        }
+
+        function fecharMensagem() {
+            document.getElementById('mensagem').style.display = 'none';
+        }
+
+        function mostrarSucesso(texto) {
+            mostrarMensagem(texto, 'success');
+        }
+
+        function mostrarErro(texto) {
+            mostrarMensagem(texto, 'danger');
+        }
+
+        function calcularDiasSolicitados() {
+            const dataInicio = document.getElementById('dataInicio').value;
+            const dataFim = document.getElementById('dataFim').value;
+            const diasInput = document.getElementById('diasSolicitados');
+            
+            if (dataInicio && dataFim) {
+                if (validarPeriodo(dataInicio, dataFim)) {
+                    const dias = calcularDias(dataInicio, dataFim);
+                    diasInput.value = dias;
+                    
+                    if (dias < 5) {
+                        diasInput.style.borderColor = '#dc3545';
+                        diasInput.style.backgroundColor = '#f8d7da';
+                    } else if (dias > 30) {
+                        diasInput.style.borderColor = '#dc3545';
+                        diasInput.style.backgroundColor = '#f8d7da';
+                    } else {
+                        diasInput.style.borderColor = '#28a745';
+                        diasInput.style.backgroundColor = '#d4edda';
+                    }
+                } else {
+                    diasInput.value = '';
+                    diasInput.style.borderColor = '#dc3545';
+                    diasInput.style.backgroundColor = '#f8d7da';
+                }
+            } else {
+                diasInput.value = '';
+                diasInput.style.borderColor = '';
+                diasInput.style.backgroundColor = '#f0f0f0';
+            }
+        }
+
+        async function enviarSolicitacao() {
+            const btnTexto = document.getElementById('btnTexto');
+            const btnLoading = document.getElementById('btnLoading');
+            const btnEnviar = document.getElementById('btnEnviar');
+            
+            const dados = {
+                data_inicio: document.getElementById('dataInicio').value.trim(),
+                data_fim: document.getElementById('dataFim').value.trim(),
+                observacoes: document.getElementById('observacoes').value.trim()
+            };
+            
+            const validacao = validarFormularioSolicitacaoFerias(dados);
+            
+            if (!validacao.valido) {
+                mostrarErro('<strong> Erro de Validação:</strong><br>' + 
+                           validacao.erros.map(e => `• ${e}`).join('<br>'));
+                return;
+            }
+            
+            dados.usuario_id = parseInt(localStorage.getItem('usuario_id'));
+            dados.dias_solicitados = validacao.dias;
+            
+            btnTexto.style.display = 'none';
+            btnLoading.style.display = 'inline-block';
+            btnEnviar.disabled = true;
+            
+            console.log(' Enviando solicitação de férias:', dados);
+            
+            try {
+                const resultado = await FeriasAPI.solicitar(dados);
+                
+                console.log(' Férias solicitadas:', resultado);
+                
+                mostrarSucesso(`
+                    <strong> Solicitação de férias enviada com sucesso!</strong><br>
+                    <strong>Período:</strong> ${formatarDataBR(dados.data_inicio)} a ${formatarDataBR(dados.data_fim)}<br>
+                    <strong>Total:</strong> ${dados.dias_solicitados} dias<br>
+                    <small>Aguarde a aprovação do coordenador.</small>
+                `);
+                
+                document.getElementById('formFerias').reset();
+                document.getElementById('diasSolicitados').value = '';
+                document.getElementById('diasSolicitados').style.borderColor = '';
+                document.getElementById('diasSolicitados').style.backgroundColor = '#f0f0f0';
+                
+            } catch (error) {
+                console.error(' Erro ao solicitar férias:', error);
+                
+                let mensagemErro = error.message || 'Erro desconhecido';
+                
+                if (mensagemErro.includes('conflito')) {
+                    mensagemErro += '<br><small>Você já possui férias aprovadas neste período.</small>';
+                } else if (mensagemErro.includes('plantão')) {
+                    mensagemErro += '<br><small>Não é possível solicitar férias para dias com plantão agendado.</small>';
+                }
+                
+                mostrarErro(`
+                    <strong> Erro ao solicitar férias:</strong><br>
+                    ${mensagemErro}
+                `);
+                
+            } finally {
+                btnTexto.style.display = 'inline-block';
+                btnLoading.style.display = 'none';
+                btnEnviar.disabled = false;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const hoje = new Date().toISOString().split('T')[0];
+            document.getElementById('dataInicio').setAttribute('min', hoje);
+            document.getElementById('dataFim').setAttribute('min', hoje);
+            
+            document.getElementById('dataInicio').addEventListener('change', calcularDiasSolicitados);
+            document.getElementById('dataFim').addEventListener('change', calcularDiasSolicitados);
+            
+            document.getElementById('dataInicio').addEventListener('change', (e) => {
+                const dataInicio = e.target.value;
+                if (dataInicio) {
+                    document.getElementById('dataFim').setAttribute('min', dataInicio);
+                }
+            });
+            
+            console.log(' CadastrarFerias.html carregado - Data mínima:', hoje);
+        });
+
+        console.log(' Sistema de solicitação de férias integrado!');
     </script>
 </body>
 

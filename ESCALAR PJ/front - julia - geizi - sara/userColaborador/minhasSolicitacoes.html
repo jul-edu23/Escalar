@@ -155,30 +155,71 @@
                 <div class="container mt-4">
 
                     <div class="espaco"></div>
-                    <div class="row gap-3 p-3">
-                        <div class="col-sm container-cinza">
+                    
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>Minhas Solicitações</h2>
+                        <button class="btn btn-azul btn-sm" onclick="carregarSolicitacoes()">
+                            <i class="bi bi-arrow-clockwise"></i> Atualizar
+                        </button>
+                    </div>
+                    
+                    <!-- Mensagem de feedback -->
+                    <div id="mensagem" style="display: none;" class="alert alert-dismissible fade show mb-3" role="alert">
+                        <span id="mensagem-texto"></span>
+                        <button type="button" class="btn-close" onclick="fecharMensagem()"></button>
+                    </div>
+                    
+                    <!-- Filtros -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="filtroTipo">Filtrar por Tipo:</label>
+                            <select id="filtroTipo" class="form-select" onchange="aplicarFiltros()">
+                                <option value="todas"> Todas as Solicitações</option>
+                                <option value="trocas"> Trocas</option>
+                                <option value="ferias"> Férias</option>
+                                <option value="atestados"> Atestados</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="filtroStatus">Filtrar por Status:</label>
+                            <select id="filtroStatus" class="form-select" onchange="aplicarFiltros()">
+                                <option value="todos"> Todos os Status</option>
+                                <option value="pendente"> Pendente</option>
+                                <option value="aprovada"> Aprovado</option>
+                                <option value="recusada"> Recusado</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Loading -->
+                    <div id="loading" class="text-center py-5" style="display: none;">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                        <p class="mt-2">Carregando suas solicitações...</p>
+                    </div>
+                    
+                    <!-- Lista de Solicitações -->
+                    <div class="row gap-3 p-3" id="listaSolicitacoes">
+                        <!-- Colunas serão preenchidas dinamicamente -->
+                        <div class="col-sm container-cinza" id="colunaTrocas">
                             <h4 class="mb-3 text-center"> Trocas</h4>
-                            <div class="container-branco mb-3">
-                                <p class="mb-1">Data: <span></span></p>
-                                <p class="mb-1">Substituido por: <span"></span></p>
-                                <p class="mb-1">Motivo: <span></span></p>
-                                <p class="mb-1">Status: <span></span></p>
+                            <div id="listaTrocas">
+                                <p class="text-muted text-center">Nenhuma troca solicitada</p>
                             </div>
                         </div>
-                        <div class="col-sm container-cinza">
-                            <h4 class="mb-3 text-center">Férias</h4>
-                            <div class="container-branco mb-3">
-                                <p class="mb-1">Início: <span></span></p>
-                                <p class="mb-1">Fim: <span"></span></p>
-                                <p class="mb-1">Status: <span></span></p>
+                        
+                        <div class="col-sm container-cinza" id="colunaFerias">
+                            <h4 class="mb-3 text-center"> Férias</h4>
+                            <div id="listaFerias">
+                                <p class="text-muted text-center">Nenhuma férias solicitada</p>
                             </div>
                         </div>
-                        <div class="col-sm container-cinza">
-                            <h4 class="mb-3 text-center">Atestados</h4>
-                            <div class="container-branco mb-3">
-                                <p class="mb-1">Período: <span></span></p>
-                                <p class="mb-1">CID: <span></span></p>
-                                <p class="mb-1">Status: <span></span></p>
+                        
+                        <div class="col-sm container-cinza" id="colunaAtestados">
+                            <h4 class="mb-3 text-center"> Atestados</h4>
+                            <div id="listaAtestados">
+                                <p class="text-muted text-center">Nenhum atestado enviado</p>
                             </div>
                         </div>
                     </div>
@@ -194,6 +235,10 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 
+    <!-- Importar validations.js e api.js -->
+    <script src="../assets/js/validations.js"></script>
+    <script src="../assets/js/api.js"></script>
+
     <script>
         const offcanvas = document.getElementById('offcanvasResponsive');
         const bodyContent = document.getElementById('offcanvasBodyContent');
@@ -203,6 +248,214 @@
         offcanvas.addEventListener('hide.bs.offcanvas', function () {
             bodyContent.style.display = 'none';
         });
+    </script>
+    
+    <script>
+        // Guarda todas as solicitações pra poder filtrar depois
+        let todasTrocas = [];
+        let todasFerias = [];
+        let todosAtestados = [];
+        
+        // Mostra mensagens pro usuário
+        function mostrarMensagem(texto, tipo = 'info') {
+            const mensagemDiv = document.getElementById('mensagem');
+            const mensagemTexto = document.getElementById('mensagem-texto');
+            
+            mensagemDiv.className = `alert alert-${tipo} alert-dismissible fade show`;
+            mensagemTexto.innerHTML = texto;
+            mensagemDiv.style.display = 'block';
+            mensagemDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            setTimeout(() => fecharMensagem(), 6000);
+        }
+
+        function fecharMensagem() {
+            document.getElementById('mensagem').style.display = 'none';
+        }
+
+        function mostrarErro(texto) {
+            mostrarMensagem(texto, 'danger');
+        }
+
+        function obterBadgeStatus(status) {
+            const badges = {
+                'pendente': '<span class="badge bg-warning text-dark"> Pendente</span>',
+                'aprovada': '<span class="badge bg-success"> Aprovado</span>',
+                'recusada': '<span class="badge bg-danger"> Recusado</span>',
+                'aceita': '<span class="badge bg-success"> Aceito</span>',
+                'negada': '<span class="badge bg-danger"> Negado</span>',
+                'rejeitada': '<span class="badge bg-danger"> Rejeitado</span>'
+            };
+            return badges[status?.toLowerCase()] || `<span class="badge bg-secondary">${status}</span>`;
+        }
+
+        function renderizarTrocas(trocas) {
+            const container = document.getElementById('listaTrocas');
+            
+            if (!trocas || trocas.length === 0) {
+                container.innerHTML = '<p class="text-muted text-center">Nenhuma troca solicitada</p>';
+                return;
+            }
+            
+            container.innerHTML = trocas.map(troca => `
+                <div class="container-branco mb-3" data-tipo="troca" data-status="${troca.status}">
+                    <p class="mb-1"><strong> Data:</strong> ${formatarDataBR(troca.data_solicitada)}</p>
+                    <p class="mb-1"><strong> Local:</strong> ${troca.local || 'N/A'}</p>
+                    ${troca.substituto_nome ? 
+                        `<p class="mb-1"><strong> Substituído por:</strong> ${troca.substituto_nome}</p>` : 
+                        `<p class="mb-1 text-muted"><em>Sem substituto indicado</em></p>`
+                    }
+                    <p class="mb-1"><strong> Motivo:</strong> ${troca.motivo || 'Não informado'}</p>
+                    <p class="mb-1"><strong> Status:</strong> ${obterBadgeStatus(troca.status)}</p>
+                    ${troca.status === 'recusada' && troca.motivo_recusa ? 
+                        `<p class="mb-1 text-danger"><strong> Motivo da recusa:</strong> ${troca.motivo_recusa}</p>` : 
+                        ''
+                    }
+                    <p class="mb-0 text-muted"><small>Solicitado em: ${formatarDataBR(troca.data_solicitacao || troca.criado_em)}</small></p>
+                </div>
+            `).join('');
+        }
+
+        function renderizarFerias(ferias) {
+            const container = document.getElementById('listaFerias');
+            
+            if (!ferias || ferias.length === 0) {
+                container.innerHTML = '<p class="text-muted text-center">Nenhuma férias solicitada</p>';
+                return;
+            }
+            
+            container.innerHTML = ferias.map(f => `
+                <div class="container-branco mb-3" data-tipo="ferias" data-status="${f.status}">
+                    <p class="mb-1"><strong> Início:</strong> ${formatarDataBR(f.data_inicio)}</p>
+                    <p class="mb-1"><strong> Fim:</strong> ${formatarDataBR(f.data_fim)}</p>
+                    <p class="mb-1"><strong> Dias:</strong> ${f.dias_solicitados} dias</p>
+                    ${f.observacoes ? 
+                        `<p class="mb-1"><strong> Observações:</strong> ${f.observacoes}</p>` : 
+                        ''
+                    }
+                    <p class="mb-1"><strong> Status:</strong> ${obterBadgeStatus(f.status)}</p>
+                    ${f.status === 'rejeitada' && f.motivo_rejeicao ? 
+                        `<p class="mb-1 text-danger"><strong> Motivo da rejeição:</strong> ${f.motivo_rejeicao}</p>` : 
+                        ''
+                    }
+                    <p class="mb-0 text-muted"><small>Solicitado em: ${formatarDataBR(f.data_solicitacao || f.criado_em)}</small></p>
+                </div>
+            `).join('');
+        }
+
+        function renderizarAtestados(atestados) {
+            const container = document.getElementById('listaAtestados');
+            
+            if (!atestados || atestados.length === 0) {
+                container.innerHTML = '<p class="text-muted text-center">Nenhum atestado enviado</p>';
+                return;
+            }
+            
+            container.innerHTML = atestados.map(a => `
+                <div class="container-branco mb-3" data-tipo="atestados" data-status="${a.status}">
+                    <p class="mb-1"><strong> Período:</strong> ${formatarDataBR(a.data_inicio)} a ${formatarDataBR(a.data_fim)}</p>
+                    <p class="mb-1"><strong> Dias:</strong> ${a.dias_atestado} dias</p>
+                    <p class="mb-1"><strong> CID/Motivo:</strong> ${a.motivo || 'N/A'}</p>
+                    ${a.arquivo ? 
+                        `<p class="mb-1"><strong> Arquivo:</strong> <a href="${a.arquivo}" target="_blank">Ver atestado</a></p>` : 
+                        ''
+                    }
+                    <p class="mb-1"><strong> Status:</strong> ${obterBadgeStatus(a.status)}</p>
+                    ${a.status === 'negada' && a.motivo_negacao ? 
+                        `<p class="mb-1 text-danger"><strong> Motivo da negação:</strong> ${a.motivo_negacao}</p>` : 
+                        ''
+                    }
+                    <p class="mb-0 text-muted"><small>Enviado em: ${formatarDataBR(a.data_envio || a.criado_em)}</small></p>
+                </div>
+            `).join('');
+        }
+
+        async function carregarSolicitacoes() {
+            const loading = document.getElementById('loading');
+            loading.style.display = 'block';
+            
+            const usuarioId = parseInt(localStorage.getItem('usuario_id'));
+            
+            if (!usuarioId) {
+                mostrarErro(' Usuário não identificado. Faça login novamente.');
+                loading.style.display = 'none';
+                return;
+            }
+            
+            console.log(' Carregando solicitações do usuário:', usuarioId);
+            
+            try {
+                const [trocas, ferias, atestados] = await Promise.all([
+                    TrocasAPI.listarPorUsuario(usuarioId),
+                    FeriasAPI.listarPorUsuario(usuarioId),
+                    AtestadosAPI.listarPorUsuario(usuarioId)
+                ]);
+                
+                todasTrocas = trocas || [];
+                todasFerias = ferias || [];
+                todosAtestados = atestados || [];
+                
+                console.log(' Solicitações carregadas:', {
+                    trocas: todasTrocas.length,
+                    ferias: todasFerias.length,
+                    atestados: todosAtestados.length
+                });
+                
+                renderizarTrocas(todasTrocas);
+                renderizarFerias(todasFerias);
+                renderizarAtestados(todosAtestados);
+                
+                aplicarFiltros();
+                
+            } catch (error) {
+                console.error(' Erro ao carregar solicitações:', error);
+                mostrarErro(` Erro ao carregar solicitações: ${error.message}`);
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function aplicarFiltros() {
+            const filtroTipo = document.getElementById('filtroTipo').value;
+            const filtroStatus = document.getElementById('filtroStatus').value;
+            
+            console.log(' Aplicando filtros:', { tipo: filtroTipo, status: filtroStatus });
+            
+            let trocasFiltradas = todasTrocas;
+            let feriasFiltradas = todasFerias;
+            let atestadosFiltrados = todosAtestados;
+            
+            if (filtroStatus !== 'todos') {
+                trocasFiltradas = trocasFiltradas.filter(t => t.status?.toLowerCase() === filtroStatus);
+                feriasFiltradas = feriasFiltradas.filter(f => f.status?.toLowerCase() === filtroStatus);
+                atestadosFiltrados = atestadosFiltrados.filter(a => a.status?.toLowerCase() === filtroStatus);
+            }
+            
+            renderizarTrocas(trocasFiltradas);
+            renderizarFerias(feriasFiltradas);
+            renderizarAtestados(atestadosFiltrados);
+            
+            document.getElementById('colunaTrocas').style.display = 
+                (filtroTipo === 'todas' || filtroTipo === 'trocas') ? 'block' : 'none';
+            document.getElementById('colunaFerias').style.display = 
+                (filtroTipo === 'todas' || filtroTipo === 'ferias') ? 'block' : 'none';
+            document.getElementById('colunaAtestados').style.display = 
+                (filtroTipo === 'todas' || filtroTipo === 'atestados') ? 'block' : 'none';
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const usuarioId = localStorage.getItem('usuario_id');
+            if (!usuarioId) {
+                window.location.href = '../login.html';
+                return;
+            }
+            
+            carregarSolicitacoes();
+            
+            console.log(' MinhasSolicitacoes.html carregado');
+        });
+
+        console.log(' Sistema de minhas solicitações integrado!');
     </script>
 </body>
 

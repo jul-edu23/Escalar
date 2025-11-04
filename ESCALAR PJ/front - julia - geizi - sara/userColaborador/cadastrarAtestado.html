@@ -151,33 +151,74 @@
 
                     <div class="espaco"></div>
                     <div class="centralizarConteiner">
-                        <h2>Cadastrar Atestado</h2>
+                        <h2>Cadastrar Atestado Médico</h2>
+                        
+                        <!-- Mensagem de feedback -->
+                        <div id="mensagem" style="display: none;" class="alert alert-dismissible fade show mb-3" role="alert">
+                            <span id="mensagem-texto"></span>
+                            <button type="button" class="btn-close" onclick="fecharMensagem()"></button>
+                        </div>
+                        
                         <div class="container-cinza">
                             <div class="formulario-pedirTroca">
-                                <form action="">
+                                <form id="formAtestado">
                                     <div class="mt-2">
-                                        <label for="dataSubstituicao">Data:</label>
-                                        <input type="date">
+                                        <label for="dataInicio">Data de Início: *</label>
+                                        <input type="date" id="dataInicio" name="dataInicio" required>
+                                        <small class="text-muted">Data do primeiro dia de afastamento</small>
                                     </div>
+                                    
+                                    <div class="mt-2">
+                                        <label for="dataFim">Data de Fim: *</label>
+                                        <input type="date" id="dataFim" name="dataFim" required>
+                                        <small class="text-muted">Data do último dia de afastamento</small>
+                                    </div>
+                                    
                                     <div class="mt-2 d-flex">
                                         <div class="w-50 me-3 d-inline-block">
-                                            <label for="qntdDias">Quantidade de dias:</label>
-                                            <input type="number" min="1">
+                                            <label for="diasAtestado">Quantidade de Dias:</label>
+                                            <input type="number" id="diasAtestado" name="diasAtestado" 
+                                                   min="1" max="15" readonly 
+                                                   placeholder="Calculado"
+                                                   style="background-color: #f0f0f0;">
+                                            <small class="text-muted">Máximo 15 dias</small>
                                         </div>
                                         <div class="w-50 d-inline-block">
-                                            <label for="qntdDias">CID:</label>
-                                            <input type="text">
+                                            <label for="motivo">CID/Motivo: *</label>
+                                            <input type="text" id="motivo" name="motivo" 
+                                                   placeholder="Ex: CID Z76.3" 
+                                                   maxlength="50" required>
                                         </div>
                                     </div>
+                                    
                                     <div class="mt-2">
-                                        <label for="fotoAtestado">Anexar foto do atestado</label>
-                                        <input type="file">
+                                        <label for="arquivo">Anexar Foto do Atestado: *</label>
+                                        <input type="file" id="arquivo" name="arquivo" 
+                                               accept="image/*,.pdf" required>
+                                        <small class="text-muted">Formatos aceitos: JPG, PNG, PDF (máx 5MB)</small>
+                                    </div>
+                                    
+                                    <div class="mt-2" id="previewContainer" style="display: none;">
+                                        <label>Preview:</label>
+                                        <div id="previewImagem" class="border p-2 mt-1">
+                                            <img id="imgPreview" style="max-width: 100%; max-height: 300px;" />
+                                            <p id="pdfPreview" style="display: none;">
+                                                 <span id="nomeArquivo"></span> 
+                                                (<span id="tamanhoArquivo"></span>)
+                                            </p>
+                                        </div>
                                     </div>
 
                                 </form>
-                                <div class="d-flex justify-content-end mt-5">
-                                    <button type="button" class="btn btn-azul">
-                                        Enviar
+                                <div class="d-flex justify-content-end mt-4">
+                                    <button type="button" class="btn btn-azul" id="btnEnviar" onclick="enviarAtestado()">
+                                        <span id="btnTexto">
+                                            <i class="bi bi-send"></i> Enviar Atestado
+                                        </span>
+                                        <span id="btnLoading" style="display: none;">
+                                            <span class="spinner-border spinner-border-sm"></span>
+                                            Enviando...
+                                        </span>
                                     </button>
                                 </div>
                             </div>
@@ -195,6 +236,10 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 
+    <!-- Importar validations.js e api.js -->
+    <script src="../assets/js/validations.js"></script>
+    <script src="../assets/js/api.js"></script>
+
     <script>
         const offcanvas = document.getElementById('offcanvasResponsive');
         const bodyContent = document.getElementById('offcanvasBodyContent');
@@ -204,6 +249,214 @@
         offcanvas.addEventListener('hide.bs.offcanvas', function () {
             bodyContent.style.display = 'none';
         });
+    </script>
+    
+    <script>
+        // Mostra mensagens pro usuário (sucesso, erro, etc)
+        function mostrarMensagem(texto, tipo = 'info') {
+            const mensagemDiv = document.getElementById('mensagem');
+            const mensagemTexto = document.getElementById('mensagem-texto');
+            
+            mensagemDiv.className = `alert alert-${tipo} alert-dismissible fade show`;
+            mensagemTexto.innerHTML = texto;
+            mensagemDiv.style.display = 'block';
+            mensagemDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            setTimeout(() => fecharMensagem(), 6000);
+        }
+
+        function fecharMensagem() {
+            document.getElementById('mensagem').style.display = 'none';
+        }
+
+        function mostrarSucesso(texto) {
+            mostrarMensagem(texto, 'success');
+        }
+
+        function mostrarErro(texto) {
+            mostrarMensagem(texto, 'danger');
+        }
+
+        function calcularDiasAtestado() {
+            const dataInicio = document.getElementById('dataInicio').value;
+            const dataFim = document.getElementById('dataFim').value;
+            const diasInput = document.getElementById('diasAtestado');
+            
+            if (dataInicio && dataFim) {
+                if (validarPeriodo(dataInicio, dataFim)) {
+                    const dias = calcularDias(dataInicio, dataFim);
+                    diasInput.value = dias;
+                    
+                    if (dias > 15) {
+                        diasInput.style.borderColor = '#dc3545';
+                        diasInput.style.backgroundColor = '#f8d7da';
+                    } else if (dias < 1) {
+                        diasInput.style.borderColor = '#dc3545';
+                        diasInput.style.backgroundColor = '#f8d7da';
+                    } else {
+                        diasInput.style.borderColor = '#28a745';
+                        diasInput.style.backgroundColor = '#d4edda';
+                    }
+                } else {
+                    diasInput.value = '';
+                    diasInput.style.borderColor = '#dc3545';
+                    diasInput.style.backgroundColor = '#f8d7da';
+                }
+            } else {
+                diasInput.value = '';
+                diasInput.style.borderColor = '';
+                diasInput.style.backgroundColor = '#f0f0f0';
+            }
+        }
+
+        function mostrarPreviewArquivo(arquivo) {
+            const previewContainer = document.getElementById('previewContainer');
+            const imgPreview = document.getElementById('imgPreview');
+            const pdfPreview = document.getElementById('pdfPreview');
+            const nomeArquivo = document.getElementById('nomeArquivo');
+            const tamanhoArquivo = document.getElementById('tamanhoArquivo');
+            
+            const tamanhoMB = (arquivo.size / (1024 * 1024)).toFixed(2);
+            
+            if (arquivo.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imgPreview.src = e.target.result;
+                    imgPreview.style.display = 'block';
+                    pdfPreview.style.display = 'none';
+                    previewContainer.style.display = 'block';
+                };
+                reader.readAsDataURL(arquivo);
+            } else if (arquivo.type === 'application/pdf') {
+                nomeArquivo.textContent = arquivo.name;
+                tamanhoArquivo.textContent = `${tamanhoMB} MB`;
+                imgPreview.style.display = 'none';
+                pdfPreview.style.display = 'block';
+                previewContainer.style.display = 'block';
+            }
+        }
+
+        async function enviarAtestado() {
+            const btnTexto = document.getElementById('btnTexto');
+            const btnLoading = document.getElementById('btnLoading');
+            const btnEnviar = document.getElementById('btnEnviar');
+            
+            const arquivo = document.getElementById('arquivo').files[0];
+            
+            const dados = {
+                data_inicio: document.getElementById('dataInicio').value.trim(),
+                data_fim: document.getElementById('dataFim').value.trim(),
+                motivo: document.getElementById('motivo').value.trim(),
+                arquivo: arquivo
+            };
+            
+            const validacao = validarFormularioCadastroAtestado(dados);
+            
+            if (!validacao.valido) {
+                mostrarErro('<strong> Erro de Validação:</strong><br>' + 
+                           validacao.erros.map(e => `• ${e}`).join('<br>'));
+                return;
+            }
+            
+            dados.usuario_id = parseInt(localStorage.getItem('usuario_id'));
+            dados.dias_atestado = validacao.dias;
+            
+            const formData = new FormData();
+            formData.append('usuario_id', dados.usuario_id);
+            formData.append('data_inicio', dados.data_inicio);
+            formData.append('data_fim', dados.data_fim);
+            formData.append('dias_atestado', dados.dias_atestado);
+            formData.append('motivo', dados.motivo);
+            formData.append('arquivo', dados.arquivo);
+            
+            btnTexto.style.display = 'none';
+            btnLoading.style.display = 'inline-block';
+            btnEnviar.disabled = true;
+            
+            console.log(' Enviando atestado médico:', {
+                usuario_id: dados.usuario_id,
+                periodo: `${dados.data_inicio} a ${dados.data_fim}`,
+                dias: dados.dias_atestado,
+                motivo: dados.motivo,
+                arquivo: dados.arquivo.name
+            });
+            
+            try {
+                const resultado = await AtestadosAPI.enviar(formData);
+                
+                console.log(' Atestado enviado:', resultado);
+                
+                mostrarSucesso(`
+                    <strong> Atestado médico enviado com sucesso!</strong><br>
+                    <strong>Período:</strong> ${formatarDataBR(dados.data_inicio)} a ${formatarDataBR(dados.data_fim)}<br>
+                    <strong>Total:</strong> ${dados.dias_atestado} dias<br>
+                    <strong>Motivo:</strong> ${dados.motivo}<br>
+                    <small>Aguarde a análise do coordenador.</small>
+                `);
+                
+                document.getElementById('formAtestado').reset();
+                document.getElementById('diasAtestado').value = '';
+                document.getElementById('diasAtestado').style.borderColor = '';
+                document.getElementById('diasAtestado').style.backgroundColor = '#f0f0f0';
+                document.getElementById('previewContainer').style.display = 'none';
+                
+            } catch (error) {
+                console.error(' Erro ao enviar atestado:', error);
+                
+                let mensagemErro = error.message || 'Erro desconhecido';
+                
+                if (mensagemErro.includes('tamanho')) {
+                    mensagemErro += '<br><small>O arquivo deve ter no máximo 5MB.</small>';
+                } else if (mensagemErro.includes('formato')) {
+                    mensagemErro += '<br><small>Envie apenas imagens (JPG, PNG) ou PDF.</small>';
+                }
+                
+                mostrarErro(`
+                    <strong> Erro ao enviar atestado:</strong><br>
+                    ${mensagemErro}
+                `);
+                
+            } finally {
+                btnTexto.style.display = 'inline-block';
+                btnLoading.style.display = 'none';
+                btnEnviar.disabled = false;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const hoje = new Date().toISOString().split('T')[0];
+            document.getElementById('dataInicio').setAttribute('max', hoje);
+            document.getElementById('dataFim').setAttribute('max', hoje);
+            
+            document.getElementById('dataInicio').addEventListener('change', calcularDiasAtestado);
+            document.getElementById('dataFim').addEventListener('change', calcularDiasAtestado);
+            
+            document.getElementById('dataInicio').addEventListener('change', (e) => {
+                const dataInicio = e.target.value;
+                if (dataInicio) {
+                    document.getElementById('dataFim').setAttribute('min', dataInicio);
+                }
+            });
+            
+            document.getElementById('arquivo').addEventListener('change', (e) => {
+                const arquivo = e.target.files[0];
+                if (arquivo) {
+                    const tamanhoMB = arquivo.size / (1024 * 1024);
+                    if (tamanhoMB > 5) {
+                        mostrarErro(' O arquivo deve ter no máximo 5MB!');
+                        e.target.value = '';
+                        document.getElementById('previewContainer').style.display = 'none';
+                        return;
+                    }
+                    
+                    mostrarPreviewArquivo(arquivo);
+                }
+            });
+            
+            console.log(' CadastrarAtestado.html carregado - Data máxima:', hoje);
+        });
+
+        console.log(' Sistema de cadastro de atestado integrado!');
     </script>
 </body>
 
