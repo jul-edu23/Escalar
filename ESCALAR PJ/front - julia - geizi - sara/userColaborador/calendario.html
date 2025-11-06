@@ -59,7 +59,6 @@
         }
     </style>
 
-
     <!--******************************** ATENÇÃO *****************************-->
     <!--Os links para o bootstrap já estão todos nessa página, não precisa adicionar nenhum outro link; e eu apaguei os links do tailwind, por isso o calendário vai estar todo deesconfigurado. É so alterar as classes para as classes do bootstrap-->
 </head>
@@ -69,7 +68,7 @@
     <!-- Cabeçalho -->
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid mx-5 p-3">
+            <div class="container-fluid mx-5 py-1">
                 <a class="navbar-brand" href="#">
                     <img src="../assets/img/escalar-removebg-preview.png" width="150rem" height="auto" alt="Escalar">
                 </a>
@@ -132,14 +131,20 @@
     <!--PARTE DO CALENDÁRIO-->
     <!--alterar as classes para o bootstrap-->
     <!--lembrar de deixar reponsivo para MOBILE também-->
-    <main class="container py-4 py-lg-5">
+    <main class="container mt-0 pt-2 pb-4" style="margin-top: 20px !important;">
+        
+        <!-- Alerta de demonstração (será ocultado quando houver usuário logado) -->
+        <div id="alertDemo" class="alert alert-info alert-dismissible fade show" role="alert">
+            <strong>📅 Modo Demonstração</strong> - Você está visualizando dados de exemplo. 
+            <br>Para ver seus dados reais, faça login através do sistema.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        
         <div class="row g-4">
 
             <div class="col-12 col-lg-9">
                 <div class="d-flex align-items-center mb-4" style="gap: 1rem;">
                     <select id="month-select" class="form-select fw-bold" style="width: auto; font-size: 1.5rem;">
-                    </select>
-                    <select id="year-select" class="form-select fw-bold" style="width: auto; font-size: 1.5rem;">
                     </select>
                 </div>
 
@@ -157,11 +162,17 @@
 
                     <!-- Grid js -->
                     <div id="calendar-grid" class="d-grid" style="grid-template-columns: repeat(7, 1fr); gap: 0.5rem;">
+                        <!-- Loading spinner -->
+                        <div class="text-center py-5" style="grid-column: 1 / -1;">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Carregando calendário...</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <aside class="col-12 col-lg-3">
+            <aside class="col-12 col-lg-3" style="margin-top: 70px;">
                 <h3 class="fs-5 fw-semibold mb-3">Legenda</h3>
                 <div class="d-flex flex-column" style="gap: 0.75rem;">
                     <div class="d-flex align-items-center">
@@ -205,10 +216,45 @@
         </div>
     </div>
 
-    <script src="../assets/js/JScolaborador/calendario.js"></script>
+    <!-- Definir funções globais ANTES dos scripts do Google -->
+    <script>
+        console.log('🔧 Definindo funções globais gapiLoaded e gisLoaded...');
+        
+        // Handler para erros de carregamento de scripts
+        window.addEventListener('error', function(e) {
+            if (e.filename && (e.filename.includes('googleapis') || e.filename.includes('google'))) {
+                console.error('❌ Erro ao carregar script do Google:', e.filename, e.message);
+            }
+        }, true);
+        
+        window.gapiLoaded = function() {
+            console.log('📡 gapiLoaded() global chamada');
+            if (window.initGoogleCalendar && window.initGoogleCalendar.gapiLoaded) {
+                window.initGoogleCalendar.gapiLoaded();
+            }
+        };
+        
+        window.gisLoaded = function() {
+            console.log('📡 gisLoaded() global chamada');
+            if (window.initGoogleCalendar && window.initGoogleCalendar.gisLoaded) {
+                window.initGoogleCalendar.gisLoaded();
+            }
+        };
+    </script>
+    
+    <!-- Scripts do Google Calendar API -->
+        
+    <!-- Script do calendário -->
+    <script src="../assets/js/JScolaborador/calendario_simples.js"></script>
+    
+    <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
+</body>
+
+</html>
+
 </body>
 
 </html>

@@ -90,84 +90,76 @@
     </button>
 
     <!--CALENDÁRIO-->
-    <!--alterar as classees para serem compativeis com o bootstrap-->
-    <!--deixar responsivo para mobile tambem-->
     <!-- Conteúdo Principal -->
-    <main class="container mx-auto p-6 lg:p-12">
-        <div class="flex flex-col lg:flex-row gap-8">
+    <main class="container mt-4 pt-2 pb-4">
+        <div class="row g-4">
 
             <!-- Calendário (Esquerda) -->
-            <div class="flex-grow">
-                <!-- Seletor de Mês/Ano e Título -->
-                <div class="flex justify-between items-center mb-6">
-                    <div class="flex items-center space-x-4">
-                        <select id="month-select"
-                            class="text-3xl font-bold text-gray-800 bg-transparent border-none focus:ring-0 p-0 pr-8"
-                            style="appearance: none; background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 20%27 fill=%27currentColor%27%3e%3cpath fill-rule=%27evenodd%27 d=%27M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z%27 clip-rule=%27evenodd%27 /%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 0.1rem center; background-size: 1.5em 1.5em;">
-                        </select>
-                        <select id="year-select"
-                            class="text-3xl font-bold text-gray-800 bg-transparent border-none focus:ring-0 p-0 pr-8"
-                            style="appearance: none; background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 20%27 fill=%27currentColor%27%3e%3cpath fill-rule=%27evenodd%27 d=%27M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z%27 clip-rule=%27evenodd%27 /%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 0.1rem center; background-size: 1.5em 1.5em;">
-                        </select>
-                    </div>
-                    <div class="flex items-center space-x-2 text-xl font-semibold text-gray-700">
-                        <span>Quadro geral</span>
-                        <button class="text-gray-500 hover:text-gray-900">
-                            <i class="fas fa-bars"></i>
+            <div class="col-12 col-lg-9">
+                <!-- Seletor de Mês e Título -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <select id="month-select" class="form-select fw-bold" style="width: auto; font-size: 1.5rem;">
+                    </select>
+                    <select id="year-select" class="form-select fw-bold d-none" style="width: auto; font-size: 1.5rem;">
+                    </select>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="fs-5 fw-semibold">Quadro geral</span>
+                        <button class="btn btn-sm btn-link text-secondary">
+                            <i class="bi bi-list"></i>
                         </button>
                     </div>
                 </div>
 
                 <!-- Container do Calendário -->
-                <div class="bg-gray-200 p-4 rounded-lg shadow-inner">
+                <div class="bg-light p-4 rounded shadow-sm">
                     <!-- Dias da Semana -->
-                    <div class="grid grid-cols-7 gap-2 mb-2">
-                        <div class="text-center font-semibold text-gray-600">Dom</div>
-                        <div class="text-center font-semibold text-gray-600">Seg</div>
-                        <div class="text-center font-semibold text-gray-600">Ter</div>
-                        <div class="text-center font-semibold text-gray-600">Qua</div>
-                        <div class="text-center font-semibold text-gray-600">Qui</div>
-                        <div class="text-center font-semibold text-gray-600">Sex</div>
-                        <div class="text-center font-semibold text-gray-600">Sáb</div>
+                    <div class="d-grid mb-2" style="grid-template-columns: repeat(7, 1fr); gap: 0.5rem;">
+                        <div class="text-center fw-semibold text-muted">Dom</div>
+                        <div class="text-center fw-semibold text-muted">Seg</div>
+                        <div class="text-center fw-semibold text-muted">Ter</div>
+                        <div class="text-center fw-semibold text-muted">Qua</div>
+                        <div class="text-center fw-semibold text-muted">Qui</div>
+                        <div class="text-center fw-semibold text-muted">Sex</div>
+                        <div class="text-center fw-semibold text-muted">Sáb</div>
                     </div>
 
                     <!-- Grid dos Dias (será preenchido pelo JS) -->
-                    <div id="calendar-grid" class="grid grid-cols-7 gap-2">
+                    <div id="calendar-grid" class="d-grid" style="grid-template-columns: repeat(7, 1fr); gap: 0.5rem;">
                         <!-- Dias aparecerão aqui -->
                     </div>
                 </div>
             </div>
 
-            <!-- Legenda (Direita - Atualizada para Coordenador) -->
-            <aside class="w-full lg:w-64 flex-shrink-0">
-                <h3 class="text-xl font-semibold text-gray-800 mb-4">Legenda</h3>
-                <div class="space-y-3">
-                    <div class="flex items-center">
-                        <span class="h-5 w-5 rounded-full escalar-trabalho mr-3"></span>
+            <!-- Legenda (Direita) -->
+            <aside class="col-12 col-lg-3" style="margin-top: 70px;">
+                <h3 class="fs-5 fw-semibold mb-3">Legenda</h3>
+                <div class="d-flex flex-column" style="gap: 0.75rem;">
+                    <div class="d-flex align-items-center">
+                        <span class="rounded-circle bg-primary me-3" style="width: 20px; height: 20px;"></span>
                         <span>Dia de Trabalho</span>
                     </div>
-                    <div class="flex items-center">
-                        <span class="h-5 w-5 rounded-full escalar-folga mr-3"></span>
+                    <div class="d-flex align-items-center">
+                        <span class="rounded-circle me-3" style="width: 20px; height: 20px; background-color: rgba(127, 38, 193, 0.5);"></span>
                         <span>Dia de Folga</span>
                     </div>
-                    <div class="flex items-center">
-                        <span class="h-5 w-5 rounded-full escalar-falta mr-3"></span>
+                    <div class="d-flex align-items-center">
+                        <span class="rounded-circle bg-danger me-3" style="width: 20px; height: 20px;"></span>
                         <span>Falta</span>
                     </div>
-                    <div class="flex items-center">
-                        <span class="h-5 w-5 rounded-full escalar-falta-justificada mr-3"></span>
+                    <div class="d-flex align-items-center">
+                        <span class="rounded-circle bg-warning me-3" style="width: 20px; height: 20px;"></span>
                         <span>Falta Justificada</span>
                     </div>
-                    <div class="flex items-center">
-                        <span class="h-5 w-5 rounded-full escalar-ferias mr-3"></span>
+                    <div class="d-flex align-items-center">
+                        <span class="rounded-circle bg-info me-3" style="width: 20px; height: 20px;"></span>
                         <span>Férias</span>
                     </div>
-                    <div class="flex items-center">
-                        <span class="h-5 w-5 rounded-full escalar-substituicao mr-3"></span>
+                    <div class="d-flex align-items-center">
+                        <span class="rounded-circle me-3" style="width: 20px; height: 20px; background-color: #ffcc00;"></span>
                         <span>Substituição</span>
                     </div>
-                    <div class="flex items-center">
-                        <span class="h-5 w-5 rounded-full escalar-atestado mr-3"></span>
+                    <div class="d-flex align-items-center">
+                        <span class="rounded-circle me-3" style="width: 20px; height: 20px; background-color: #865300;"></span>
                         <span>Atestado</span>
                     </div>
                 </div>
@@ -175,6 +167,102 @@
         </div>
     </main>
     <!--Fim do calendário-->
+
+    <!-- Modal de Detalhes do Dia -->
+    <div class="modal fade" id="modalDetalhesDia" tabindex="-1" aria-labelledby="modalDetalhesDiaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="modalDetalhesDiaLabel">
+                        <i class="bi bi-calendar-day"></i> 
+                        <span id="tituloDataModal">Detalhes do Dia</span>
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Loading -->
+                    <div id="modalLoading" class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                        <p class="mt-3 text-muted">Buscando colaboradores...</p>
+                    </div>
+
+                    <!-- Conteúdo do Modal -->
+                    <div id="modalConteudo" class="d-none">
+                        <!-- Resumo -->
+                        <div class="alert alert-info d-flex align-items-center mb-4" role="alert">
+                            <i class="bi bi-info-circle-fill me-2"></i>
+                            <div>
+                                <strong id="resumoTotal">0 colaboradores</strong> escalados para este dia
+                            </div>
+                        </div>
+
+                        <!-- Abas de Status -->
+                        <ul class="nav nav-tabs mb-3" id="statusTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="trabalho-tab" data-bs-toggle="tab" data-bs-target="#trabalho-panel" type="button" role="tab">
+                                    <i class="bi bi-briefcase-fill"></i> Trabalho <span class="badge bg-primary ms-1" id="countTrabalho">0</span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="folga-tab" data-bs-toggle="tab" data-bs-target="#folga-panel" type="button" role="tab">
+                                    <i class="bi bi-moon-fill"></i> Folga <span class="badge bg-secondary ms-1" id="countFolga">0</span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="ferias-tab" data-bs-toggle="tab" data-bs-target="#ferias-panel" type="button" role="tab">
+                                    <i class="bi bi-airplane-fill"></i> Férias <span class="badge bg-info ms-1" id="countFerias">0</span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="atestado-tab" data-bs-toggle="tab" data-bs-target="#atestado-panel" type="button" role="tab">
+                                    <i class="bi bi-file-medical-fill"></i> Atestado <span class="badge bg-warning ms-1" id="countAtestado">0</span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="substituicao-tab" data-bs-toggle="tab" data-bs-target="#substituicao-panel" type="button" role="tab">
+                                    <i class="bi bi-arrow-repeat"></i> Substituição <span class="badge bg-warning ms-1" id="countSubstituicao">0</span>
+                                </button>
+                            </li>
+                        </ul>
+
+                        <!-- Conteúdo das Abas -->
+                        <div class="tab-content" id="statusTabsContent">
+                            <!-- Trabalho -->
+                            <div class="tab-pane fade show active" id="trabalho-panel" role="tabpanel">
+                                <div id="listaTrabalho"></div>
+                            </div>
+                            <!-- Folga -->
+                            <div class="tab-pane fade" id="folga-panel" role="tabpanel">
+                                <div id="listaFolga"></div>
+                            </div>
+                            <!-- Férias -->
+                            <div class="tab-pane fade" id="ferias-panel" role="tabpanel">
+                                <div id="listaFerias"></div>
+                            </div>
+                            <!-- Atestado -->
+                            <div class="tab-pane fade" id="atestado-panel" role="tabpanel">
+                                <div id="listaAtestado"></div>
+                            </div>
+                            <!-- Substituição -->
+                            <div class="tab-pane fade" id="substituicao-panel" role="tabpanel">
+                                <div id="listaSubstituicao"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle"></i> Fechar
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btnExportarDia">
+                        <i class="bi bi-download"></i> Exportar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal de Notificações -->
     <div id="modalNotificacoes" class="modal-notificacoes shadow-lg">
@@ -332,13 +420,13 @@
         </div>
     </div>
 
-    <script src="../assets/js/JScoordenador/calendarioADM.js"></script>
+    <!-- Script do calendário do coordenador -->
+    <script src="../assets/js/JScoordenador/calendarioADM_completo.js"></script>
+    
+    <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
-
-    <!-- Link para o JavaScript do Coordenador -->
-    <script src="ccalendario.js"></script>
 </body>
 
 </html>

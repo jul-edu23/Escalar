@@ -3,9 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const monthSelect = document.getElementById('month-select');
     const yearSelect = document.getElementById('year-select');
     const calendarGrid = document.getElementById('calendar-grid');
-    const notifyBtn = document.getElementById('notify-btn');
-    const closeNotifyBtn = document.getElementById('close-notify-btn');
-    const notificationPanel = document.getElementById('notification-panel');
 
     const months = [
         'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
@@ -106,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // dias antes 1 vazio
         for (let i = 0; i < firstDay; i++) {
             const emptyCell = document.createElement('div');
-            emptyCell.className = 'h-20 sm:h-24 rounded-lg bg-gray-200'; // Célula vazia no tom do fundo
+            emptyCell.style.minHeight = '70px'; // Célula vazia no tom do fundo
             calendarGrid.appendChild(emptyCell);
         }
 
@@ -116,10 +113,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
             
             const status = scheduleData[dateString];
-            const statusClass = status ? statusClasses[status] : 'bg-gray-100 text-gray-700'; // Dia sem status
+            const statusClass = status ? statusClasses[status] : 'bg-white border'; // Dia sem status
 
             // Adicionei 'flex items-center justify-center' para centralizar o número
-            dayCell.className = `h-20 sm:h-24 rounded-lg p-2 font-bold text-lg shadow ${statusClass} flex items-center justify-center`;
+            dayCell.className = `rounded p-2 fw-bold fs-5 shadow-sm ${statusClass} d-flex align-items-center justify-content-center`;
+            dayCell.style.minHeight = '70px';
             dayCell.textContent = day;
             calendarGrid.appendChild(dayCell);
         }
@@ -134,15 +132,6 @@ document.addEventListener('DOMContentLoaded', function() {
     yearSelect.addEventListener('change', () => {
         currentDate.setFullYear(yearSelect.value);
         generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
-    });
-
-    // Notificaçõessss
-    notifyBtn.addEventListener('click', () => {
-        notificationPanel.classList.remove('hidden');
-    });
-
-    closeNotifyBtn.addEventListener('click', () => {
-        notificationPanel.classList.add('hidden');
     });
 
     // geração veyr
