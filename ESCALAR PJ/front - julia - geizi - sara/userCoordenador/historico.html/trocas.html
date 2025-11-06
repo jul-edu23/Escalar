@@ -46,7 +46,7 @@
                     <div class="menu-lateral">
                         <ul class="nav nav-pills flex-column mb-auto" id="menu">
                             <li class="nav-item">
-                                <a href="../quadroColaboradores.htm" class="nav-link text-white">Quadro de colaboradores</a>
+                                <a href="../quadroColaboradores.html" class="nav-link text-white">Quadro de colaboradores</a>
                             </li>
                             <li class="nav-item">
                                 <a href="../solicitacoes.html" class="nav-link text-white">Solicitações</a>
@@ -97,7 +97,7 @@
                 <div class="menu-lateral">
                     <ul class="nav nav-pills flex-column mb-auto" id="menu">
                         <li class="nav-item">
-                            <a href="../quadroColaboradores.htm" class="nav-link text-white">Quadro de colaboradores</a>
+                            <a href="../quadroColaboradores.html" class="nav-link text-white">Quadro de colaboradores</a>
                         </li>
                         <li class="nav-item">
                             <a href="../solicitacoes.html" class="nav-link text-white">Solicitações</a>
@@ -150,39 +150,18 @@
                         </div>
                         <ul class="navbar-nav ms-auto">
 
-                            <li class="nav-item me-3">
-                                <a class="nav-link" href="#">
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="23" viewBox="0 0 37 34" fill="none">
-                                        <g clip-path="url(#clip0_230_407)">
-                                            <path
-                                                d="M18.5 33.9998C19.7266 33.9998 20.903 33.5521 21.7704 32.755C22.6377 31.958 23.125 30.877 23.125 29.7498H13.875C13.875 30.877 14.3623 31.958 15.2296 32.755C16.097 33.5521 17.2734 33.9998 18.5 33.9998ZM20.8009 2.3352C20.8332 2.03972 20.7977 1.74132 20.6968 1.45922C20.5959 1.17712 20.4317 0.917588 20.2149 0.697371C19.9981 0.477153 19.7335 0.301136 19.4381 0.180669C19.1427 0.0602031 18.8232 -0.00203705 18.5 -0.00203705C18.1768 -0.00203705 17.8573 0.0602031 17.5619 0.180669C17.2665 0.301136 17.0019 0.477153 16.7851 0.697371C16.5683 0.917588 16.4041 1.17712 16.3032 1.45922C16.2023 1.74132 16.1668 2.03972 16.1991 2.3352C13.5849 2.82299 11.2347 4.12639 9.54673 6.02448C7.85879 7.92256 6.93696 10.2986 6.9375 12.7498C6.9375 15.0831 5.78125 25.4998 2.3125 27.6248H34.6875C31.2188 25.4998 30.0625 15.0831 30.0625 12.7498C30.0625 7.60732 26.085 3.31482 20.8009 2.3352Z"
-                                                fill="#00476C" />
-                                        </g>
-                                        <defs>
-                                            <clipPath id="clip0_230_407">
-                                                <rect width="37" height="34" fill="white" />
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
+                            <li class="nav-item position-relative me-3">
+                                <a class="nav-link" href="#" id="sinoNotificacoes">
+                                    <i class="bi bi-bell fs-5"></i>
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notification-badge" 
+                                          id="badgeNotificacoes" style="display: none;">
+                                        0
+                                    </span>
                                 </a>
                             </li>
                             <li class="nav-item me-3">
                                 <a class="nav-link" href="#">
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="29" viewBox="0 0 52 53" fill="none">
-                                        <g clip-path="url(#clip0_230_403)">
-                                            <path
-                                                d="M35.75 19.875C35.75 22.5106 34.7228 25.0382 32.8943 26.9019C31.0658 28.7655 28.5859 29.8125 26 29.8125C23.4141 29.8125 20.9342 28.7655 19.1057 26.9019C17.2772 25.0382 16.25 22.5106 16.25 19.875C16.25 17.2394 17.2772 14.7118 19.1057 12.8481C20.9342 10.9845 23.4141 9.9375 26 9.9375C28.5859 9.9375 31.0658 10.9845 32.8943 12.8481C34.7228 14.7118 35.75 17.2394 35.75 19.875Z"
-                                                fill="#00476C" />
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M0 26.5C0 19.4718 2.73928 12.7314 7.61522 7.76167C12.4912 2.79196 19.1044 0 26 0C32.8956 0 39.5088 2.79196 44.3848 7.76167C49.2607 12.7314 52 19.4718 52 26.5C52 33.5282 49.2607 40.2686 44.3848 45.2383C39.5088 50.208 32.8956 53 26 53C19.1044 53 12.4912 50.208 7.61522 45.2383C2.73928 40.2686 0 33.5282 0 26.5ZM26 3.3125C21.7158 3.31273 17.5187 4.54595 13.8918 6.87022C10.2649 9.19448 7.35567 12.5153 5.49888 16.4505C3.6421 20.3857 2.91326 24.7753 3.39624 29.1141C3.87923 33.4529 5.55442 37.5644 8.229 40.9756C10.5365 37.1861 15.6163 33.125 26 33.125C36.3838 33.125 41.4603 37.1828 43.771 40.9756C46.4456 37.5644 48.1208 33.4529 48.6038 29.1141C49.0867 24.7753 48.3579 20.3857 46.5011 16.4505C44.6443 12.5153 41.7351 9.19448 38.1082 6.87022C34.4813 4.54595 30.2842 3.31273 26 3.3125Z"
-                                                fill="#00476C" />
-                                        </g>
-                                        <defs>
-                                            <clipPath id="clip0_230_403">
-                                                <rect width="52" height="53" fill="white" />
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
+                                    <i class="bi bi-person-circle fs-4"></i>
                                 </a>
                             </li>
                         </ul>
@@ -194,32 +173,51 @@
             <main>
                 <div class="container mt-4">
 
-                    <div class="espaco"></div>
-                    <h2>Trocas</h2>
-                    <div class="container container-cinza">
-
-                        <div class="container-branco">
-                            <div class="container justify-content-center ">
-                                <div class="row align-items-center">
-                                    <!-- Coluna 1 -->
-                                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-lg-0">
-                                        <p>Nome: <span></span></p>
-                                        <p>Substituido por: <span></span></p>
-                                        <p>Motivo: <span></span></p>
-                                    </div>
-                                    <!-- Coluna 2 -->
-                                    <div class="col-12 col-md-6 col-lg-3 mb-3 mb-lg-0">
-                                        <p>Data: <span></span></p>
-                                        <p>Local: <span></span></p>
-                                    </div>
-                                    <!-- Coluna 3 -->
-                                    <div class="col-12 col-md-12 col-lg-3 text-md-start text-lg-end">
-                                        <p>Status: <span></span></p>
-                                    </div>
-                                </div>
-                            </div>
+                    <!-- Modal de Notificações -->
+                    <div id="modalNotificacoes" class="modal-notificacoes shadow-lg">
+                        <div class="notificacoes-header d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
+                            <h6 class="mb-0">Notificações</h6>
+                            <button class="btn-close btn-sm" id="fecharNotificacoes"></button>
                         </div>
+                        <div class="notificacoes-body" id="listaNotificacoes">
+                            <p class="text-center text-muted m-3">Sem notificações</p>
+                        </div>
+                    </div>
 
+                    <div class="espaco"></div>
+                    
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>Histórico de Trocas</h2>
+                    </div>
+                    
+                    <!-- Filtros -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="filtroStatus" class="form-label">Filtrar por Status:</label>
+                            <select id="filtroStatus" class="form-select" onchange="aplicarFiltros()">
+                                <option value="todas">Todas</option>
+                                <option value="aprovada">Aprovadas</option>
+                                <option value="recusada">Recusadas</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Loading -->
+                    <div id="loading" class="text-center my-4" style="display: none;">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </div>
+
+                    <!-- Erro -->
+                    <div id="erro" class="alert alert-danger" role="alert" style="display: none;"></div>
+
+                    <!-- Lista de trocas -->
+                    <div id="listaTrocas" class="container container-cinza"></div>
+
+                    <!-- Vazio -->
+                    <div id="vazio" class="alert alert-info" style="display: none;">
+                        Nenhuma troca encontrada no histórico.
                     </div>
 
                 </div>
@@ -233,6 +231,9 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 
+    <!-- Sistema de notificações -->
+    <script src="../../assets/js/JScoordenador/trocas.js"></script>
+
     <script>
         const offcanvas = document.getElementById('offcanvasResponsive');
         const bodyContent = document.getElementById('offcanvasBodyContent');
@@ -242,6 +243,110 @@
         offcanvas.addEventListener('hide.bs.offcanvas', function () {
             bodyContent.style.display = 'none';
         });
+
+        // Dados
+        let todasTrocas = [];
+        let trocasFiltradas = [];
+        let statusAtual = 'todas';
+
+        // Carregar trocas ao iniciar
+        document.addEventListener('DOMContentLoaded', carregarTrocas);
+
+        async function carregarTrocas() {
+            const loading = document.getElementById('loading');
+            const erro = document.getElementById('erro');
+            const listaTrocas = document.getElementById('listaTrocas');
+            const vazio = document.getElementById('vazio');
+
+            try {
+                loading.style.display = 'block';
+                erro.style.display = 'none';
+                listaTrocas.innerHTML = '';
+                vazio.style.display = 'none';
+
+                // Buscar todas as trocas não-pendentes
+                const response = await fetch('http://127.0.0.1:5000/api/trocas');
+                
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar trocas');
+                }
+
+                const result = await response.json();
+                const data = result.data || result; // Suporta ambos os formatos
+                todasTrocas = data.filter(t => t.status !== 'pendente');
+                trocasFiltradas = todasTrocas;
+
+                renderizarTrocas();
+
+            } catch (error) {
+                console.error('Erro:', error);
+                erro.textContent = 'Erro ao carregar histórico de trocas: ' + error.message;
+                erro.style.display = 'block';
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function aplicarFiltros() {
+            const filtroStatus = document.getElementById('filtroStatus').value;
+            statusAtual = filtroStatus;
+            
+            if (filtroStatus === 'todas') {
+                trocasFiltradas = todasTrocas;
+            } else {
+                trocasFiltradas = todasTrocas.filter(t => t.status === filtroStatus);
+            }
+            
+            renderizarTrocas();
+        }
+
+        function renderizarTrocas() {
+            const listaTrocas = document.getElementById('listaTrocas');
+            const vazio = document.getElementById('vazio');
+
+            if (trocasFiltradas.length === 0) {
+                listaTrocas.innerHTML = '';
+                vazio.style.display = 'block';
+                return;
+            }
+
+            vazio.style.display = 'none';
+
+            listaTrocas.innerHTML = trocasFiltradas.map(troca => {
+                const statusClass = troca.status === 'aprovada' ? 'text-success' : 'text-danger';
+                const statusTexto = troca.status === 'aprovada' ? '✓ Aprovada' : '✗ Recusada';
+                const dataFormatada = formatarData(troca.data_solicitada);
+                const substituto = troca.substituto_nome || 'Sem substituto especificado';
+
+                return `
+                    <div class="container-branco mb-3">
+                        <div class="container justify-content-center">
+                            <div class="row align-items-center">
+                                <div class="col-12 col-md-6 col-lg-6 mb-3 mb-lg-0">
+                                    <p><strong>Nome:</strong> ${troca.solicitante_nome}</p>
+                                    <p><strong>Substituído por:</strong> ${substituto}</p>
+                                    <p><strong>Motivo:</strong> ${troca.motivo || 'Não informado'}</p>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-3 mb-3 mb-lg-0">
+                                    <p><strong>Data:</strong> ${dataFormatada}</p>
+                                    <p><strong>Local:</strong> ${troca.solicitante_local || 'N/A'}</p>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-3 text-md-start text-lg-end">
+                                    <p class="fw-bold ${statusClass}">${statusTexto}</p>
+                                    <small class="text-muted">Solicitada em ${formatarData(troca.data_solicitacao)}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function formatarData(dataStr) {
+            if (!dataStr) return 'N/A';
+            const data = new Date(dataStr);
+            return data.toLocaleDateString('pt-BR');
+        }
     </script>
 </body>
 

@@ -46,7 +46,7 @@
                     <div class="menu-lateral">
                         <ul class="nav nav-pills flex-column mb-auto" id="menu">
                             <li class="nav-item item-atual">
-                                <a href="quadroColaboradores.htm" class="nav-link text-white">Quadro de
+                                <a href="quadroColaboradores.html" class="nav-link text-white">Quadro de
                                     colaboradores</a>
                             </li>
                             <li class="nav-item">
@@ -102,7 +102,7 @@
                 <div class="menu-lateral">
                     <ul class="nav nav-pills flex-column mb-auto" id="menu">
                         <li class="nav-item item-atual">
-                            <a href="quadroColaboradores.htm" class="nav-link text-white">Quadro de colaboradores</a>
+                            <a href="quadroColaboradores.html" class="nav-link text-white">Quadro de colaboradores</a>
                         </li>
                         <li class="nav-item">
                             <a href="solicitacoes.html" class="nav-link text-white">Solicitações</a>
@@ -201,11 +201,22 @@
             <main>
                 <div class="container mt-4">
 
+                    <!-- Modal de Notificações -->
+                    <div id="modalNotificacoes" class="modal-notificacoes shadow-lg">
+                        <div class="notificacoes-header d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
+                            <h6 class="mb-0">Notificações</h6>
+                            <button class="btn-close btn-sm" id="fecharNotificacoes"></button>
+                        </div>
+                        <div class="notificacoes-body" id="listaNotificacoes">
+                            <p class="text-center text-muted m-3">Sem notificações</p>
+                        </div>
+                    </div>
+
                     <div class="espaco"></div>
 
                     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="quadroColaboradores.htm">Quadro de Colaboradores</a>
+                            <li class="breadcrumb-item"><a href="quadroColaboradores.html">Quadro de Colaboradores</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">Cadastrar Colaborador</li>
                         </ol>
@@ -323,6 +334,103 @@
         offcanvas.addEventListener('hide.bs.offcanvas', function () {
             bodyContent.style.display = 'none';
         });
+
+        let pedidosPendentes = { trocas: 0, ferias: 0, atestados: 0 };
+
+        async function carregarPedidosPendentes() {
+            try {
+                const [trocasRes, feriasRes, atestadosRes] = await Promise.all([
+                    fetch('http://127.0.0.1:5000/api/trocas/pendentes'),
+                    fetch('http://127.0.0.1:5000/api/ferias/pendentes'),
+                    fetch('http://127.0.0.1:5000/api/atestados/pendentes')
+                ]);
+
+                const trocas = await trocasRes.json();
+                const ferias = await feriasRes.json();
+                const atestados = await atestadosRes.json();
+
+                pedidosPendentes.trocas = Array.isArray(trocas) ? trocas.length : (trocas.data?.length || 0);
+                pedidosPendentes.ferias = Array.isArray(ferias) ? ferias.length : (ferias.data?.length || 0);
+                pedidosPendentes.atestados = Array.isArray(atestados) ? atestados.length : (atestados.data?.length || 0);
+
+                atualizarContadorNotificacoes();
+                renderNotificacoes();
+            } catch (error) {
+                console.error('Erro ao carregar pedidos pendentes:', error);
+            }
+        }
+
+        function atualizarContadorNotificacoes() {
+            const total = pedidosPendentes.trocas + pedidosPendentes.ferias + pedidosPendentes.atestados;
+            const badge = document.getElementById('badgeNotificacoes');
+            
+            if (total > 0) {
+                badge.textContent = total;
+                badge.style.display = 'block';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        function renderNotificacoes() {
+            const lista = document.getElementById('listaNotificacoes');
+            const total = pedidosPendentes.trocas + pedidosPendentes.ferias + pedidosPendentes.atestados;
+
+            if (total === 0) {
+                lista.innerHTML = '<p class="text-center text-muted m-3">Sem notificações</p>';
+                return;
+            }
+
+            let html = '';
+
+            if (pedidosPendentes.trocas > 0) {
+                html += `
+                    <a href="solicitacoes.html" class="notificacao-item d-block p-3 border-bottom text-decoration-none" style="background-color: #fff3cd;">
+                        <div class="fw-bold text-dark">Trocas de plantão</div>
+                        <small class="text-muted">${pedidosPendentes.trocas} ${pedidosPendentes.trocas === 1 ? 'solicitação pendente' : 'solicitações pendentes'}</small>
+                    </a>`;
+            }
+
+            if (pedidosPendentes.ferias > 0) {
+                html += `
+                    <a href="solicitacoes.html" class="notificacao-item d-block p-3 border-bottom text-decoration-none" style="background-color: #cfe2ff;">
+                        <div class="fw-bold text-dark">Férias</div>
+                        <small class="text-muted">${pedidosPendentes.ferias} ${pedidosPendentes.ferias === 1 ? 'solicitação pendente' : 'solicitações pendentes'}</small>
+                    </a>`;
+            }
+
+            if (pedidosPendentes.atestados > 0) {
+                html += `
+                    <a href="solicitacoes.html" class="notificacao-item d-block p-3 border-bottom text-decoration-none" style="background-color: #f8d7da;">
+                        <div class="fw-bold text-dark">Atestados</div>
+                        <small class="text-muted">${pedidosPendentes.atestados} ${pedidosPendentes.atestados === 1 ? 'atestado pendente' : 'atestados pendentes'}</small>
+                    </a>`;
+            }
+
+            lista.innerHTML = html;
+        }
+
+        document.getElementById('sinoNotificacoes').addEventListener('click', function(e) {
+            e.preventDefault();
+            const modal = document.getElementById('modalNotificacoes');
+            modal.classList.toggle('ativo');
+        });
+
+        document.getElementById('fecharNotificacoes').addEventListener('click', function() {
+            document.getElementById('modalNotificacoes').classList.remove('ativo');
+        });
+
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('modalNotificacoes');
+            const sino = document.getElementById('sinoNotificacoes');
+            
+            if (!modal.contains(e.target) && !sino.contains(e.target)) {
+                modal.classList.remove('ativo');
+            }
+        });
+
+        carregarPedidosPendentes();
+        setInterval(carregarPedidosPendentes, 15000);
     </script>
 
     <!-- Script it back -->
@@ -374,7 +482,7 @@
             };
             
             try {
-                const response = await fetch('http://localhost:5000/api/cadastrar-colaborador', {
+                const response = await fetch(`${window.location.origin}/api/cadastrar-colaborador`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -415,8 +523,8 @@
                 mostrarMensagem('danger', `
                     <strong> Erro de Conexão!</strong><br>
                     Não foi possível conectar ao servidor.<br>
-                    <small>Verifique se o servidor Flask está rodando em http://localhost:5000</small><br>
-                    <small>Execute: <code>python app_unificado.py</code></small>
+                    <small>Verifique se o servidor Flask está rodando</small><br>
+                    <small>URL: <code>${window.location.origin}</code></small>
                 `);
             } finally {
                 btnTexto.style.display = 'inline-block';

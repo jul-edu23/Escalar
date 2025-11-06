@@ -140,7 +140,8 @@ def criar_troca():
     try:
         data = request.get_json()
 
-        campos_obrigatorios = ['solicitante_id', 'substituto_id', 'data_solicitada', 'motivo']
+        # Campos obrigatórios (substituto_id é opcional)
+        campos_obrigatorios = ['solicitante_id', 'data_solicitada', 'motivo']
         for campo in campos_obrigatorios:
             if campo not in data:
                 return jsonify({
@@ -161,18 +162,21 @@ def criar_troca():
                 'error': 'Usuário solicitante não encontrado'
             }), 404
         
-        usuario_destino = Usuario.query.get(data['substituto_id'])
-        if not usuario_destino:
-            return jsonify({
-                'success': False,
-                'error': 'Usuário substituto não encontrado'
-            }), 404
+        # Valida substituto apenas se foi informado
+        substituto_id = data.get('substituto_id')
+        if substituto_id:
+            usuario_destino = Usuario.query.get(substituto_id)
+            if not usuario_destino:
+                return jsonify({
+                    'success': False,
+                    'error': 'Usuário substituto não encontrado'
+                }), 404
 
-        if data['solicitante_id'] == data['substituto_id']:
-            return jsonify({
-                'success': False,
-                'error': 'Não é possível solicitar troca consigo mesmo'
-            }), 400
+            if data['solicitante_id'] == substituto_id:
+                return jsonify({
+                    'success': False,
+                    'error': 'Não é possível solicitar troca consigo mesmo'
+                }), 400
 
         data_plantao = datetime.strptime(data['data_solicitada'], '%Y-%m-%d')
         escala = Escala.query.filter_by(
@@ -200,7 +204,7 @@ def criar_troca():
 
         nova_troca = Troca(
             solicitante_id=data['solicitante_id'],
-            substituto_id=data['substituto_id'],
+            substituto_id=substituto_id,  # Pode ser None
             data_solicitada=data_plantao,
             motivo=data['motivo'],
             status='pendente',
@@ -210,11 +214,23 @@ def criar_troca():
         db.session.add(nova_troca)
         db.session.commit()
 
-        criar_notificacao(
-            usuario_id=data['substituto_id'],
-            mensagem=f'{usuario.nome} solicitou troca de plantão para {data["data_solicitada"]}',
-            tipo='info'
-        )
+        # Só notifica o substituto se foi indicado
+        if substituto_id:
+            criar_notificacao(
+                usuario_id=substituto_id,
+                mensagem=f'{usuario.nome} solicitou troca de plantão para {data["data_solicitada"]}',
+                tipo='info'
+            )
+        
+        # Notifica coordenadores
+        coordenadores = Usuario.query.filter_by(nivel_acesso='coordenador').all()
+        for coord in coordenadores:
+            criar_notificacao(
+                usuario_id=coord.id,
+                mensagem=f'{usuario.nome} solicitou troca de plantão para {data["data_solicitada"]}' + 
+                         (' (sem substituto indicado)' if not substituto_id else ''),
+                tipo='troca'
+            )
         
         return jsonify({
             'success': True,
@@ -248,40 +264,56 @@ def aprovar_troca(id):
                 'error': f'Troca já foi {troca.status}'
             }), 400
 
+        # Busca a escala do solicitante
         escala_solicitante = Escala.query.filter_by(
             usuario_id=troca.solicitante_id,
             data_plantao=troca.data_solicitada
         ).first()
         
-        escala_destino = Escala.query.filter_by(
-            usuario_id=troca.substituto_id,
-            data_plantao=troca.data_solicitada
-        ).first()
+        if not escala_solicitante:
+            return jsonify({
+                'success': False,
+                'error': 'Escala do solicitante não encontrada'
+            }), 404
 
-        if escala_solicitante and escala_destino:
-            
-            escala_solicitante.usuario_id, escala_destino.usuario_id = \
-                escala_destino.usuario_id, escala_solicitante.usuario_id
-        elif escala_solicitante:
-            
-            escala_solicitante.usuario_id = troca.usuario_destino_id
+        # Se houver substituto indicado, troca as escalas
+        if troca.substituto_id:
+            escala_destino = Escala.query.filter_by(
+                usuario_id=troca.substituto_id,
+                data_plantao=troca.data_solicitada
+            ).first()
+
+            if escala_destino:
+                # Troca os usuários das escalas
+                escala_solicitante.usuario_id, escala_destino.usuario_id = \
+                    escala_destino.usuario_id, escala_solicitante.usuario_id
+            else:
+                # Se o substituto não tem escala para essa data, apenas marca como folga
+                escala_solicitante.tipo = 'substituição'
+        else:
+            # Sem substituto indicado - apenas marca a troca como aprovada
+            # O coordenador terá que designar alguém manualmente
+            escala_solicitante.tipo = 'folga'
 
         troca.status = 'aprovada'
         troca.data_resposta = datetime.now()
         
         db.session.commit()
 
+        # Notifica o solicitante
         criar_notificacao(
             usuario_id=troca.solicitante_id,
             mensagem=f'Sua solicitação de troca para {troca.data_solicitada.strftime("%d/%m/%Y")} foi aprovada!',
             tipo='info'
         )
         
-        criar_notificacao(
-            usuario_id=troca.substituto_id,
-            mensagem=f'Troca de plantão para {troca.data_solicitada.strftime("%d/%m/%Y")} foi aprovada!',
-            tipo='info'
-        )
+        # Notifica o substituto (se houver)
+        if troca.substituto_id:
+            criar_notificacao(
+                usuario_id=troca.substituto_id,
+                mensagem=f'Troca de plantão para {troca.data_solicitada.strftime("%d/%m/%Y")} foi aprovada!',
+                tipo='info'
+            )
         
         return jsonify({
             'success': True,

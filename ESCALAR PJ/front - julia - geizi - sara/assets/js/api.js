@@ -2,10 +2,11 @@
  * API.JS - Cliente JavaScript para comunicação com Backend REST
  * Sistema Escalar - Gestão de Escalas
  * 
- * Base URL: http://localhost:5000/api
+ * Base URL: Servidor de Cadastro (porta 5000)
  */
 
-const API_BASE_URL = 'http://localhost:5000/api';
+// API principal está no servidor de cadastro (porta 5000)
+const API_BASE_URL = 'http://127.0.0.1:5000/api';
 
 // =====================================================
 // CONFIGURAÇÃO GERAL
@@ -37,8 +38,15 @@ async function fazerRequisicao(endpoint, method = 'GET', body = null, customHead
         credentials: 'include' // Importante para sessões
     };
 
+    // Se body for FormData, não adiciona Content-Type e não faz stringify
     if (body && (method === 'POST' || method === 'PUT')) {
-        options.body = JSON.stringify(body);
+        if (body instanceof FormData) {
+            // Remove Content-Type para deixar o navegador definir o boundary
+            delete options.headers['Content-Type'];
+            options.body = body;
+        } else {
+            options.body = JSON.stringify(body);
+        }
     }
 
     try {
@@ -644,6 +652,16 @@ const Utils = {
     }
 };
 
+// Função global para formatação de data (compatibilidade)
+function formatarDataBR(data) {
+    if (!data) return '-';
+    const d = new Date(data + 'T00:00:00'); // Força timezone local
+    const dia = String(d.getDate()).padStart(2, '0');
+    const mes = String(d.getMonth() + 1).padStart(2, '0');
+    const ano = d.getFullYear();
+    return `${dia}/${mes}/${ano}`;
+}
+
 // =====================================================
 // EXPORTAÇÃO (para uso em outros arquivos)
 // =====================================================
@@ -661,5 +679,6 @@ window.Utils = Utils;
 window.mostrarSucesso = mostrarSucesso;
 window.mostrarErro = mostrarErro;
 window.mostrarLoading = mostrarLoading;
+window.formatarDataBR = formatarDataBR;
 
 console.log('✅ API.js carregado com sucesso!');

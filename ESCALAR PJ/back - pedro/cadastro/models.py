@@ -20,7 +20,7 @@ class Usuario(db.Model):
     escala = db.Column(db.Enum('12x36', '6x1', '5x2', '5x1', '4x3'), default='12x36')
     local = db.Column(db.Enum('CCE', 'CCV', 'Campus', 'CCO'), default='Campus')
     senha = db.Column(db.String(255), nullable=False)
-    cargo = db.Column(db.Enum('colaborador', 'coordenador'), default='colaborador')
+    nivel_acesso = db.Column(db.String(20), default='comum')
     status = db.Column(db.Enum('ativo', 'inativo'), default='ativo')
     data_cadastro = db.Column(db.DateTime, default=datetime.utcnow)
     
@@ -40,7 +40,7 @@ class Usuario(db.Model):
             'turno': self.turno,
             'escala': self.escala,
             'local': self.local,
-            'cargo': self.cargo,
+            'cargo': self.nivel_acesso,
             'status': self.status,
             'data_cadastro': self.data_cadastro.isoformat() if self.data_cadastro else None
         }
@@ -98,6 +98,7 @@ class Troca(db.Model):
             'id': self.id,
             'solicitante_id': self.solicitante_id,
             'solicitante_nome': self.solicitante.nome if self.solicitante else None,
+            'solicitante_local': self.solicitante.local if self.solicitante else None,
             'substituto_id': self.substituto_id,
             'substituto_nome': self.substituto.nome if self.substituto else None,
             'data_solicitada': self.data_solicitada.isoformat() if self.data_solicitada else None,

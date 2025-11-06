@@ -230,12 +230,12 @@ function validarLocal(local) {
 }
 
 /**
- * Valida cargo (valores permitidos: coordenador, colaborador)
- * @param {string} cargo 
+ * Valida cargo/nível de acesso (valores permitidos: administrador, comum)
+ * @param {string} cargo - Nível de acesso do usuário
  * @returns {boolean}
  */
 function validarCargo(cargo) {
-    const cargosPermitidos = ['coordenador', 'colaborador'];
+    const cargosPermitidos = ['administrador', 'comum'];
     return validarOpcao(cargo, cargosPermitidos);
 }
 

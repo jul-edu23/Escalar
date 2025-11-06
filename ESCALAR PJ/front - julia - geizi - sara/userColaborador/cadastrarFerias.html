@@ -151,6 +151,17 @@
             <main>
                 <div class="container mt-4">
 
+                    <!-- Modal de Notificações -->
+                    <div id="modalNotificacoes" class="modal-notificacoes shadow-lg">
+                        <div class="notificacoes-header d-flex justify-content-between align-items-center">
+                            <h6>Notificações</h6>
+                            <button type="button" class="btn-close" id="fecharNotificacoes" aria-label="Close"></button>
+                        </div>
+                        <div class="notificacoes-body" id="listaNotificacoes">
+                            <p class="text-center text-muted m-3">Carregando notificações...</p>
+                        </div>
+                    </div>
+
                     <div class="espaco"></div>
                     <div class="centralizarConteiner">
                         <h2>Solicitar Férias</h2>
@@ -219,6 +230,7 @@
     <!-- Importar validations.js e api.js -->
     <script src="../assets/js/validations.js"></script>
     <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/JScolaborador/cadastrarFerias.js"></script>
 
     <script>
         const offcanvas = document.getElementById('offcanvasResponsive');

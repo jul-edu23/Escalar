@@ -10,6 +10,14 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'cadastro'))
 from models import db, Usuario
 from auth import autenticarUsuario, obterUsuarioAtual, gerarHashSenha
 
+# Importar Blueprints de API (depois de ajustar sys.path)
+from api_escalas import api_escalas
+from api_trocas import api_trocas
+from api_ferias import api_ferias
+from api_atestados import api_atestados
+from api_notificacoes import api_notificacoes
+from api_historico import api_historico
+
 FRONTEND_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'front - julia - geizi - sara'))
 
 app = Flask(__name__)
@@ -35,6 +43,29 @@ CORS(app, resources={
 })
 
 db.init_app(app)
+
+# Registrar Blueprints de API
+from api_escalas import api_escalas
+from api_trocas import api_trocas
+from api_ferias import api_ferias
+from api_atestados import api_atestados
+from api_notificacoes import api_notificacoes
+from api_historico import api_historico
+
+app.register_blueprint(api_escalas, url_prefix='/api')
+app.register_blueprint(api_trocas, url_prefix='/api')
+app.register_blueprint(api_ferias, url_prefix='/api')
+app.register_blueprint(api_atestados, url_prefix='/api')
+app.register_blueprint(api_notificacoes, url_prefix='/api')
+app.register_blueprint(api_historico, url_prefix='/api')
+
+print("✅ Todos os blueprints de API registrados no servidor 5001:")
+print("   - /api/escalas")
+print("   - /api/trocas")
+print("   - /api/ferias")
+print("   - /api/atestados")
+print("   - /api/notificacoes")
+print("   - /api/historico")
 
 @app.route('/')
 @app.route('/login')
@@ -66,10 +97,10 @@ def apiLogin():
             session['usuario_nome'] = usuario.nome
             session['usuario_apelido'] = usuario.apelido
             session['usuario_email'] = usuario.email
-            session['usuario_cargo'] = usuario.cargo
+            session['usuario_cargo'] = usuario.nivel_acesso
             session['usuario_foto'] = usuario.foto
 
-            if usuario.cargo == 'coordenador':
+            if usuario.nivel_acesso == 'administrador':
                 redirect_url = '/calendario-admin'
             else:
                 redirect_url = '/calendario-colaborador'
@@ -77,10 +108,15 @@ def apiLogin():
             return jsonify({
                 'success': True,
                 'message': f'Bem-vindo, {usuario.apelido or usuario.nome}!',
+                'usuario_id': usuario.id,
+                'usuario_nome': usuario.nome,
+                'usuario_cargo': usuario.nivel_acesso,
                 'usuario': {
+                    'id': usuario.id,
                     'nome': usuario.nome,
                     'email': usuario.email,
                     'apelido': usuario.apelido,
+                    'cargo': usuario.nivel_acesso,
                     'data_nascimento': usuario.data_nascimento.isoformat() if usuario.data_nascimento else None,
                     'turno': usuario.turno,
                     'cpf': usuario.cpf,
@@ -110,7 +146,7 @@ def calendarioAdmin():
     
     usuario = obterUsuarioAtual()
     
-    if not usuario or usuario.cargo != 'coordenador':
+    if not usuario or usuario.nivel_acesso != 'administrador':
         return redirect('/calendario-colaborador')
     
     return send_from_directory(
@@ -165,6 +201,11 @@ def calendarioAdmHtml():
 
 @app.route('/quadroColaboradores.htm')
 def quadroColaboradoresHtm():
+    
+    return redirect('/quadro-colaboradores')
+
+@app.route('/quadroColaboradores.html')
+def quadroColaboradoresHtml():
     
     return redirect('/quadro-colaboradores')
 
@@ -253,7 +294,7 @@ def cadastrarColaborador():
     
     usuario = obterUsuarioAtual()
     
-    if not usuario or usuario.cargo != 'coordenador':
+    if not usuario or usuario.nivel_acesso != 'administrador':
         return redirect('/calendario-colaborador')
     
     return send_from_directory(
@@ -269,12 +310,12 @@ def quadroColaboradores():
     
     usuario = obterUsuarioAtual()
     
-    if not usuario or usuario.cargo != 'coordenador':
+    if not usuario or usuario.nivel_acesso != 'administrador':
         return redirect('/calendario-colaborador')
     
     return send_from_directory(
         os.path.join(FRONTEND_PATH, 'userCoordenador'),
-        'quadroColaboradores.htm'
+        'quadroColaboradores.html'
     )
 
 @app.route('/solicitacoes')
@@ -285,7 +326,7 @@ def solicitacoes():
     
     usuario = obterUsuarioAtual()
     
-    if not usuario or usuario.cargo != 'coordenador':
+    if not usuario or usuario.nivel_acesso != 'administrador':
         return redirect('/calendario-colaborador')
     
     return send_from_directory(
@@ -301,7 +342,7 @@ def historico(tipo):
     
     usuario = obterUsuarioAtual()
     
-    if not usuario or usuario.cargo != 'coordenador':
+    if not usuario or usuario.nivel_acesso != 'administrador':
         return redirect('/calendario-colaborador')
 
     arquivos_validos = {

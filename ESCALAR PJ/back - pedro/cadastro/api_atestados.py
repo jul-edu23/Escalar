@@ -201,7 +201,8 @@ def criar_atestado():
         db.session.add(novo_atestado)
         db.session.commit()
 
-        coordenadores = Usuario.query.filter_by(cargo='coordenador').all()
+        # Notificar coordenadores (usar nivel_acesso ao invés de cargo)
+        coordenadores = Usuario.query.filter_by(nivel_acesso='coordenador').all()
         for coordenador in coordenadores:
             criar_notificacao(
                 usuario_id=coordenador.id,
@@ -244,22 +245,23 @@ def aceitar_atestado(id):
         atestado.status = 'aceito'
         atestado.data_resposta = datetime.now()
 
+        # Cria ou atualiza escalas para o período do atestado
         data_atual = atestado.data_inicio
         while data_atual <= atestado.data_fim:
             
             escala = Escala.query.filter_by(
                 usuario_id=atestado.usuario_id,
-                data=data_atual
+                data_plantao=data_atual
             ).first()
             
             if escala:
-                
+                # Atualiza escala existente
                 escala.tipo = 'atestado'
             else:
-                
+                # Cria nova escala
                 nova_escala = Escala(
                     usuario_id=atestado.usuario_id,
-                    data=data_atual,
+                    data_plantao=data_atual,
                     tipo='atestado'
                 )
                 db.session.add(nova_escala)

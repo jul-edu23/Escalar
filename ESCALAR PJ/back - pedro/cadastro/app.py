@@ -24,8 +24,14 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 CORS(app, resources={
     r"/api/*": {
-        "origins": ["http://localhost:8000", "http://127.0.0.1:8000", "file://", "*"],
+        "origins": ["http://localhost:8000", "http://127.0.0.1:8000", "http://127.0.0.1:5001", "http://localhost:5001", "file://", "*"],
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"],
+        "supports_credentials": True
+    },
+    r"/login": {
+        "origins": ["http://localhost:8000", "http://127.0.0.1:8000", "http://127.0.0.1:5001", "http://localhost:5001", "file://", "*"],
+        "methods": ["GET", "POST", "OPTIONS"],
         "allow_headers": ["Content-Type", "Authorization"],
         "supports_credentials": True
     }
@@ -61,25 +67,61 @@ def index():
     from datetime import datetime
     return render_template('index.html', now=datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST', 'OPTIONS'])
 def login():
+    """Endpoint de autenticação - aceita JSON ou form data"""
+    
+    # Handle CORS preflight
+    if request.method == 'OPTIONS':
+        return jsonify({'success': True}), 200
     
     if request.method == 'POST':
-        email = request.form.get('email')
-        senha = request.form.get('senha')
+        # Aceitar JSON ou form data
+        if request.is_json:
+            dados = request.get_json()
+            email = dados.get('email')
+            senha = dados.get('senha')
+        else:
+            email = request.form.get('email')
+            senha = request.form.get('senha')
         
         usuario = autenticarUsuario(email, senha)
         
         if usuario:
             session['usuario_id'] = usuario.id
             session['usuario_nome'] = usuario.nome
-            session['usuario_cargo'] = usuario.cargo
-            flash(f'Bem-vindo, {usuario.nome}!', 'success')
-            return redirect(url_for('index'))
+            session['usuario_cargo'] = usuario.nivel_acesso
+            
+            # Retornar JSON se requisição foi JSON
+            if request.is_json:
+                return jsonify({
+                    'success': True,
+                    'message': f'Bem-vindo, {usuario.nome}!',
+                    'usuario_id': usuario.id,
+                    'usuario_nome': usuario.nome,
+                    'usuario_cargo': usuario.nivel_acesso
+                }), 200
+            else:
+                flash(f'Bem-vindo, {usuario.nome}!', 'success')
+                return redirect(url_for('index'))
         else:
-            flash('E-mail ou senha incorretos.', 'danger')
+            # Retornar JSON se requisição foi JSON
+            if request.is_json:
+                return jsonify({
+                    'success': False,
+                    'error': 'E-mail ou senha incorretos.'
+                }), 401
+            else:
+                flash('E-mail ou senha incorretos.', 'danger')
+                return render_template('login.html')
     
-    return render_template('login.html')
+    # GET request - tentar servir template se existir
+    try:
+        return render_template('login.html')
+    except:
+        return jsonify({
+            'error': 'Endpoint de login. Use POST com JSON: {"email": "...", "senha": "..."}'
+        }), 200
 
 @app.route('/logout')
 def logout():
@@ -144,7 +186,7 @@ def cadastrarColaborador():
             turno=dados['turno'],
             escala=dados['escala'],
             local=dados['local'],
-            cargo='colaborador',
+            nivel_acesso='comum',
             status='ativo',
             senha=senha_hash
         )
@@ -217,7 +259,7 @@ def apiCadastrarColaborador():
             turno=turno,
             escala=escala,
             local=local,
-            cargo='colaborador',
+            nivel_acesso='comum',
             status='ativo',
             senha=senha_hash
         )
@@ -239,6 +281,33 @@ def apiCadastrarColaborador():
         db.session.rollback()
         return jsonify({'error': f'Erro ao cadastrar colaborador: {str(e)}'}), 500
 
+@app.route('/api/usuarios', methods=['GET'])
+def listarUsuarios():
+    """Lista usuários, opcionalmente filtrados por cargo"""
+    try:
+        cargo = request.args.get('cargo')
+        
+        if cargo:
+            usuarios = Usuario.query.filter_by(nivel_acesso=cargo).all()
+        else:
+            usuarios = Usuario.query.all()
+        
+        # Retorna lista de usuários serializados
+        return jsonify([{
+            'id': u.id,
+            'nome': u.nome,
+            'email': u.email,
+            'cpf': u.cpf,
+            'nivel_acesso': u.nivel_acesso,
+            'status': u.status,
+            'escala': u.escala,
+            'turno': u.turno,
+            'local': u.local
+        } for u in usuarios]), 200
+        
+    except Exception as e:
+        return jsonify({'error': f'Erro ao listar usuários: {str(e)}'}), 500
+
 @app.route('/quadro-colaboradores')
 @verificarAdmin
 def quadroColaboradores():
@@ -248,7 +317,7 @@ def quadroColaboradores():
 
 def criarUsuarioAdmin():
 
-    coordenador = Usuario.query.filter_by(cargo='coordenador').first()
+    coordenador = Usuario.query.filter_by(nivel_acesso='administrador').first()
     if coordenador:
         print(f'Coordenador já existe no banco: {coordenador.email}')
         return
@@ -259,7 +328,7 @@ def criarUsuarioAdmin():
         nome='Coordenador Padrão',
         email='coordenador@escalar.com',
         cpf=cpf_admin,
-        cargo='coordenador',
+        nivel_acesso='administrador',
         status='ativo',
         senha=gerarHashSenha(cpf_admin)
     )

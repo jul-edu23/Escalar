@@ -149,6 +149,17 @@
             <main>
                 <div class="container mt-4">
 
+                    <!-- Modal de Notificações -->
+                    <div id="modalNotificacoes" class="modal-notificacoes shadow-lg">
+                        <div class="notificacoes-header d-flex justify-content-between align-items-center">
+                            <h6>Notificações</h6>
+                            <button type="button" class="btn-close" id="fecharNotificacoes" aria-label="Close"></button>
+                        </div>
+                        <div class="notificacoes-body" id="listaNotificacoes">
+                            <p class="text-center text-muted m-3">Carregando notificações...</p>
+                        </div>
+                    </div>
+
                     <div class="espaco"></div>
                     <div class="centralizarConteiner">
                         <h2>Cadastrar Atestado Médico</h2>
@@ -165,13 +176,13 @@
                                     <div class="mt-2">
                                         <label for="dataInicio">Data de Início: *</label>
                                         <input type="date" id="dataInicio" name="dataInicio" required>
-                                        <small class="text-muted">Data do primeiro dia de afastamento</small>
+                                        <small class="text-muted">📅 Últimos 3 dias ou até 30 dias futuros</small>
                                     </div>
                                     
                                     <div class="mt-2">
                                         <label for="dataFim">Data de Fim: *</label>
                                         <input type="date" id="dataFim" name="dataFim" required>
-                                        <small class="text-muted">Data do último dia de afastamento</small>
+                                        <small class="text-muted">📅 Data do último dia de afastamento</small>
                                     </div>
                                     
                                     <div class="mt-2 d-flex">
@@ -192,10 +203,10 @@
                                     </div>
                                     
                                     <div class="mt-2">
-                                        <label for="arquivo">Anexar Foto do Atestado: *</label>
+                                        <label for="arquivo">Anexar Foto do Atestado: (opcional)</label>
                                         <input type="file" id="arquivo" name="arquivo" 
-                                               accept="image/*,.pdf" required>
-                                        <small class="text-muted">Formatos aceitos: JPG, PNG, PDF (máx 5MB)</small>
+                                               accept="image/*,.pdf">
+                                        <small class="text-muted">Formatos aceitos: JPG, PNG, PDF (máx 5MB) - Upload em desenvolvimento</small>
                                     </div>
                                     
                                     <div class="mt-2" id="previewContainer" style="display: none;">
@@ -239,6 +250,7 @@
     <!-- Importar validations.js e api.js -->
     <script src="../assets/js/validations.js"></script>
     <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/JScolaborador/cadastrarAtestado.js"></script>
 
     <script>
         const offcanvas = document.getElementById('offcanvasResponsive');
@@ -353,45 +365,51 @@
             const validacao = validarFormularioCadastroAtestado(dados);
             
             if (!validacao.valido) {
-                mostrarErro('<strong> Erro de Validação:</strong><br>' + 
+                mostrarErro('<strong>❌ Erro de Validação:</strong><br>' + 
                            validacao.erros.map(e => `• ${e}`).join('<br>'));
                 return;
             }
             
             dados.usuario_id = parseInt(localStorage.getItem('usuario_id'));
-            dados.dias_atestado = validacao.dias;
             
-            const formData = new FormData();
-            formData.append('usuario_id', dados.usuario_id);
-            formData.append('data_inicio', dados.data_inicio);
-            formData.append('data_fim', dados.data_fim);
-            formData.append('dias_atestado', dados.dias_atestado);
-            formData.append('motivo', dados.motivo);
-            formData.append('arquivo', dados.arquivo);
+            if (!dados.usuario_id) {
+                mostrarErro('❌ Usuário não identificado. Faça login novamente.');
+                return;
+            }
+            
+            // Por enquanto, envia JSON sem arquivo (API não suporta upload ainda)
+            const dadosJSON = {
+                usuario_id: dados.usuario_id,
+                data_inicio: dados.data_inicio,
+                data_fim: dados.data_fim,
+                motivo: dados.motivo
+            };
             
             btnTexto.style.display = 'none';
             btnLoading.style.display = 'inline-block';
             btnEnviar.disabled = true;
             
-            console.log(' Enviando atestado médico:', {
+            console.log('📤 Enviando atestado médico:', {
                 usuario_id: dados.usuario_id,
                 periodo: `${dados.data_inicio} a ${dados.data_fim}`,
-                dias: dados.dias_atestado,
                 motivo: dados.motivo,
-                arquivo: dados.arquivo.name
+                arquivo: arquivo ? arquivo.name : 'Nenhum'
             });
             
             try {
-                const resultado = await AtestadosAPI.enviar(formData);
+                const resultado = await AtestadosAPI.enviar(dadosJSON);
                 
-                console.log(' Atestado enviado:', resultado);
+                console.log('✅ Atestado enviado:', resultado);
+                
+                const diasCalculados = calcularDias(dados.data_inicio, dados.data_fim);
                 
                 mostrarSucesso(`
-                    <strong> Atestado médico enviado com sucesso!</strong><br>
+                    <strong>✅ Atestado médico enviado com sucesso!</strong><br>
                     <strong>Período:</strong> ${formatarDataBR(dados.data_inicio)} a ${formatarDataBR(dados.data_fim)}<br>
-                    <strong>Total:</strong> ${dados.dias_atestado} dias<br>
+                    <strong>Total:</strong> ${diasCalculados} dias<br>
                     <strong>Motivo:</strong> ${dados.motivo}<br>
-                    <small>Aguarde a análise do coordenador.</small>
+                    <small>⏳ Aguarde a análise do coordenador.</small>
+                    ${arquivo ? '<br><small>ℹ️ Nota: O arquivo foi validado mas não foi enviado (funcionalidade em desenvolvimento).</small>' : ''}
                 `);
                 
                 document.getElementById('formAtestado').reset();
@@ -401,18 +419,18 @@
                 document.getElementById('previewContainer').style.display = 'none';
                 
             } catch (error) {
-                console.error(' Erro ao enviar atestado:', error);
+                console.error('❌ Erro ao enviar atestado:', error);
                 
                 let mensagemErro = error.message || 'Erro desconhecido';
                 
-                if (mensagemErro.includes('tamanho')) {
-                    mensagemErro += '<br><small>O arquivo deve ter no máximo 5MB.</small>';
-                } else if (mensagemErro.includes('formato')) {
-                    mensagemErro += '<br><small>Envie apenas imagens (JPG, PNG) ou PDF.</small>';
+                if (mensagemErro.includes('retroativo')) {
+                    mensagemErro += '<br><small>💡 Para atestados antigos, entre em contato com a coordenação.</small>';
+                } else if (mensagemErro.includes('15 dias')) {
+                    mensagemErro += '<br><small>💡 Para afastamentos longos, entre em contato com a coordenação.</small>';
                 }
                 
                 mostrarErro(`
-                    <strong> Erro ao enviar atestado:</strong><br>
+                    <strong>❌ Erro ao enviar atestado:</strong><br>
                     ${mensagemErro}
                 `);
                 
@@ -424,9 +442,20 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            const hoje = new Date().toISOString().split('T')[0];
-            document.getElementById('dataInicio').setAttribute('max', hoje);
-            document.getElementById('dataFim').setAttribute('max', hoje);
+            // Permite datas dos últimos 3 dias até 30 dias no futuro
+            const hoje = new Date();
+            const tresDiasAtras = new Date(hoje);
+            tresDiasAtras.setDate(hoje.getDate() - 3);
+            const trintaDiasFuturo = new Date(hoje);
+            trintaDiasFuturo.setDate(hoje.getDate() + 30);
+            
+            const dataMin = tresDiasAtras.toISOString().split('T')[0];
+            const dataMax = trintaDiasFuturo.toISOString().split('T')[0];
+            
+            document.getElementById('dataInicio').setAttribute('min', dataMin);
+            document.getElementById('dataInicio').setAttribute('max', dataMax);
+            document.getElementById('dataFim').setAttribute('min', dataMin);
+            document.getElementById('dataFim').setAttribute('max', dataMax);
             
             document.getElementById('dataInicio').addEventListener('change', calcularDiasAtestado);
             document.getElementById('dataFim').addEventListener('change', calcularDiasAtestado);
@@ -443,7 +472,7 @@
                 if (arquivo) {
                     const tamanhoMB = arquivo.size / (1024 * 1024);
                     if (tamanhoMB > 5) {
-                        mostrarErro(' O arquivo deve ter no máximo 5MB!');
+                        mostrarErro('❌ O arquivo deve ter no máximo 5MB!');
                         e.target.value = '';
                         document.getElementById('previewContainer').style.display = 'none';
                         return;
@@ -453,7 +482,7 @@
                 }
             });
             
-            console.log(' CadastrarAtestado.html carregado - Data máxima:', hoje);
+            console.log('✅ CadastrarAtestado.html carregado - Período válido:', dataMin, 'a', dataMax);
         });
 
         console.log(' Sistema de cadastro de atestado integrado!');

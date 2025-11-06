@@ -236,7 +236,8 @@ def criar_ferias():
         db.session.add(novas_ferias)
         db.session.commit()
 
-        coordenadores = Usuario.query.filter_by(cargo='coordenador').all()
+        # Notificar coordenadores (usar nivel_acesso ao invés de cargo)
+        coordenadores = Usuario.query.filter_by(nivel_acesso='coordenador').all()
         for coordenador in coordenadores:
             criar_notificacao(
                 usuario_id=coordenador.id,
@@ -279,22 +280,23 @@ def aprovar_ferias(id):
         ferias.status = 'aprovada'
         ferias.data_resposta = datetime.now()
 
+        # Cria ou atualiza escalas para o período de férias
         data_atual = ferias.data_inicio
         while data_atual <= ferias.data_fim:
             
             escala = Escala.query.filter_by(
                 usuario_id=ferias.usuario_id,
-                data=data_atual
+                data_plantao=data_atual
             ).first()
             
             if escala:
-                
+                # Atualiza escala existente
                 escala.tipo = 'férias'
             else:
-                
+                # Cria nova escala
                 nova_escala = Escala(
                     usuario_id=ferias.usuario_id,
-                    data=data_atual,
+                    data_plantao=data_atual,
                     tipo='férias'
                 )
                 db.session.add(nova_escala)

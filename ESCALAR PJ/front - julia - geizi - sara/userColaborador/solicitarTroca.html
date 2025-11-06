@@ -155,6 +155,17 @@
             <main>
                 <div class="container mt-4">
 
+                    <!-- Modal de Notificações -->
+                    <div id="modalNotificacoes" class="modal-notificacoes shadow-lg">
+                        <div class="notificacoes-header d-flex justify-content-between align-items-center">
+                            <h6>Notificações</h6>
+                            <button type="button" class="btn-close" id="fecharNotificacoes" aria-label="Close"></button>
+                        </div>
+                        <div class="notificacoes-body" id="listaNotificacoes">
+                            <p class="text-center text-muted m-3">Carregando notificações...</p>
+                        </div>
+                    </div>
+
                     <div class="espaco"></div>
                     <div class="centralizarConteiner">
                         <h2>Solicitar Troca</h2>
@@ -279,6 +290,7 @@
         <!-- Importar validations.js e api.js -->
         <script src="../assets/js/validations.js"></script>
         <script src="../assets/js/api.js"></script>
+        <script src="../assets/js/JScolaborador/solicitarTroca.js"></script>
 
         <script>
             const offcanvas = document.getElementById('offcanvasResponsive');
@@ -348,7 +360,7 @@
                 semColaboradores.style.display = 'none';
                 
                 try {
-                    const response = await fetch('http://localhost:5000/api/usuarios?cargo=colaborador', {
+                    const response = await fetch('http://127.0.0.1:5000/api/usuarios?cargo=comum', {
                         credentials: 'include'
                     });
                     const data = await response.json();
@@ -450,28 +462,36 @@
                 btnLoading.style.display = 'inline-block';
                 btnEnviar.disabled = true;
                 
+                // DEBUG: Verificar localStorage
+                const usuarioIdRaw = localStorage.getItem('usuario_id');
+                console.log('🔍 DEBUG - usuario_id (raw):', usuarioIdRaw);
+                console.log('🔍 DEBUG - usuario_id (parsed):', parseInt(usuarioIdRaw));
+                
                 const dados = {
                     solicitante_id: parseInt(localStorage.getItem('usuario_id')),
                     data_solicitada: document.getElementById('dataSolicitada').value,
-                    local: document.getElementById('localSubstituicao').value,
-                    motivo: document.getElementById('motivo').value.trim(),
-                    substituto_id: substitutoSelecionado
+                    motivo: document.getElementById('motivo').value.trim()
                 };
                 
-                console.log(' Enviando solicitação:', dados);
+                // Só adiciona substituto_id se houver um selecionado
+                if (substitutoSelecionado) {
+                    dados.substituto_id = substitutoSelecionado;
+                }
+                
+                console.log('📤 Enviando solicitação:', dados);
                 
                 try {
                     const resultado = await TrocasAPI.solicitar(dados);
                     
-                    console.log(' Solicitação enviada:', resultado);
+                    console.log('✅ Solicitação enviada:', resultado);
                     
                     modal.hide();
                     
                     mostrarSucesso(`
-                        <strong> Solicitação enviada com sucesso!</strong><br>
+                        <strong>✅ Solicitação enviada com sucesso!</strong><br>
                         ${substitutoSelecionado 
-                            ? 'Aguarde a aprovação do coordenador e confirmação do substituto.' 
-                            : 'Aguarde a aprovação do coordenador.'}
+                            ? '⏳ Aguarde a aprovação do coordenador e confirmação do substituto.' 
+                            : '⏳ Aguarde a aprovação do coordenador.'}
                     `);
                     
                     document.getElementById('formTroca').reset();
@@ -482,9 +502,9 @@
                     document.getElementById('pesquisaColaborador').value = '';
                     
                 } catch (error) {
-                    console.error(' Erro ao enviar solicitação:', error);
+                    console.error('❌ Erro ao enviar solicitação:', error);
                     mostrarErro(`
-                        <strong> Erro ao enviar solicitação:</strong><br>
+                        <strong>❌ Erro ao enviar solicitação:</strong><br>
                         ${error.message || 'Erro desconhecido'}
                     `);
                 } finally {

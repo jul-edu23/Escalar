@@ -1,6 +1,6 @@
 /**
- * CALENDÁRIO COLABORADOR - Sistema Escalar
- * Carrega e renderiza calendário mensal com escalas do backend
+ * MINHAS SOLICITAÇÕES - Sistema Escalar
+ * Sistema de notificações para colaboradores
  */
 
 // ========================================
@@ -75,15 +75,17 @@ function atualizarBadgeColaborador() {
         notificacoesColaborador.atestadosRecusados.length;
     
     // Criar badge se não existir
-    const sino = document.querySelector('a[href="#"] svg[viewBox="0 0 37 34"]').parentElement;
-    let badge = sino.querySelector('.notification-badge');
+    const sinoLink = document.querySelector('a[href="#"] svg[viewBox="0 0 37 34"]')?.parentElement;
+    if (!sinoLink) return;
+    
+    let badge = sinoLink.querySelector('.notification-badge');
     
     if (!badge && total > 0) {
         badge = document.createElement('span');
         badge.className = 'position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notification-badge';
         badge.style.cssText = 'font-size: 0.7rem;';
-        sino.style.position = 'relative';
-        sino.appendChild(badge);
+        sinoLink.style.position = 'relative';
+        sinoLink.appendChild(badge);
     }
     
     if (badge) {
@@ -234,168 +236,4 @@ document.addEventListener('DOMContentLoaded', function() {
 // Atualiza a cada 30 segundos
 setInterval(carregarNotificacoesColaborador, 30000);
 
-// ========================================
-// CALENDÁRIO DINÂMICO
-// ========================================
-
-let mesAtual = new Date().getMonth();
-let anoAtual = new Date().getFullYear();
-let escalasDoMes = [];
-
-const mesesNomes = [
-    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-];
-
-/**
- * Carrega escalas do mês do backend
- */
-async function carregarEscalas(mes, ano) {
-    try {
-        const usuario_id = localStorage.getItem('usuario_id');
-        if (!usuario_id) {
-            console.error('Usuário não logado');
-            return;
-        }
-        
-        const response = await fetch(
-            `${window.location.origin}/api/escalas?usuario_id=${usuario_id}&mes=${mes + 1}&ano=${ano}`,
-            { credentials: 'include' }
-        );
-        
-        if (response.ok) {
-            const data = await response.json();
-            escalasDoMes = data.escalas || [];
-            renderizarCalendario();
-        } else {
-            console.error('Erro ao carregar escalas:', response.status);
-            renderizarCalendario(); // Renderiza vazio
-        }
-    } catch (error) {
-        console.error('Erro ao carregar escalas:', error);
-        renderizarCalendario(); // Renderiza vazio
-    }
-}
-
-/**
- * Busca escala de uma data específica
- */
-function getEscalaDoDia(dia) {
-    const dataFormatada = `${anoAtual}-${String(mesAtual + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
-    return escalasDoMes.find(e => e.data_plantao === dataFormatada);
-}
-
-/**
- * Renderiza o calendário completo
- */
-function renderizarCalendario() {
-    const calendarGrid = document.getElementById('calendar-grid');
-    const mesAnoTexto = document.getElementById('mes-ano');
-    
-    if (!calendarGrid || !mesAnoTexto) return;
-    
-    // Atualiza título
-    mesAnoTexto.textContent = `${mesesNomes[mesAtual]} ${anoAtual}`;
-    
-    // Limpa grid
-    calendarGrid.innerHTML = '';
-    
-    // Cabeçalho dos dias da semana
-    const diasSemana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
-    diasSemana.forEach(dia => {
-        const header = document.createElement('div');
-        header.className = 'text-center fw-bold p-2';
-        header.textContent = dia;
-        calendarGrid.appendChild(header);
-    });
-    
-    // Primeiro dia do mês (0 = domingo, 6 = sábado)
-    const primeiroDia = new Date(anoAtual, mesAtual, 1).getDay();
-    
-    // Últomo dia do mês
-    const ultimoDia = new Date(anoAtual, mesAtual + 1, 0).getDate();
-    
-    // Células vazias antes do primeiro dia
-    for (let i = 0; i < primeiroDia; i++) {
-        const vazio = document.createElement('div');
-        calendarGrid.appendChild(vazio);
-    }
-    
-    // Dias do mês
-    for (let dia = 1; dia <= ultimoDia; dia++) {
-        const celula = document.createElement('div');
-        celula.className = 'border rounded p-2';
-        celula.style.minHeight = '70px';
-        
-        const escala = getEscalaDoDia(dia);
-        
-        // Número do dia
-        const numeroDia = document.createElement('div');
-        numeroDia.className = 'fw-bold mb-1';
-        numeroDia.textContent = dia;
-        celula.appendChild(numeroDia);
-        
-        // Se houver escala, colorir e mostrar tipo
-        if (escala) {
-            const tipo = escala.tipo || 'trabalho';
-            celula.classList.add(`escalar-${tipo}`);
-            
-            const tipoTexto = document.createElement('small');
-            tipoTexto.className = 'd-block';
-            tipoTexto.textContent = tipo.charAt(0).toUpperCase() + tipo.slice(1);
-            celula.appendChild(tipoTexto);
-            
-            if (escala.observacao) {
-                const obs = document.createElement('small');
-                obs.className = 'd-block text-truncate';
-                obs.title = escala.observacao;
-                obs.textContent = escala.observacao;
-                celula.appendChild(obs);
-            }
-        }
-        
-        calendarGrid.appendChild(celula);
-    }
-}
-
-/**
- * Navegação do calendário
- */
-function mesAnterior() {
-    mesAtual--;
-    if (mesAtual < 0) {
-        mesAtual = 11;
-        anoAtual--;
-    }
-    carregarEscalas(mesAtual, anoAtual);
-}
-
-function proximoMes() {
-    mesAtual++;
-    if (mesAtual > 11) {
-        mesAtual = 0;
-        anoAtual++;
-    }
-    carregarEscalas(mesAtual, anoAtual);
-}
-
-function mesAtualBtn() {
-    mesAtual = new Date().getMonth();
-    anoAtual = new Date().getFullYear();
-    carregarEscalas(mesAtual, anoAtual);
-}
-
-// Event listeners dos botões de navegação
-document.addEventListener('DOMContentLoaded', () => {
-    const btnAnterior = document.getElementById('btn-mes-anterior');
-    const btnProximo = document.getElementById('btn-proximo-mes');
-    const btnHoje = document.getElementById('btn-mes-atual');
-    
-    if (btnAnterior) btnAnterior.addEventListener('click', mesAnterior);
-    if (btnProximo) btnProximo.addEventListener('click', proximoMes);
-    if (btnHoje) btnHoje.addEventListener('click', mesAtualBtn);
-    
-    // Carrega calendário inicial
-    carregarEscalas(mesAtual, anoAtual);
-    carregarNotificacoes();
-});
+console.log('✅ Sistema de notificações de minhas solicitações carregado!');

@@ -19,7 +19,8 @@ def verificarAdmin(f):
     @wraps(f)
     def decorador(*args, **kwargs):
         usuario = obterUsuarioAtual()
-        if not usuario or usuario.cargo != 'coordenador':
+        # Aceitar tanto 'administrador' quanto 'coordenador' como admin
+        if not usuario or usuario.nivel_acesso not in ['administrador', 'coordenador']:
             return jsonify({'error': 'Acesso negado. Apenas coordenadores podem acessar esta rota.'}), 403
         return f(*args, **kwargs)
     return decorador
