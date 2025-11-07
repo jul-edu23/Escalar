@@ -23,11 +23,6 @@ Sistema completo de gerenciamento de escalas de trabalho para a segurança do Ce
 **Fundação Educacional de Patos de Minas (FEPAM)**  
 **Centro Universitário de Patos de Minas (UNIPAM)** - Setor de Vigilância
 
-### 📅 Cronograma
-- **Data de Início:** 21/08/2025
-- **Data de Término:** 12/12/2025
-- **Fase Atual:** Integração Frontend-Backend (Fase 5)
-
 ---
 
 ## 🎯 Descrição do Projeto
@@ -167,7 +162,6 @@ O **Escalar** é um sistema web completo para gestão de plantões da equipe de 
 - **7 Tabelas principais**: Usuarios, Escalas, Trocas, Ferias, Atestados, Notificacoes, HistoricoAcao
 
 ### **APIs e Integrações**
-- **Google Calendar API** - Sincronização de calendários
 - **RESTful API** - Comunicação Frontend-Backend
 - **6 Blueprints modulares**: escalas, trocas, férias, atestados, notificações, histórico
 
