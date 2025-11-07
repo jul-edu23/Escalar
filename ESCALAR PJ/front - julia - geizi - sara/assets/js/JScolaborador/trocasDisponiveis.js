@@ -1,10 +1,229 @@
 /**
  * TROCAS DISPONÍVEIS - Sistema Escalar
- * Sistema de notificações para colaboradores
+ * Mostra solicitações de troca SEM substituto indicado para que outros colaboradores possam se oferecer
  */
 
 // ========================================
-// MODAL DE NOTIFICAÇÕES
+// VARIÁVEIS GLOBAIS
+// ========================================
+
+let trocasDisponiveis = [];
+let usuarioLogado = null;
+let trocaSelecionada = null;
+
+// ========================================
+// CARREGAR DADOS
+// ========================================
+
+async function carregarDadosUsuario() {
+    const usuario_id = localStorage.getItem('usuario_id');
+    if (!usuario_id) {
+        window.location.href = '../login.html';
+        return null;
+    }
+    
+    try {
+        const response = await fetch(`http://127.0.0.1:5000/api/usuarios`);
+        const usuarios = await response.json();
+        usuarioLogado = usuarios.find(u => u.id == usuario_id);
+        return usuarioLogado;
+    } catch (error) {
+        console.error('Erro ao carregar dados do usuário:', error);
+        return null;
+    }
+}
+
+async function carregarTrocasDisponiveis() {
+    try {
+        const response = await fetch('http://127.0.0.1:5000/api/trocas/disponiveis');
+        const resultado = await response.json();
+        
+        if (resultado.success) {
+            // Filtrar para não mostrar as próprias solicitações do usuário logado
+            trocasDisponiveis = resultado.data.filter(troca => 
+                troca.solicitante_id != usuarioLogado?.id
+            );
+            renderizarTrocas();
+        } else {
+            mostrarMensagem('Erro ao carregar trocas: ' + resultado.error, 'danger');
+        }
+    } catch (error) {
+        console.error('Erro ao carregar trocas disponíveis:', error);
+        mostrarMensagem('Erro ao conectar com o servidor', 'danger');
+    }
+}
+
+// ========================================
+// RENDERIZAÇÃO
+// ========================================
+
+function renderizarTrocas() {
+    const container = document.querySelector('.container-cinza');
+    
+    if (!container) return;
+    
+    if (trocasDisponiveis.length === 0) {
+        container.innerHTML = `
+            <div class="text-center py-5">
+                <i class="bi bi-inbox" style="font-size: 4rem; color: var(--cinza);"></i>
+                <h4 class="mt-3 text-muted">Nenhuma troca disponível no momento</h4>
+                <p class="text-muted">Quando algum colaborador solicitar troca sem indicar substituto, aparecerá aqui.</p>
+            </div>
+        `;
+        return;
+    }
+    
+    let html = '';
+    
+    trocasDisponiveis.forEach((troca, index) => {
+        const dataSolicitada = new Date(troca.data_solicitada);
+        const dataFormatada = dataSolicitada.toLocaleDateString('pt-BR');
+        const diaSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'][dataSolicitada.getDay()];
+        
+        const fotoUrl = troca.solicitante_foto && troca.solicitante_foto !== 'default.jpg' 
+            ? `../assets/img/${troca.solicitante_foto}` 
+            : `https://ui-avatars.com/api/?name=${encodeURIComponent(troca.solicitante_nome)}&background=00466c&color=fff&size=80`;
+        
+        html += `
+            <div class="pedidoSubstituir mb-4" data-troca-id="${troca.id}">
+                <div class="container justify-content-center">
+                    <div class="row align-items-center">
+                        <!-- Foto de Perfil -->
+                        <div class="col-12 col-md-6 col-lg-1 text-center mb-3 mb-lg-0">
+                            <div class="fotoPerfil" style="width: 80px; height: 80px; border-radius: 50%; overflow: hidden; margin: 0 auto; background: var(--cinza);">
+                                <img src="${fotoUrl}" alt="${troca.solicitante_nome}" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        </div>
+                        
+                        <!-- Informações -->
+                        <div class="col-12 col-md-6 col-lg-8 mb-3 mb-lg-0">
+                            <h4 class="mb-2">Substituição Disponível</h4>
+                            <p class="mb-1"><strong>Nome:</strong> <span>${troca.solicitante_nome}</span></p>
+                            <p class="mb-1"><strong>Local:</strong> <span>${troca.solicitante_local}</span></p>
+                            <p class="mb-1"><strong>Turno:</strong> <span>${troca.solicitante_turno}</span></p>
+                            <p class="mb-0"><strong>Motivo:</strong> <span>${troca.motivo || 'Não informado'}</span></p>
+                        </div>
+                        
+                        <!-- Data e Botão -->
+                        <div class="col-12 col-md-12 col-lg-3 text-md-start text-lg-end">
+                            <p class="mb-2"><strong>Data:</strong> <span>${dataFormatada}</span></p>
+                            <p class="mb-3 text-muted"><small>${diaSemana}</small></p>
+                            <button type="button" class="btn btn-azul mt-2 mt-md-0" onclick="abrirModalProposta(${troca.id})">
+                                <i class="bi bi-arrow-left-right me-2"></i>Propor Troca
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    container.innerHTML = html;
+}
+
+// ========================================
+// MODAL - PROPOR TROCA
+// ========================================
+
+function abrirModalProposta(trocaId) {
+    trocaSelecionada = trocasDisponiveis.find(t => t.id === trocaId);
+    
+    if (!trocaSelecionada) {
+        mostrarMensagem('Troca não encontrada', 'danger');
+        return;
+    }
+    
+    const dataFormatada = new Date(trocaSelecionada.data_solicitada).toLocaleDateString('pt-BR');
+    
+    // Atualizar conteúdo do primeiro modal
+    const modal1 = document.getElementById('exampleModalToggle');
+    const bodyModal1 = modal1.querySelector('.modal-body');
+    bodyModal1.innerHTML = `
+        <h5>Substituir:</h5>
+        <p><span>${trocaSelecionada.solicitante_nome}</span></p>
+        <h5>Em:</h5>
+        <p><span>${dataFormatada}</span></p>
+        <h5>Local:</h5>
+        <p><span>${trocaSelecionada.solicitante_local}</span></p>
+        <h5>Turno:</h5>
+        <p><span>${trocaSelecionada.solicitante_turno}</span></p>
+        ${trocaSelecionada.motivo ? `<h5>Motivo:</h5><p><span>${trocaSelecionada.motivo}</span></p>` : ''}
+    `;
+    
+    // Mostrar modal
+    const modalBootstrap = new bootstrap.Modal(modal1);
+    modalBootstrap.show();
+}
+
+async function confirmarProposta() {
+    if (!trocaSelecionada || !usuarioLogado) {
+        mostrarMensagem('Erro ao processar proposta', 'danger');
+        return;
+    }
+    
+    try {
+        const response = await fetch(`http://127.0.0.1:5000/api/trocas/${trocaSelecionada.id}/propor-substituicao`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                substituto_id: usuarioLogado.id
+            })
+        });
+        
+        const resultado = await response.json();
+        
+        if (resultado.success) {
+            // Fechar modais
+            const modais = document.querySelectorAll('.modal');
+            modais.forEach(modal => {
+                const bsModal = bootstrap.Modal.getInstance(modal);
+                if (bsModal) bsModal.hide();
+            });
+            
+            mostrarMensagem('✅ Proposta enviada com sucesso! O coordenador será notificado.', 'success');
+            
+            // Recarregar lista
+            await carregarTrocasDisponiveis();
+        } else {
+            mostrarMensagem('❌ ' + resultado.error, 'danger');
+        }
+    } catch (error) {
+        console.error('Erro ao enviar proposta:', error);
+        mostrarMensagem('Erro ao conectar com o servidor', 'danger');
+    }
+}
+
+// ========================================
+// UTILITÁRIOS
+// ========================================
+
+function mostrarMensagem(mensagem, tipo = 'info') {
+    // Remover mensagem anterior se existir
+    const mensagemAnterior = document.querySelector('.alert-flutuante');
+    if (mensagemAnterior) {
+        mensagemAnterior.remove();
+    }
+    
+    const alerta = document.createElement('div');
+    alerta.className = `alert alert-${tipo} alert-dismissible fade show alert-flutuante`;
+    alerta.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 9999; min-width: 300px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);';
+    alerta.innerHTML = `
+        ${mensagem}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    document.body.appendChild(alerta);
+    
+    // Auto-remover após 5 segundos
+    setTimeout(() => {
+        alerta.remove();
+    }, 5000);
+}
+
+// ========================================
+// SISTEMA DE NOTIFICAÇÕES (PADRÃO MINHAS SOLICITAÇÕES)
 // ========================================
 
 let notificacoesColaborador = {
@@ -200,8 +419,34 @@ function renderizarNotificacoesColaborador() {
     lista.innerHTML = html;
 }
 
-// Event listeners
-document.addEventListener('DOMContentLoaded', function() {
+// ========================================
+// INICIALIZAÇÃO
+// ========================================
+
+document.addEventListener('DOMContentLoaded', async function() {
+    console.log('🔄 Carregando trocas disponíveis...');
+    
+    // Carregar dados do usuário logado
+    await carregarDadosUsuario();
+    
+    if (!usuarioLogado) {
+        mostrarMensagem('Erro ao carregar dados do usuário. Faça login novamente.', 'danger');
+        setTimeout(() => {
+            window.location.href = '../login.html';
+        }, 2000);
+        return;
+    }
+    
+    // Carregar trocas disponíveis
+    await carregarTrocasDisponiveis();
+    
+    // Configurar botão de confirmação no segundo modal
+    const btnConfirmar = document.getElementById('btnConfirmarProposta');
+    if (btnConfirmar) {
+        btnConfirmar.onclick = confirmarProposta;
+    }
+    
+    // Inicializar sistema de notificações
     const sinoLink = document.querySelector('a[href="#"] svg[viewBox="0 0 37 34"]')?.parentElement;
     const modal = document.getElementById('modalNotificacoes');
     const fechar = document.getElementById('fecharNotificacoes');
@@ -229,11 +474,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Carrega notificações inicialmente
+    // Carregar notificações inicialmente
     carregarNotificacoesColaborador();
+    
+    console.log('✅ Trocas disponíveis carregadas!');
 });
 
-// Atualiza a cada 30 segundos
+// Atualizar lista de trocas a cada 60 segundos
+setInterval(async () => {
+    if (usuarioLogado) {
+        await carregarTrocasDisponiveis();
+    }
+}, 60000);
+
+// Atualizar notificações a cada 30 segundos
 setInterval(carregarNotificacoesColaborador, 30000);
 
-console.log('✅ Sistema de notificações de trocas disponíveis carregado!');
+console.log('✅ Sistema de trocas disponíveis e notificações carregado!');

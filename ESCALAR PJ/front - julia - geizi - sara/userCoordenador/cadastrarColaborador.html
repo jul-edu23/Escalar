@@ -410,13 +410,13 @@
             lista.innerHTML = html;
         }
 
-        document.getElementById('sinoNotificacoes').addEventListener('click', function(e) {
+        document.getElementById('sinoNotificacoes')?.addEventListener('click', function(e) {
             e.preventDefault();
             const modal = document.getElementById('modalNotificacoes');
             modal.classList.toggle('ativo');
         });
 
-        document.getElementById('fecharNotificacoes').addEventListener('click', function() {
+        document.getElementById('fecharNotificacoes')?.addEventListener('click', function() {
             document.getElementById('modalNotificacoes').classList.remove('ativo');
         });
 
@@ -482,7 +482,7 @@
             };
             
             try {
-                const response = await fetch(`${window.location.origin}/api/cadastrar-colaborador`, {
+                const response = await fetch('http://127.0.0.1:5000/api/cadastrar-colaborador', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
