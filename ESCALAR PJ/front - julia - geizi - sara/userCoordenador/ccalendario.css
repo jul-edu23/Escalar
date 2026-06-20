@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F3F4F6; /* Fundo cinza */
+}
+
+/* Cores da legenda veyr*/
+.escalar-bg { background-color: #0A214E; }
+.escalar-trabalho { background-color: #3B82F6; }
+.escalar-folga { background-color: #C084FC; }
+.escalar-falta { background-color: #F97116; }
+.escalar-falta-justificada { background-color: #34D399; }
+.escalar-ferias { background-color: #A5F3FC; }
+.escalar-substituicao { background-color: #EAB308; }
+.escalar-atestado { background-color: #92400E; }
+
+
+.calendar-day-cell {
+    background-color: white;
+    border: 1px solid #E5E7EB; 
+    min-height: 120px; /* Altura mínima p/ caber nomes */
+    padding: 8px;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease-in-out;
+}
+
+.calendar-day-cell:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+}
+
+.day-number {
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: #374151; 
+    margin-bottom: 8px;
+}
+
+.employee-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.employee-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    color: #4B5563; 
+}
+
+.employee-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px; 
+    margin-right: 6px;
+    flex-shrink: 0;
+}

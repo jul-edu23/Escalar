@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escalar | Minhas Solicitações</title>
+
+    <!--Google font - inter-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!--Icones-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.x.x/font/bootstrap-icons.css">
+    <!--CSS global-->
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <!--CSS local-->
+    <link rel="stylesheet" href="../assets/css/minhasSolicitacoes.css">
+
+</head>
+
+<body>
+
+    <div class="body">
+
+        <div class="menu-mobile">
+            <div class="offcanvas-lg offcanvas-start sidebar" tabindex="-1" id="offcanvasResponsive"
+                aria-labelledby="offcanvasResponsiveLabel">
+                <div class="offcanvas-header">
+                    <div class="logo mb-5 mt-3 text-center">
+                        <a class="navbar-brand" href="calendario.html">
+                            <img src="../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
+                                alt="Escalar">
+                        </a>
+                    </div>
+                    <button type="button" class="btn" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive"
+                        aria-label="Close"><i class="bi bi-list"></i></button>
+                </div>
+                <div class="offcanvas-body" id="offcanvasBodyContent" style="display: none;">
+
+                    <div class="menu-lateral">
+                        <ul class="nav nav-pills flex-column mb-auto" id="menu">
+                            <li class="nav-item">
+                                <a href="trocasDisponiveis.html" class="nav-link text-white">Trocas Disponíveis</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="solicitarTroca.html" class="nav-link text-white">Solicitar Troca</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="cadastrarFerias.html" class="nav-link text-white">Cadastrar Férias</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="cadastrarAtestado.html" class="nav-link text-white">Cadastrar Atestado</a>
+                            </li>
+                            <li class="nav-item item-atual">
+                                <a href="minhasSolicitacoes.html" class="nav-link text-white">Minhas Solicitações</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-desktop d-none d-lg-block bg-dark text-white">
+            <div class="sidebar p-3 min-vh-100">
+                <div class="logo mb-5 mt-3 text-center">
+                    <a class="navbar-brand" href="calendario.html">
+                        <img src="../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
+                            alt="Escalar">
+                    </a>
+                </div>
+                <div class="menu-lateral">
+                    <ul class="nav nav-pills flex-column mb-auto" id="menu">
+                        <li class="nav-item">
+                            <a href="trocasDisponiveis.html" class="nav-link text-white">Trocas Disponíveis</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="solicitarTroca.html" class="nav-link text-white">Solicitar Troca</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="cadastrarFerias.html" class="nav-link text-white">Cadastrar Férias</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="cadastrarAtestado.html" class="nav-link text-white">Cadastrar Atestado</a>
+                        </li>
+                        <li class="nav-item item-atual">
+                            <a href="minhasSolicitacoes.html" class="nav-link text-white">Minhas Solicitações</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="content flex-grow-1">
+
+            <header>
+                <nav class="navbar2 navbar-expand-lg bg-body-tertiary">
+                    <div class="container-fluid p-3">
+                        <div class="navbar-brand">
+                            <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive"><i
+                                    class="bi bi-list"></i></button>
+                        </div>
+                        <ul class="navbar-nav ms-auto">
+
+                            <li class="nav-item me-3">
+                                <a class="nav-link" href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="23" viewBox="0 0 37 34" fill="none">
+                                        <g clip-path="url(#clip0_230_407)">
+                                            <path
+                                                d="M18.5 33.9998C19.7266 33.9998 20.903 33.5521 21.7704 32.755C22.6377 31.958 23.125 30.877 23.125 29.7498H13.875C13.875 30.877 14.3623 31.958 15.2296 32.755C16.097 33.5521 17.2734 33.9998 18.5 33.9998ZM20.8009 2.3352C20.8332 2.03972 20.7977 1.74132 20.6968 1.45922C20.5959 1.17712 20.4317 0.917588 20.2149 0.697371C19.9981 0.477153 19.7335 0.301136 19.4381 0.180669C19.1427 0.0602031 18.8232 -0.00203705 18.5 -0.00203705C18.1768 -0.00203705 17.8573 0.0602031 17.5619 0.180669C17.2665 0.301136 17.0019 0.477153 16.7851 0.697371C16.5683 0.917588 16.4041 1.17712 16.3032 1.45922C16.2023 1.74132 16.1668 2.03972 16.1991 2.3352C13.5849 2.82299 11.2347 4.12639 9.54673 6.02448C7.85879 7.92256 6.93696 10.2986 6.9375 12.7498C6.9375 15.0831 5.78125 25.4998 2.3125 27.6248H34.6875C31.2188 25.4998 30.0625 15.0831 30.0625 12.7498C30.0625 7.60732 26.085 3.31482 20.8009 2.3352Z"
+                                                fill="#00476C" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_230_407">
+                                                <rect width="37" height="34" fill="white" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="nav-item me-3">
+                                <a class="nav-link" href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="29" viewBox="0 0 52 53" fill="none">
+                                        <g clip-path="url(#clip0_230_403)">
+                                            <path
+                                                d="M35.75 19.875C35.75 22.5106 34.7228 25.0382 32.8943 26.9019C31.0658 28.7655 28.5859 29.8125 26 29.8125C23.4141 29.8125 20.9342 28.7655 19.1057 26.9019C17.2772 25.0382 16.25 22.5106 16.25 19.875C16.25 17.2394 17.2772 14.7118 19.1057 12.8481C20.9342 10.9845 23.4141 9.9375 26 9.9375C28.5859 9.9375 31.0658 10.9845 32.8943 12.8481C34.7228 14.7118 35.75 17.2394 35.75 19.875Z"
+                                                fill="#00476C" />
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M0 26.5C0 19.4718 2.73928 12.7314 7.61522 7.76167C12.4912 2.79196 19.1044 0 26 0C32.8956 0 39.5088 2.79196 44.3848 7.76167C49.2607 12.7314 52 19.4718 52 26.5C52 33.5282 49.2607 40.2686 44.3848 45.2383C39.5088 50.208 32.8956 53 26 53C19.1044 53 12.4912 50.208 7.61522 45.2383C2.73928 40.2686 0 33.5282 0 26.5ZM26 3.3125C21.7158 3.31273 17.5187 4.54595 13.8918 6.87022C10.2649 9.19448 7.35567 12.5153 5.49888 16.4505C3.6421 20.3857 2.91326 24.7753 3.39624 29.1141C3.87923 33.4529 5.55442 37.5644 8.229 40.9756C10.5365 37.1861 15.6163 33.125 26 33.125C36.3838 33.125 41.4603 37.1828 43.771 40.9756C46.4456 37.5644 48.1208 33.4529 48.6038 29.1141C49.0867 24.7753 48.3579 20.3857 46.5011 16.4505C44.6443 12.5153 41.7351 9.19448 38.1082 6.87022C34.4813 4.54595 30.2842 3.31273 26 3.3125Z"
+                                                fill="#00476C" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_230_403">
+                                                <rect width="52" height="53" fill="white" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </nav>
+            </header>
+
+            <main>
+                <div class="container mt-4">
+
+                    <!-- Modal de Notificações -->
+                    <div id="modalNotificacoes" class="modal-notificacoes shadow-lg">
+                        <div class="notificacoes-header d-flex justify-content-between align-items-center">
+                            <h6>Notificações</h6>
+                            <button type="button" class="btn-close" id="fecharNotificacoes" aria-label="Close"></button>
+                        </div>
+                        <div class="notificacoes-body" id="listaNotificacoes">
+                            <p class="text-center text-muted m-3">Carregando notificações...</p>
+                        </div>
+                    </div>
+
+                    <div class="espaco"></div>
+                    
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>Minhas Solicitações</h2>
+                        <button class="btn btn-azul btn-sm" onclick="carregarSolicitacoes()">
+                            <i class="bi bi-arrow-clockwise"></i> Atualizar
+                        </button>
+                    </div>
+                    
+                    <!-- Mensagem de feedback -->
+                    <div id="mensagem" style="display: none;" class="alert alert-dismissible fade show mb-3" role="alert">
+                        <span id="mensagem-texto"></span>
+                        <button type="button" class="btn-close" onclick="fecharMensagem()"></button>
+                    </div>
+                    
+                    <!-- Filtros -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="filtroTipo">Filtrar por Tipo:</label>
+                            <select id="filtroTipo" class="form-select" onchange="aplicarFiltros()">
+                                <option value="todas"> Todas as Solicitações</option>
+                                <option value="trocas"> Trocas</option>
+                                <option value="ferias"> Férias</option>
+                                <option value="atestados"> Atestados</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="filtroStatus">Filtrar por Status:</label>
+                            <select id="filtroStatus" class="form-select" onchange="aplicarFiltros()">
+                                <option value="todos"> Todos os Status</option>
+                                <option value="pendente"> Pendente</option>
+                                <option value="aprovada"> Aprovado</option>
+                                <option value="recusada"> Recusado</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Loading -->
+                    <div id="loading" class="text-center py-5" style="display: none;">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                        <p class="mt-2">Carregando suas solicitações...</p>
+                    </div>
+                    
+                    <!-- Lista de Solicitações -->
+                    <div class="row gap-3 p-3" id="listaSolicitacoes">
+                        <!-- Colunas serão preenchidas dinamicamente -->
+                        <div class="col-sm container-cinza" id="colunaTrocas">
+                            <h4 class="mb-3 text-center"> Trocas</h4>
+                            <div id="listaTrocas">
+                                <p class="text-muted text-center">Nenhuma troca solicitada</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm container-cinza" id="colunaFerias">
+                            <h4 class="mb-3 text-center"> Férias</h4>
+                            <div id="listaFerias">
+                                <p class="text-muted text-center">Nenhuma férias solicitada</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm container-cinza" id="colunaAtestados">
+                            <h4 class="mb-3 text-center"> Atestados</h4>
+                            <div id="listaAtestados">
+                                <p class="text-muted text-center">Nenhum atestado enviado</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <!-- Importar validations.js e api.js -->
+    <script src="../assets/js/validations.js"></script>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/JScolaborador/minhasSolicitacoes.js"></script>
+
+    <script>
+        const offcanvas = document.getElementById('offcanvasResponsive');
+        const bodyContent = document.getElementById('offcanvasBodyContent');
+        offcanvas.addEventListener('show.bs.offcanvas', function () {
+            bodyContent.style.display = 'block';
+        });
+        offcanvas.addEventListener('hide.bs.offcanvas', function () {
+            bodyContent.style.display = 'none';
+        });
+    </script>
+    
+    <script>
+        // Guarda todas as solicitações pra poder filtrar depois
+        let todasTrocas = [];
+        let todasFerias = [];
+        let todosAtestados = [];
+        
+        // Mostra mensagens pro usuário
+        function mostrarMensagem(texto, tipo = 'info') {
+            const mensagemDiv = document.getElementById('mensagem');
+            const mensagemTexto = document.getElementById('mensagem-texto');
+            
+            mensagemDiv.className = `alert alert-${tipo} alert-dismissible fade show`;
+            mensagemTexto.innerHTML = texto;
+            mensagemDiv.style.display = 'block';
+            mensagemDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            setTimeout(() => fecharMensagem(), 6000);
+        }
+
+        function fecharMensagem() {
+            document.getElementById('mensagem').style.display = 'none';
+        }
+
+        function mostrarErro(texto) {
+            mostrarMensagem(texto, 'danger');
+        }
+
+        function obterBadgeStatus(status) {
+            const badges = {
+                'pendente': '<span class="badge bg-warning text-dark"> Pendente</span>',
+                'aprovada': '<span class="badge bg-success"> Aprovado</span>',
+                'recusada': '<span class="badge bg-danger"> Recusado</span>',
+                'aceita': '<span class="badge bg-success"> Aceito</span>',
+                'negada': '<span class="badge bg-danger"> Negado</span>',
+                'rejeitada': '<span class="badge bg-danger"> Rejeitado</span>'
+            };
+            return badges[status?.toLowerCase()] || `<span class="badge bg-secondary">${status}</span>`;
+        }
+
+        function renderizarTrocas(trocas) {
+            const container = document.getElementById('listaTrocas');
+            
+            if (!trocas || trocas.length === 0) {
+                container.innerHTML = '<p class="text-muted text-center">Nenhuma troca solicitada</p>';
+                return;
+            }
+            
+            container.innerHTML = trocas.map(troca => `
+                <div class="container-branco mb-3" data-tipo="troca" data-status="${troca.status}">
+                    <p class="mb-1"><strong>📅 Data:</strong> ${formatarDataBR(troca.data_solicitada)}</p>
+                    ${troca.substituto_nome ? 
+                        `<p class="mb-1"><strong>🔁 Substituído por:</strong> ${troca.substituto_nome}</p>` : 
+                        `<p class="mb-1 text-muted"><em>Sem substituto indicado</em></p>`
+                    }
+                    <p class="mb-1"><strong>📝 Motivo:</strong> ${troca.motivo || 'Não informado'}</p>
+                    <p class="mb-1"><strong>📊 Status:</strong> ${obterBadgeStatus(troca.status)}</p>
+                    ${troca.status === 'recusada' && troca.motivo_recusa ? 
+                        `<p class="mb-1 text-danger"><strong>❌ Motivo da recusa:</strong> ${troca.motivo_recusa}</p>` : 
+                        ''
+                    }
+                    <p class="mb-0 text-muted"><small>Solicitado em: ${formatarDataBR(troca.data_solicitacao?.split('T')[0])}</small></p>
+                </div>
+            `).join('');
+        }
+
+        function renderizarFerias(ferias) {
+            const container = document.getElementById('listaFerias');
+            
+            if (!ferias || ferias.length === 0) {
+                container.innerHTML = '<p class="text-muted text-center">Nenhuma férias solicitada</p>';
+                return;
+            }
+            
+            container.innerHTML = ferias.map(f => {
+                // Calcula dias entre as datas
+                const inicio = new Date(f.data_inicio);
+                const fim = new Date(f.data_fim);
+                const dias = Math.ceil((fim - inicio) / (1000 * 60 * 60 * 24)) + 1;
+                
+                return `
+                <div class="container-branco mb-3" data-tipo="ferias" data-status="${f.status}">
+                    <p class="mb-1"><strong>📅 Início:</strong> ${formatarDataBR(f.data_inicio)}</p>
+                    <p class="mb-1"><strong>📅 Fim:</strong> ${formatarDataBR(f.data_fim)}</p>
+                    <p class="mb-1"><strong>⏱️ Dias:</strong> ${dias} dias</p>
+                    ${f.observacao ? 
+                        `<p class="mb-1"><strong>📝 Observações:</strong> ${f.observacao}</p>` : 
+                        ''
+                    }
+                    <p class="mb-1"><strong>📊 Status:</strong> ${obterBadgeStatus(f.status)}</p>
+                    ${f.status === 'rejeitada' && f.motivo_rejeicao ? 
+                        `<p class="mb-1 text-danger"><strong>❌ Motivo da rejeição:</strong> ${f.motivo_rejeicao}</p>` : 
+                        ''
+                    }
+                    <p class="mb-0 text-muted"><small>Solicitado em: ${formatarDataBR(f.data_solicitacao?.split('T')[0])}</small></p>
+                </div>
+            `}).join('');
+        }
+
+        function renderizarAtestados(atestados) {
+            const container = document.getElementById('listaAtestados');
+            
+            if (!atestados || atestados.length === 0) {
+                container.innerHTML = '<p class="text-muted text-center">Nenhum atestado enviado</p>';
+                return;
+            }
+            
+            container.innerHTML = atestados.map(a => {
+                // Calcula dias entre as datas
+                const inicio = new Date(a.data_inicio);
+                const fim = new Date(a.data_fim);
+                const dias = Math.ceil((fim - inicio) / (1000 * 60 * 60 * 24)) + 1;
+                
+                return `
+                <div class="container-branco mb-3" data-tipo="atestados" data-status="${a.status}">
+                    <p class="mb-1"><strong>📅 Período:</strong> ${formatarDataBR(a.data_inicio)} a ${formatarDataBR(a.data_fim)}</p>
+                    <p class="mb-1"><strong>⏱️ Dias:</strong> ${dias} dias</p>
+                    <p class="mb-1"><strong>🏥 CID/Motivo:</strong> ${a.motivo || 'N/A'}</p>
+                    ${a.arquivo ? 
+                        `<p class="mb-1"><strong>📎 Arquivo:</strong> <a href="${a.arquivo}" target="_blank">Ver atestado</a></p>` : 
+                        ''
+                    }
+                    <p class="mb-1"><strong>📊 Status:</strong> ${obterBadgeStatus(a.status)}</p>
+                    ${a.status === 'negada' && a.motivo_negacao ? 
+                        `<p class="mb-1 text-danger"><strong>❌ Motivo da negação:</strong> ${a.motivo_negacao}</p>` : 
+                        ''
+                    }
+                    <p class="mb-0 text-muted"><small>Enviado em: ${formatarDataBR(a.data_envio?.split('T')[0])}</small></p>
+                </div>
+            `}).join('');
+        }
+
+        async function carregarSolicitacoes() {
+            const loading = document.getElementById('loading');
+            loading.style.display = 'block';
+            
+            const usuarioId = parseInt(localStorage.getItem('usuario_id'));
+            
+            if (!usuarioId) {
+                mostrarErro(' Usuário não identificado. Faça login novamente.');
+                loading.style.display = 'none';
+                return;
+            }
+            
+            console.log(' Carregando solicitações do usuário:', usuarioId);
+            
+            try {
+                const [respostaTrocas, respostaFerias, respostaAtestados] = await Promise.all([
+                    TrocasAPI.listarPorUsuario(usuarioId),
+                    FeriasAPI.listarPorUsuario(usuarioId),
+                    AtestadosAPI.listarPorUsuario(usuarioId)
+                ]);
+                
+                // Extrai os dados corretamente da resposta da API
+                todasTrocas = respostaTrocas.data || [];
+                todasFerias = respostaFerias.data || [];
+                todosAtestados = respostaAtestados.data || [];
+                
+                console.log('✅ Solicitações carregadas:', {
+                    trocas: todasTrocas.length,
+                    ferias: todasFerias.length,
+                    atestados: todosAtestados.length
+                });
+                
+                renderizarTrocas(todasTrocas);
+                renderizarFerias(todasFerias);
+                renderizarAtestados(todosAtestados);
+                
+                aplicarFiltros();
+                
+            } catch (error) {
+                console.error(' Erro ao carregar solicitações:', error);
+                mostrarErro(` Erro ao carregar solicitações: ${error.message}`);
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function aplicarFiltros() {
+            const filtroTipo = document.getElementById('filtroTipo').value;
+            const filtroStatus = document.getElementById('filtroStatus').value;
+            
+            console.log(' Aplicando filtros:', { tipo: filtroTipo, status: filtroStatus });
+            
+            let trocasFiltradas = todasTrocas;
+            let feriasFiltradas = todasFerias;
+            let atestadosFiltrados = todosAtestados;
+            
+            if (filtroStatus !== 'todos') {
+                trocasFiltradas = trocasFiltradas.filter(t => t.status?.toLowerCase() === filtroStatus);
+                feriasFiltradas = feriasFiltradas.filter(f => f.status?.toLowerCase() === filtroStatus);
+                atestadosFiltrados = atestadosFiltrados.filter(a => a.status?.toLowerCase() === filtroStatus);
+            }
+            
+            renderizarTrocas(trocasFiltradas);
+            renderizarFerias(feriasFiltradas);
+            renderizarAtestados(atestadosFiltrados);
+            
+            document.getElementById('colunaTrocas').style.display = 
+                (filtroTipo === 'todas' || filtroTipo === 'trocas') ? 'block' : 'none';
+            document.getElementById('colunaFerias').style.display = 
+                (filtroTipo === 'todas' || filtroTipo === 'ferias') ? 'block' : 'none';
+            document.getElementById('colunaAtestados').style.display = 
+                (filtroTipo === 'todas' || filtroTipo === 'atestados') ? 'block' : 'none';
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const usuarioId = localStorage.getItem('usuario_id');
+            if (!usuarioId) {
+                window.location.href = '../login.html';
+                return;
+            }
+            
+            carregarSolicitacoes();
+            
+            console.log(' MinhasSolicitacoes.html carregado');
+        });
+
+        console.log(' Sistema de minhas solicitações integrado!');
+    </script>
+</body>
+
+</html>

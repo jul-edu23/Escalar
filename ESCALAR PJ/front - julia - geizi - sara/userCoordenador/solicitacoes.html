@@ -1,0 +1,683 @@
+    <!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escalar | Solicitações</title>
+
+    <!--Google font - inter-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!--Icones-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.x.x/font/bootstrap-icons.css">
+    <!--CSS global-->
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <!--CSS local-->
+    <link rel="stylesheet" href="../assets/css/solicitacoesAdm.css">
+
+</head>
+
+<body>
+
+    <div class="body">
+
+        <div class="menu-mobile">
+            <div class="offcanvas-lg offcanvas-start sidebar" tabindex="-1" id="offcanvasResponsive"
+                aria-labelledby="offcanvasResponsiveLabel">
+                <div class="offcanvas-header">
+                    <div class="logo mb-5 mt-3 text-center">
+                        <a class="navbar-brand" href="calendarioAdm.html">
+                            <img src="../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
+                                alt="Escalar">
+                        </a>
+                    </div>
+                    <button type="button" class="btn" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive"
+                        aria-label="Close"><i class="bi bi-list"></i></button>
+                </div>
+                <div class="offcanvas-body" id="offcanvasBodyContent" style="display: none;">
+
+                    <div class="menu-lateral">
+                        <ul class="nav nav-pills flex-column mb-auto" id="menu">
+                            <li class="nav-item item-atual">
+                                <a href="quadroColaboradores.html" class="nav-link text-white">Quadro de colaboradores</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="solicitacoes.html" class="nav-link text-white">Solicitações</a>
+                            </li>
+                            <li class="nav-item">
+                                <div class="nav-link text-white" id="accordionExample">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapseOne" aria-expanded="false"
+                                                aria-controls="collapseOne">
+                                                Histórico
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionExample">
+                                            <div class="">
+                                                <ul class="nav nav-pills flex-column mb-auto" id="menu">
+                                                    <li class="nav-item ">
+                                                        <a href="historico.html/trocas.html" class="nav-link text-white">Trocas</a>
+                                                    </li>
+                                                    <li class="nav-item ">
+                                                        <a href="#" class="nav-link text-white">Férias</a>
+                                                    </li>
+                                                    <li class="nav-item ">
+                                                        <a href="#" class="nav-link text-white">Atestados</a>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-desktop d-none d-lg-block bg-dark text-white">
+            <div class="sidebar p-3 min-vh-100">
+                <div class="logo mb-5 mt-3 text-center">
+                    <a class="navbar-brand" href="calendarioAdm.html">
+                        <img src="../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
+                            alt="Escalar">
+                    </a>
+                </div>
+                <div class="menu-lateral">
+                    <ul class="nav nav-pills flex-column mb-auto" id="menu">
+                        <li class="nav-item ">
+                            <a href="quadroColaboradores.html" class="nav-link text-white">Quadro de colaboradores</a>
+                        </li>
+                        <li class="nav-item item-atual">
+                            <a href="solicitacoes.html" class="nav-link text-white">Solicitações</a>
+                        </li>
+                        <li class="nav-item">
+
+                            <div class="nav-link text-white" id="accordionExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseOne" aria-expanded="false"
+                                            aria-controls="collapseOne">
+                                            Histórico
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionExample">
+                                        <div class="">
+                                            <ul class="nav nav-pills flex-column mb-auto" id="menu">
+                                                <li class="nav-item ">
+                                                    <a href="historico.html/trocas.html" class="nav-link text-white">Trocas</a>
+                                                </li>
+                                                <li class="nav-item ">
+                                                    <a href="#" class="nav-link text-white">Férias</a>
+                                                </li>
+                                                <li class="nav-item ">
+                                                    <a href="#" class="nav-link text-white">Atestados</a>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="content flex-grow-1">
+
+            <header>
+                <nav class="navbar2 navbar-expand-lg bg-body-tertiary">
+                    <div class="container-fluid p-3">
+                        <div class="navbar-brand">
+                            <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive"><i
+                                    class="bi bi-list"></i></button>
+                        </div>
+                        <ul class="navbar-nav ms-auto">
+
+                            <li class="nav-item me-3">
+                                <a class="nav-link" href="#" id="sinoNotificacoes">
+                                    <i class="bi bi-bell fs-5"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item me-3">
+                                <a class="nav-link" href="#">
+                                    <i class="bi bi-person-circle fs-4"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </nav>
+            </header>
+
+                        <main>
+                <div class="container mt-4">
+
+                    <!-- Modal de Notificações -->
+                    <div id="modalNotificacoes" class="modal-notificacoes shadow-lg">
+                        <div class="notificacoes-header d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
+                            <h6 class="mb-0">Notificações</h6>
+                            <button class="btn-close btn-sm" id="fecharNotificacoes"></button>
+                        </div>
+                        <div class="notificacoes-body" id="listaNotificacoes">
+                            <p class="text-center text-muted m-3">Sem notificações</p>
+                        </div>
+                    </div>
+
+                    <div class="espaco"></div>
+                    <div class="container">
+                        <h2>Solicitações Pendentes 
+                            <span id="badge-total" class="badge bg-warning text-dark ms-2" style="display: none;">0</span>
+                        </h2>
+                        
+                        <!-- Mensagem de feedback -->
+                        <div id="mensagem" style="display: none;" class="alert alert-dismissible fade show" role="alert">
+                            <span id="mensagem-texto"></span>
+                            <button type="button" class="btn-close" onclick="fecharMensagem()"></button>
+                        </div>
+                        
+                        <!-- Loading inicial -->
+                        <div id="loading-inicial" class="text-center my-5" style="display: none;">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Carregando...</span>
+                            </div>
+                            <p class="mt-3">Carregando solicitações...</p>
+                        </div>
+                        
+                        <!-- Tabs de navegação -->
+                        <ul class="nav nav-tabs mt-4" id="solicitacoesTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="trocas-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#trocas" type="button" role="tab">
+                                    Trocas <span id="badge-trocas" class="badge bg-danger ms-1">0</span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="ferias-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#ferias" type="button" role="tab">
+                                    Férias <span id="badge-ferias" class="badge bg-danger ms-1">0</span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="atestados-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#atestados" type="button" role="tab">
+                                    Atestados <span id="badge-atestados" class="badge bg-danger ms-1">0</span>
+                                </button>
+                            </li>
+                        </ul>
+                        
+                        <!-- Conteúdo das tabs -->
+                        <div class="tab-content" id="solicitacoesTabContent">
+                            <!-- Tab Trocas -->
+                            <div class="tab-pane fade show active" id="trocas" role="tabpanel">
+                                <div class="container-fluid container-cinza p-4 mb-4">
+                                    <div id="lista-trocas">
+                                        <!-- Cards serão inseridos aqui via JavaScript -->
+                                    </div>
+                                    <div id="sem-trocas" class="text-center text-muted py-5" style="display: none;">
+                                        <i class="bi bi-check-circle" style="font-size: 3rem;"></i>
+                                        <p class="mt-3">Nenhuma solicitação de troca pendente</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Tab Férias -->
+                            <div class="tab-pane fade" id="ferias" role="tabpanel">
+                                <div class="container-fluid container-cinza p-4 mb-4">
+                                    <div id="lista-ferias">
+                                        <!-- Cards serão inseridos aqui via JavaScript -->
+                                    </div>
+                                    <div id="sem-ferias" class="text-center text-muted py-5" style="display: none;">
+                                        <i class="bi bi-check-circle" style="font-size: 3rem;"></i>
+                                        <p class="mt-3">Nenhuma solicitação de férias pendente</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Tab Atestados -->
+                            <div class="tab-pane fade" id="atestados" role="tabpanel">
+                                <div class="container-fluid container-cinza p-4 mb-4">
+                                    <div id="lista-atestados">
+                                        <!-- Cards serão inseridos aqui via JavaScript -->
+                                    </div>
+                                    <div id="sem-atestados" class="text-center text-muted py-5" style="display: none;">
+                                        <i class="bi bi-check-circle" style="font-size: 3rem;"></i>
+                                        <p class="mt-3">Nenhuma solicitação de atestado pendente</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <!-- Importar API.js e Validations.js -->
+    <script src="../assets/js/validations.js"></script>
+    <script src="../assets/js/api.js"></script>
+
+    <!-- Sistema de notificações -->
+    <script src="../assets/js/JScoordenador/solicitacoes.js"></script>
+
+    <script>
+        const offcanvas = document.getElementById('offcanvasResponsive');
+        const bodyContent = document.getElementById('offcanvasBodyContent');
+        offcanvas.addEventListener('show.bs.offcanvas', function () {
+            bodyContent.style.display = 'block';
+        });
+        offcanvas.addEventListener('hide.bs.offcanvas', function () {
+            bodyContent.style.display = 'none';
+        });
+    </script>
+    
+    <script>
+        let trocasPendentes = [];
+        let feriasPendentes = [];
+        let atestadosPendentes = [];
+
+        function mostrarMensagem(texto, tipo = 'info') {
+            const mensagemDiv = document.getElementById('mensagem');
+            const mensagemTexto = document.getElementById('mensagem-texto');
+            
+            mensagemDiv.className = `alert alert-${tipo} alert-dismissible fade show`;
+            mensagemTexto.innerHTML = texto;
+            mensagemDiv.style.display = 'block';
+            mensagemDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            setTimeout(() => fecharMensagem(), 5000);
+        }
+
+        function fecharMensagem() {
+            document.getElementById('mensagem').style.display = 'none';
+        }
+
+        function mostrarSucesso(texto) {
+            mostrarMensagem(texto, 'success');
+        }
+
+        function mostrarErro(texto) {
+            mostrarMensagem(texto, 'danger');
+        }
+
+        async function carregarSolicitacoes() {
+            const loading = document.getElementById('loading-inicial');
+            loading.style.display = 'block';
+            
+            try {
+                const [respostaTrocas, respostaFerias, respostaAtestados] = await Promise.all([
+                    TrocasAPI.listarPendentes(),
+                    FeriasAPI.listarPendentes(),
+                    AtestadosAPI.listarPendentes()
+                ]);
+                
+                // Extrai os dados corretamente da resposta da API
+                trocasPendentes = respostaTrocas.data || [];
+                feriasPendentes = respostaFerias.data || [];
+                atestadosPendentes = respostaAtestados.data || [];
+                
+                console.log('✅ Solicitações carregadas:', {
+                    trocas: trocasPendentes.length,
+                    ferias: feriasPendentes.length,
+                    atestados: atestadosPendentes.length
+                });
+                
+                renderizarTrocas();
+                renderizarFerias();
+                renderizarAtestados();
+                
+                atualizarBadges();
+                
+            } catch (error) {
+                console.error('Erro ao carregar solicitações:', error);
+                mostrarErro('❌ Erro ao carregar solicitações. Verifique sua conexão.');
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function renderizarTrocas() {
+            const container = document.getElementById('lista-trocas');
+            const semTrocas = document.getElementById('sem-trocas');
+            
+            if (trocasPendentes.length === 0) {
+                container.innerHTML = '';
+                semTrocas.style.display = 'block';
+                return;
+            }
+            
+            semTrocas.style.display = 'none';
+            
+            container.innerHTML = trocasPendentes.map(troca => `
+                <div class="container-branco container mb-3" id="troca-${troca.id}">
+                    <div class="container justify-content-center">
+                        <div class="row align-items-center">
+                            <h4>
+                                <i class="bi bi-arrow-left-right"></i> Solicitação de Troca #${troca.id}
+                            </h4>
+                            
+                            <!-- Coluna 1: Informações principais -->
+                            <div class="col-12 col-md-6 col-lg-8 mb-3 mb-lg-0">
+                                <p><strong>Colaborador:</strong> ${troca.solicitante_nome}</p>
+                                <p><strong>Data:</strong> ${formatarDataBR(troca.data_solicitada)}</p>
+                                <p><strong>Substituído por:</strong> 
+                                    ${troca.substituto_nome || '<span class="text-muted">Não indicado</span>'}
+                                </p>
+                                <p><strong>Motivo:</strong> ${troca.motivo}</p>
+                            </div>
+                            
+                            <!-- Coluna 2: Dados do colaborador -->
+                            <div class="col-12 col-md-12 col-lg-4 text-md-start text-lg-end">
+                                <p><strong>Turno:</strong> ${troca.solicitante_turno}</p>
+                                <p><strong>Escala:</strong> ${troca.solicitante_escala}</p>
+                                <p><strong>Local:</strong> ${troca.local}</p>
+                            </div>
+                            
+                            <!-- Botões de ação -->
+                            <div class="justify-content-between d-flex mt-3">
+                                <button class="btn-vermelho" onclick="recusarTroca(${troca.id})">
+                                    <i class="bi bi-x-circle"></i> Recusar
+                                </button>
+                                <button class="btn-verde" onclick="aprovarTroca(${troca.id})">
+                                    <i class="bi bi-check-circle"></i> Aprovar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderizarFerias() {
+            const container = document.getElementById('lista-ferias');
+            const semFerias = document.getElementById('sem-ferias');
+            
+            if (feriasPendentes.length === 0) {
+                container.innerHTML = '';
+                semFerias.style.display = 'block';
+                return;
+            }
+            
+            semFerias.style.display = 'none';
+            
+            container.innerHTML = feriasPendentes.map(ferias => {
+                // Calcula dias entre as datas
+                const inicio = new Date(ferias.data_inicio);
+                const fim = new Date(ferias.data_fim);
+                const dias = Math.ceil((fim - inicio) / (1000 * 60 * 60 * 24)) + 1;
+                
+                return `
+                <div class="container-branco container mb-3" id="ferias-${ferias.id}">
+                    <div class="container justify-content-center">
+                        <div class="row align-items-center">
+                            <h4>
+                                <i class="bi bi-calendar-check"></i> Solicitação de Férias #${ferias.id}
+                            </h4>
+                            
+                            <!-- Coluna 1 -->
+                            <div class="col-12 col-md-6 col-lg-8 mb-3 mb-lg-0">
+                                <p><strong>Colaborador:</strong> ${ferias.usuario_nome || 'Nome não disponível'}</p>
+                                <p><strong>Início:</strong> ${formatarDataBR(ferias.data_inicio)}</p>
+                                <p><strong>Fim:</strong> ${formatarDataBR(ferias.data_fim)}</p>
+                                <p><strong>Dias:</strong> ${dias} dias</p>
+                                ${ferias.observacao ? `<p><strong>Observações:</strong> ${ferias.observacao}</p>` : ''}
+                            </div>
+                            
+                            <!-- Coluna 2 -->
+                            <div class="col-12 col-md-12 col-lg-4 text-md-start text-lg-end">
+                                <p><strong>Solicitação:</strong> ${formatarDataBR(ferias.data_solicitacao?.split('T')[0])}</p>
+                            </div>
+                            
+                            <!-- Botões -->
+                            <div class="justify-content-between d-flex mt-3">
+                                <button class="btn-vermelho" onclick="rejeitarFerias(${ferias.id})">
+                                    <i class="bi bi-x-circle"></i> Rejeitar
+                                </button>
+                                <button class="btn-verde" onclick="aprovarFerias(${ferias.id})">
+                                    <i class="bi bi-check-circle"></i> Aprovar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        function renderizarAtestados() {
+            const container = document.getElementById('lista-atestados');
+            const semAtestados = document.getElementById('sem-atestados');
+            
+            if (atestadosPendentes.length === 0) {
+                container.innerHTML = '';
+                semAtestados.style.display = 'block';
+                return;
+            }
+            
+            semAtestados.style.display = 'none';
+            
+            container.innerHTML = atestadosPendentes.map(atestado => `
+                <div class="container-branco container mb-3" id="atestado-${atestado.id}">
+                    <div class="container justify-content-center">
+                        <div class="row align-items-center">
+                            <h4>
+                                <i class="bi bi-file-earmark-medical"></i> Atestado Médico #${atestado.id}
+                            </h4>
+                            
+                            <!-- Coluna 1 -->
+                            <div class="col-12 col-md-6 col-lg-8 mb-3 mb-lg-0">
+                                <p><strong>Colaborador:</strong> ${atestado.usuario_nome}</p>
+                                <p><strong>Início:</strong> ${formatarDataBR(atestado.data_inicio)}</p>
+                                <p><strong>Fim:</strong> ${formatarDataBR(atestado.data_fim)}</p>
+                                <p><strong>Dias:</strong> ${atestado.dias_atestado} dias</p>
+                                <p><strong>Motivo:</strong> ${atestado.motivo}</p>
+                            </div>
+                            
+                            <!-- Coluna 2 -->
+                            <div class="col-12 col-md-12 col-lg-4 text-md-start text-lg-end">
+                                <p><strong>Turno:</strong> ${atestado.usuario_turno}</p>
+                                <p><strong>Escala:</strong> ${atestado.usuario_escala}</p>
+                                <p><strong>Local:</strong> ${atestado.usuario_local}</p>
+                            </div>
+                            
+                            <!-- Botões -->
+                            <div class="justify-content-between d-flex mt-3">
+                                <button class="btn-vermelho" onclick="negarAtestado(${atestado.id})">
+                                    <i class="bi bi-x-circle"></i> Negar
+                                </button>
+                                <button class="btn-verde" onclick="aceitarAtestado(${atestado.id})">
+                                    <i class="bi bi-check-circle"></i> Aceitar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function aprovarTroca(id) {
+            if (!confirm('Deseja realmente aprovar esta solicitação de troca?')) return;
+            
+            const card = document.getElementById(`troca-${id}`);
+            card.style.opacity = '0.5';
+            
+            try {
+                await TrocasAPI.aprovar(id);
+                mostrarSucesso(' Troca aprovada com sucesso!');
+                
+                trocasPendentes = trocasPendentes.filter(t => t.id !== id);
+                renderizarTrocas();
+                atualizarBadges();
+                
+            } catch (error) {
+                console.error('Erro ao aprovar troca:', error);
+                mostrarErro(' Erro ao aprovar troca: ' + (error.message || 'Erro desconhecido'));
+                card.style.opacity = '1';
+            }
+        }
+
+        async function recusarTroca(id) {
+            const motivo = prompt('Motivo da recusa:');
+            if (!motivo || motivo.trim() === '') {
+                mostrarErro(' É necessário informar o motivo da recusa.');
+                return;
+            }
+            
+            const card = document.getElementById(`troca-${id}`);
+            card.style.opacity = '0.5';
+            
+            try {
+                await TrocasAPI.recusar(id, motivo);
+                mostrarSucesso(' Troca recusada.');
+                
+                trocasPendentes = trocasPendentes.filter(t => t.id !== id);
+                renderizarTrocas();
+                atualizarBadges();
+                
+            } catch (error) {
+                console.error('Erro ao recusar troca:', error);
+                mostrarErro(' Erro ao recusar troca: ' + (error.message || 'Erro desconhecido'));
+                card.style.opacity = '1';
+            }
+        }
+
+        async function aprovarFerias(id) {
+            if (!confirm('Deseja realmente aprovar esta solicitação de férias?')) return;
+            
+            const card = document.getElementById(`ferias-${id}`);
+            card.style.opacity = '0.5';
+            
+            try {
+                await FeriasAPI.aprovar(id);
+                mostrarSucesso(' Férias aprovadas com sucesso!');
+                
+                feriasPendentes = feriasPendentes.filter(f => f.id !== id);
+                renderizarFerias();
+                atualizarBadges();
+                
+            } catch (error) {
+                console.error('Erro ao aprovar férias:', error);
+                mostrarErro(' Erro ao aprovar férias: ' + (error.message || 'Erro desconhecido'));
+                card.style.opacity = '1';
+            }
+        }
+
+        async function rejeitarFerias(id) {
+            const motivo = prompt('Motivo da rejeição:');
+            if (!motivo || motivo.trim() === '') {
+                mostrarErro(' É necessário informar o motivo da rejeição.');
+                return;
+            }
+            
+            const card = document.getElementById(`ferias-${id}`);
+            card.style.opacity = '0.5';
+            
+            try {
+                await FeriasAPI.rejeitar(id, motivo);
+                mostrarSucesso(' Férias rejeitadas.');
+                
+                feriasPendentes = feriasPendentes.filter(f => f.id !== id);
+                renderizarFerias();
+                atualizarBadges();
+                
+            } catch (error) {
+                console.error('Erro ao rejeitar férias:', error);
+                mostrarErro(' Erro ao rejeitar férias: ' + (error.message || 'Erro desconhecido'));
+                card.style.opacity = '1';
+            }
+        }
+
+        async function aceitarAtestado(id) {
+            if (!confirm('Deseja realmente aceitar este atestado?')) return;
+            
+            const card = document.getElementById(`atestado-${id}`);
+            card.style.opacity = '0.5';
+            
+            try {
+                await AtestadosAPI.aceitar(id);
+                mostrarSucesso(' Atestado aceito com sucesso!');
+                
+                atestadosPendentes = atestadosPendentes.filter(a => a.id !== id);
+                renderizarAtestados();
+                atualizarBadges();
+                
+            } catch (error) {
+                console.error('Erro ao aceitar atestado:', error);
+                mostrarErro(' Erro ao aceitar atestado: ' + (error.message || 'Erro desconhecido'));
+                card.style.opacity = '1';
+            }
+        }
+
+        async function negarAtestado(id) {
+            const motivo = prompt('Motivo da negação:');
+            if (!motivo || motivo.trim() === '') {
+                mostrarErro(' É necessário informar o motivo da negação.');
+                return;
+            }
+            
+            const card = document.getElementById(`atestado-${id}`);
+            card.style.opacity = '0.5';
+            
+            try {
+                await AtestadosAPI.negar(id, motivo);
+                mostrarSucesso(' Atestado negado.');
+                
+                atestadosPendentes = atestadosPendentes.filter(a => a.id !== id);
+                renderizarAtestados();
+                atualizarBadges();
+                
+            } catch (error) {
+                console.error('Erro ao negar atestado:', error);
+                mostrarErro(' Erro ao negar atestado: ' + (error.message || 'Erro desconhecido'));
+                card.style.opacity = '1';
+            }
+        }
+
+        function atualizarBadges() {
+            const total = trocasPendentes.length + feriasPendentes.length + atestadosPendentes.length;
+            
+            document.getElementById('badge-trocas').textContent = trocasPendentes.length;
+            document.getElementById('badge-ferias').textContent = feriasPendentes.length;
+            document.getElementById('badge-atestados').textContent = atestadosPendentes.length;
+            
+            const badgeTotal = document.getElementById('badge-total');
+            if (total > 0) {
+                badgeTotal.textContent = total;
+                badgeTotal.style.display = 'inline-block';
+            } else {
+                badgeTotal.style.display = 'none';
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log(' Solicitações.html carregado - Carregando dados...');
+            carregarSolicitacoes();
+        });
+
+        console.log(' Sistema de solicitações integrado!');
+    </script>
+</body>
+
+</html>

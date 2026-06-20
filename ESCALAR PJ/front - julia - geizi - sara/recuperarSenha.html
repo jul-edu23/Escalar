@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Senha | Escalar</title>
+
+    <!--Google font - inter-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!--Icones-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="assets/css/login.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+
+    <style>
+        #mensagem {
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            color: var(--branco);
+            font-weight: 500;
+        }
+
+        .info-box {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            color: var(--branco);
+        }
+
+        .info-box h5 {
+            color: var(--branco);
+            margin-bottom: 1rem;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-box ul li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .info-box ul li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 imagem d-none d-md-block logomarca p-0">
+                <div class="fundo">
+                    <div class="container d-flex flex-column justify-content-between" style="height: 100vh; max-width: 680px;">
+                        <div class="caixa align-self-start">a melhor maneira de</div>
+                        <div class="caixa logo m-5">
+                            <img src="assets/img/escalar-removebg-preview.png" class="img-fluid" alt="Escalar">
+                        </div>
+                        <div class="caixa align-self-end">sua gestão</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 container-login d-flex flex-column justify-content-center align-items-center">
+                <!-- responsivo para mobile -->
+                <div class="logo logo-mobile mb-4" style="display: none; max-width: 319px;">
+                    <img src="assets/img/escalar-removebg-preview.png" class="img-fluid" alt="Escalar">
+                </div>
+
+                <div class="formulario-login w-75">
+                    <div class="text-center mb-4 textoSaudacao">
+                        <h2 style="font-size: 2.5rem;">
+                            <i class="bi bi-key-fill"></i><br>
+                            Recuperar Senha
+                        </h2>
+                    </div>
+
+                    <!-- Mensagens de feedback -->
+                    <div id="mensagem" class="alert alert-dismissible fade" role="alert" style="display: none;">
+                        <span id="mensagem-texto"></span>
+                        <button type="button" class="btn-close" onclick="fecharMensagem()"></button>
+                    </div>
+
+                    <form id="formRecuperar" onsubmit="solicitarRecuperacao(event)">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email cadastrado:</label>
+                            <input type="email" name="email" class="form-control" id="email" required 
+                                   placeholder="seu.email@exemplo.com">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="cpf" class="form-label">CPF:</label>
+                            <input type="text" name="cpf" class="form-control" id="cpf" required 
+                                   placeholder="000.000.000-00" maxlength="14">
+                        </div>
+
+                        <div class="text-end">
+                            <button type="submit" class="botaoEntrar mt-4 mb-3" id="btnRecuperar">
+                                <i class="bi bi-send"></i> Solicitar Recuperação
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <a href="login.html" style="color: var(--branco); text-decoration: none;">
+                            <i class="bi bi-arrow-left"></i> Voltar ao login
+                        </a>
+                    </div>
+
+                    <!-- Caixa de informações -->
+                    <div class="info-box">
+                        <h5><i class="bi bi-info-circle"></i> Como funciona?</h5>
+                        <ul>
+                            <li>Informe seu email e CPF cadastrados</li>
+                            <li>O sistema validará suas informações</li>
+                            <li>Você receberá instruções para recuperação</li>
+                            <li>Em caso de dúvidas, contate o administrador</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <script>
+        const API_URL = 'http://127.0.0.1:5001';
+
+        // Formatar CPF
+        document.getElementById('cpf').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.slice(0, 11);
+            
+            if (value.length > 9) {
+                value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+            } else if (value.length > 6) {
+                value = value.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
+            } else if (value.length > 3) {
+                value = value.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+            }
+            
+            e.target.value = value;
+        });
+
+        function mostrarMensagem(texto, tipo = 'info') {
+            const mensagemDiv = document.getElementById('mensagem');
+            const mensagemTexto = document.getElementById('mensagem-texto');
+            
+            mensagemDiv.className = `alert alert-${tipo} alert-dismissible fade show`;
+            mensagemTexto.textContent = texto;
+            mensagemDiv.style.display = 'block';
+            
+            setTimeout(() => fecharMensagem(), 10000);
+        }
+
+        function fecharMensagem() {
+            document.getElementById('mensagem').style.display = 'none';
+        }
+
+        async function solicitarRecuperacao(event) {
+            event.preventDefault();
+            
+            const btnRecuperar = document.getElementById('btnRecuperar');
+            const email = document.getElementById('email').value.trim();
+            const cpf = document.getElementById('cpf').value.replace(/\D/g, '');
+            
+            if (cpf.length !== 11) {
+                mostrarMensagem('CPF inválido. Digite 11 dígitos.', 'warning');
+                return;
+            }
+            
+            btnRecuperar.disabled = true;
+            btnRecuperar.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Processando...';
+            
+            try {
+                const response = await fetch(`${API_URL}/api/recuperar-senha`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, cpf })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    mostrarMensagem(data.message, 'success');
+                    document.getElementById('formRecuperar').reset();
+                    
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 3000);
+                } else {
+                    mostrarMensagem(data.error || 'Erro ao processar solicitação', 'danger');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                mostrarMensagem('Erro ao conectar com o servidor. Tente novamente.', 'danger');
+            } finally {
+                btnRecuperar.disabled = false;
+                btnRecuperar.innerHTML = '<i class="bi bi-send"></i> Solicitar Recuperação';
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escalar | Férias</title>
+
+    <!--Google font - inter-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!--Icones-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.x.x/font/bootstrap-icons.css">
+    <!--CSS global-->
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <!--CSS local-->
+    <link rel="stylesheet" href="../../assets/css/historicoAdm.css">
+
+</head>
+
+<body>
+
+    <div class="body">
+
+        <div class="menu-mobile">
+            <div class="offcanvas-lg offcanvas-start sidebar" tabindex="-1" id="offcanvasResponsive"
+                aria-labelledby="offcanvasResponsiveLabel">
+                <div class="offcanvas-header">
+                    <div class="logo mb-5 mt-3 text-center">
+                        <a class="navbar-brand" href="../calendarioAdm.html">
+                            <img src="../../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
+                                alt="Escalar">
+                        </a>
+                    </div>
+                    <button type="button" class="btn" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive"
+                        aria-label="Close"><i class="bi bi-list"></i></button>
+                </div>
+                <div class="offcanvas-body" id="offcanvasBodyContent" style="display: none;">
+
+                    <div class="menu-lateral">
+                        <ul class="nav nav-pills flex-column mb-auto" id="menu">
+                            <li class="nav-item">
+                                <a href="../quadroColaboradores.html" class="nav-link text-white">Quadro de colaboradores</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../solicitacoes.html" class="nav-link text-white">Solicitações</a>
+                            </li>
+                            <li class="nav-item">
+                                <div class="nav-link text-white" id="accordionExample">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapseOne" aria-expanded="false"
+                                                aria-controls="collapseOne">
+                                                Histórico
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse show"
+                                            data-bs-parent="#accordionExample">
+                                            <div class="">
+                                                <ul class="nav nav-pills flex-column mb-auto" id="menu">
+                                                    <li class="nav-item">
+                                                        <a href="trocas.html" class="nav-link text-white">Trocas</a>
+                                                    </li>
+                                                    <li class="nav-item  item-atual">
+                                                        <a href="ferias.html" class="nav-link text-white">Férias</a>
+                                                    </li>
+                                                    <li class="nav-item ">
+                                                        <a href="Atestados.html" class="nav-link text-white">Atestados</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-desktop d-none d-lg-block bg-dark text-white">
+            <div class="sidebar p-3 min-vh-100">
+                <div class="logo mb-5 mt-3 text-center">
+                    <a class="navbar-brand" href="../calendarioAdm.html">
+                        <img src="../../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
+                            alt="Escalar">
+                    </a>
+                </div>
+                <div class="menu-lateral">
+                    <ul class="nav nav-pills flex-column mb-auto" id="menu">
+                        <li class="nav-item">
+                            <a href="../quadroColaboradores.html" class="nav-link text-white">Quadro de colaboradores</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="../solicitacoes.html" class="nav-link text-white">Solicitações</a>
+                        </li>
+                        <li class="nav-item">
+
+                            <div class="nav-link text-white" id="accordionExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseOne" aria-expanded="false"
+                                            aria-controls="collapseOne">
+                                            Histórico
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse show"
+                                        data-bs-parent="#accordionExample">
+                                        <div class="">
+                                            <ul class="nav nav-pills flex-column mb-auto" id="menu">
+                                                <li class="nav-item">
+                                                    <a href="trocas.html" class="nav-link text-white">Trocas</a>
+                                                </li>
+                                                <li class="nav-item  item-atual">
+                                                    <a href="ferias.html" class="nav-link text-white">Férias</a>
+                                                </li>
+                                                <li class="nav-item ">
+                                                    <a href="Atestados.html" class="nav-link text-white">Atestados</a>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="content flex-grow-1">
+
+            <header>
+                <nav class="navbar2 navbar-expand-lg bg-body-tertiary">
+                    <div class="container-fluid p-3">
+                        <div class="navbar-brand">
+                            <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive"><i
+                                    class="bi bi-list"></i></button>
+                        </div>
+                        <ul class="navbar-nav ms-auto">
+
+                            <li class="nav-item position-relative me-3">
+                                <a class="nav-link" href="#" id="sinoNotificacoes">
+                                    <i class="bi bi-bell fs-5"></i>
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notification-badge" 
+                                          id="badgeNotificacoes" style="display: none;">
+                                        0
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item me-3">
+                                <a class="nav-link" href="#">
+                                    <i class="bi bi-person-circle fs-4"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </nav>
+            </header>
+
+            <main>
+                <div class="container mt-4">
+
+                    <!-- Modal de Notificações -->
+                    <div id="modalNotificacoes" class="modal-notificacoes shadow-lg">
+                        <div class="notificacoes-header d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
+                            <h6 class="mb-0">Notificações</h6>
+                            <button class="btn-close btn-sm" id="fecharNotificacoes"></button>
+                        </div>
+                        <div class="notificacoes-body" id="listaNotificacoes">
+                            <p class="text-center text-muted m-3">Sem notificações</p>
+                        </div>
+                    </div>
+
+                    <div class="espaco"></div>
+                    
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>Histórico de Férias</h2>
+                    </div>
+                    
+                    <!-- Filtros -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="filtroStatus" class="form-label">Filtrar por Status:</label>
+                            <select id="filtroStatus" class="form-select" onchange="aplicarFiltros()">
+                                <option value="todas">Todas</option>
+                                <option value="aprovada">Aprovadas</option>
+                                <option value="rejeitada">Recusadas</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Loading -->
+                    <div id="loading" class="text-center my-4" style="display: none;">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </div>
+
+                    <!-- Erro -->
+                    <div id="erro" class="alert alert-danger" role="alert" style="display: none;"></div>
+
+                    <!-- Lista de férias -->
+                    <div id="listaFerias" class="container container-cinza"></div>
+
+                    <!-- Vazio -->
+                    <div id="vazio" class="alert alert-info" style="display: none;">
+                        Nenhuma solicitação de férias encontrada no histórico.
+                    </div>
+
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <!-- Sistema de notificações -->
+    <script src="../../assets/js/JScoordenador/ferias.js"></script>
+
+    <script>
+        const offcanvas = document.getElementById('offcanvasResponsive');
+        const bodyContent = document.getElementById('offcanvasBodyContent');
+        offcanvas.addEventListener('show.bs.offcanvas', function () {
+            bodyContent.style.display = 'block';
+        });
+        offcanvas.addEventListener('hide.bs.offcanvas', function () {
+            bodyContent.style.display = 'none';
+        });
+
+        // Dados
+        let todasFerias = [];
+        let feriasFiltradas = [];
+        let statusAtual = 'todas';
+
+        // Carregar férias ao iniciar
+        document.addEventListener('DOMContentLoaded', carregarFerias);
+
+        async function carregarFerias() {
+            const loading = document.getElementById('loading');
+            const erro = document.getElementById('erro');
+            const listaFerias = document.getElementById('listaFerias');
+            const vazio = document.getElementById('vazio');
+
+            try {
+                loading.style.display = 'block';
+                erro.style.display = 'none';
+                listaFerias.innerHTML = '';
+                vazio.style.display = 'none';
+
+                // Buscar todas as férias não-pendentes
+                const response = await fetch('http://127.0.0.1:5000/api/ferias');
+                
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar férias');
+                }
+
+                const result = await response.json();
+                const data = result.data || result; // Suporta ambos os formatos
+                todasFerias = data.filter(f => f.status !== 'pendente');
+                feriasFiltradas = todasFerias;
+
+                renderizarFerias();
+
+            } catch (error) {
+                console.error('Erro:', error);
+                erro.textContent = 'Erro ao carregar histórico de férias: ' + error.message;
+                erro.style.display = 'block';
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function aplicarFiltros() {
+            const filtroStatus = document.getElementById('filtroStatus').value;
+            statusAtual = filtroStatus;
+            
+            if (filtroStatus === 'todas') {
+                feriasFiltradas = todasFerias;
+            } else {
+                feriasFiltradas = todasFerias.filter(f => f.status === filtroStatus);
+            }
+            
+            renderizarFerias();
+        }
+
+        function renderizarFerias() {
+            const listaFerias = document.getElementById('listaFerias');
+            const vazio = document.getElementById('vazio');
+
+            if (feriasFiltradas.length === 0) {
+                listaFerias.innerHTML = '';
+                vazio.style.display = 'block';
+                return;
+            }
+
+            vazio.style.display = 'none';
+
+            listaFerias.innerHTML = feriasFiltradas.map(ferias => {
+                const statusClass = ferias.status === 'aprovada' ? 'text-success' : 'text-danger';
+                const statusTexto = ferias.status === 'aprovada' ? '✓ Aprovada' : '✗ Recusada';
+                const dataInicio = formatarData(ferias.data_inicio);
+                const dataFim = formatarData(ferias.data_fim);
+                const diasTotal = calcularDias(ferias.data_inicio, ferias.data_fim);
+
+                return `
+                    <div class="container-branco mb-3">
+                        <div class="container justify-content-center">
+                            <div class="row align-items-center">
+                                <div class="col-12 col-md-6 col-lg-6 mb-3 mb-lg-0">
+                                    <p><strong>Nome:</strong> ${ferias.usuario_nome}</p>
+                                    <p><strong>Início:</strong> ${dataInicio}</p>
+                                    <p><strong>Fim:</strong> ${dataFim}</p>
+                                    <p><strong>Total:</strong> ${diasTotal} dias</p>
+                                    ${ferias.observacao ? `<p><strong>Observação:</strong> ${ferias.observacao}</p>` : ''}
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-6 text-md-start text-lg-end">
+                                    <p class="fw-bold ${statusClass}">${statusTexto}</p>
+                                    <small class="text-muted">Solicitada em ${formatarData(ferias.data_solicitacao)}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function formatarData(dataStr) {
+            if (!dataStr) return 'N/A';
+            const data = new Date(dataStr);
+            return data.toLocaleDateString('pt-BR');
+        }
+
+        function calcularDias(inicio, fim) {
+            const dataInicio = new Date(inicio);
+            const dataFim = new Date(fim);
+            const diffTime = Math.abs(dataFim - dataInicio);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            return diffDays;
+        }
+    </script>
+</body>
+
+</html>

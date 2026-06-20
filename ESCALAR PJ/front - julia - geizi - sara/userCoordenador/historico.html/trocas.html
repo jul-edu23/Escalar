@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escalar | Trocas</title>
+
+    <!--Google font - inter-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!--Icones-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.x.x/font/bootstrap-icons.css">
+    <!--CSS global-->
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <!--CSS local-->
+    <link rel="stylesheet" href="../../assets/css/historicoAdm.css">
+
+</head>
+
+<body>
+
+    <div class="body">
+
+        <div class="menu-mobile">
+            <div class="offcanvas-lg offcanvas-start sidebar" tabindex="-1" id="offcanvasResponsive"
+                aria-labelledby="offcanvasResponsiveLabel">
+                <div class="offcanvas-header">
+                    <div class="logo mb-5 mt-3 text-center">
+                        <a class="navbar-brand" href="../calendarioAdm.html">
+                            <img src="../../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
+                                alt="Escalar">
+                        </a>
+                    </div>
+                    <button type="button" class="btn" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive"
+                        aria-label="Close"><i class="bi bi-list"></i></button>
+                </div>
+                <div class="offcanvas-body" id="offcanvasBodyContent" style="display: none;">
+
+                    <div class="menu-lateral">
+                        <ul class="nav nav-pills flex-column mb-auto" id="menu">
+                            <li class="nav-item">
+                                <a href="../quadroColaboradores.html" class="nav-link text-white">Quadro de colaboradores</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../solicitacoes.html" class="nav-link text-white">Solicitações</a>
+                            </li>
+                            <li class="nav-item">
+                                <div class="nav-link text-white" id="accordionExample">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapseOne" aria-expanded="false"
+                                                aria-controls="collapseOne">
+                                                Histórico
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse show"
+                                            data-bs-parent="#accordionExample">
+                                            <div class="">
+                                                <ul class="nav nav-pills flex-column mb-auto" id="menu">
+                                                    <li class="nav-item item-atual">
+                                                        <a href="trocas.html" class="nav-link text-white">Trocas</a>
+                                                    </li>
+                                                    <li class="nav-item ">
+                                                        <a href="ferias.html" class="nav-link text-white">Férias</a>
+                                                    </li>
+                                                    <li class="nav-item ">
+                                                        <a href="Atestados.html" class="nav-link text-white">Atestados</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-desktop d-none d-lg-block bg-dark text-white">
+            <div class="sidebar p-3 min-vh-100">
+                <div class="logo mb-5 mt-3 text-center">
+                    <a class="navbar-brand" href="../calendarioAdm.html">
+                        <img src="../../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
+                            alt="Escalar">
+                    </a>
+                </div>
+                <div class="menu-lateral">
+                    <ul class="nav nav-pills flex-column mb-auto" id="menu">
+                        <li class="nav-item">
+                            <a href="../quadroColaboradores.html" class="nav-link text-white">Quadro de colaboradores</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="../solicitacoes.html" class="nav-link text-white">Solicitações</a>
+                        </li>
+                        <li class="nav-item">
+
+                            <div class="nav-link text-white" id="accordionExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseOne" aria-expanded="false"
+                                            aria-controls="collapseOne">
+                                            Histórico
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse show"
+                                        data-bs-parent="#accordionExample">
+                                        <div class="">
+                                            <ul class="nav nav-pills flex-column mb-auto" id="menu">
+                                                <li class="nav-item item-atual">
+                                                    <a href="trocas.html" class="nav-link text-white">Trocas</a>
+                                                </li>
+                                                <li class="nav-item ">
+                                                    <a href="ferias.html" class="nav-link text-white">Férias</a>
+                                                </li>
+                                                <li class="nav-item ">
+                                                    <a href="Atestados.html" class="nav-link text-white">Atestados</a>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="content flex-grow-1">
+
+            <header>
+                <nav class="navbar2 navbar-expand-lg bg-body-tertiary">
+                    <div class="container-fluid p-3">
+                        <div class="navbar-brand">
+                            <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive"><i
+                                    class="bi bi-list"></i></button>
+                        </div>
+                        <ul class="navbar-nav ms-auto">
+
+                            <li class="nav-item position-relative me-3">
+                                <a class="nav-link" href="#" id="sinoNotificacoes">
+                                    <i class="bi bi-bell fs-5"></i>
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notification-badge" 
+                                          id="badgeNotificacoes" style="display: none;">
+                                        0
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item me-3">
+                                <a class="nav-link" href="#">
+                                    <i class="bi bi-person-circle fs-4"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </nav>
+            </header>
+
+            <main>
+                <div class="container mt-4">
+
+                    <!-- Modal de Notificações -->
+                    <div id="modalNotificacoes" class="modal-notificacoes shadow-lg">
+                        <div class="notificacoes-header d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
+                            <h6 class="mb-0">Notificações</h6>
+                            <button class="btn-close btn-sm" id="fecharNotificacoes"></button>
+                        </div>
+                        <div class="notificacoes-body" id="listaNotificacoes">
+                            <p class="text-center text-muted m-3">Sem notificações</p>
+                        </div>
+                    </div>
+
+                    <div class="espaco"></div>
+                    
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>Histórico de Trocas</h2>
+                    </div>
+                    
+                    <!-- Filtros -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="filtroStatus" class="form-label">Filtrar por Status:</label>
+                            <select id="filtroStatus" class="form-select" onchange="aplicarFiltros()">
+                                <option value="todas">Todas</option>
+                                <option value="aprovada">Aprovadas</option>
+                                <option value="recusada">Recusadas</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Loading -->
+                    <div id="loading" class="text-center my-4" style="display: none;">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </div>
+
+                    <!-- Erro -->
+                    <div id="erro" class="alert alert-danger" role="alert" style="display: none;"></div>
+
+                    <!-- Lista de trocas -->
+                    <div id="listaTrocas" class="container container-cinza"></div>
+
+                    <!-- Vazio -->
+                    <div id="vazio" class="alert alert-info" style="display: none;">
+                        Nenhuma troca encontrada no histórico.
+                    </div>
+
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <!-- Sistema de notificações -->
+    <script src="../../assets/js/JScoordenador/trocas.js"></script>
+
+    <script>
+        const offcanvas = document.getElementById('offcanvasResponsive');
+        const bodyContent = document.getElementById('offcanvasBodyContent');
+        offcanvas.addEventListener('show.bs.offcanvas', function () {
+            bodyContent.style.display = 'block';
+        });
+        offcanvas.addEventListener('hide.bs.offcanvas', function () {
+            bodyContent.style.display = 'none';
+        });
+
+        // Dados
+        let todasTrocas = [];
+        let trocasFiltradas = [];
+        let statusAtual = 'todas';
+
+        // Carregar trocas ao iniciar
+        document.addEventListener('DOMContentLoaded', carregarTrocas);
+
+        async function carregarTrocas() {
+            const loading = document.getElementById('loading');
+            const erro = document.getElementById('erro');
+            const listaTrocas = document.getElementById('listaTrocas');
+            const vazio = document.getElementById('vazio');
+
+            try {
+                loading.style.display = 'block';
+                erro.style.display = 'none';
+                listaTrocas.innerHTML = '';
+                vazio.style.display = 'none';
+
+                // Buscar todas as trocas não-pendentes
+                const response = await fetch('http://127.0.0.1:5000/api/trocas');
+                
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar trocas');
+                }
+
+                const result = await response.json();
+                const data = result.data || result; // Suporta ambos os formatos
+                todasTrocas = data.filter(t => t.status !== 'pendente');
+                trocasFiltradas = todasTrocas;
+
+                renderizarTrocas();
+
+            } catch (error) {
+                console.error('Erro:', error);
+                erro.textContent = 'Erro ao carregar histórico de trocas: ' + error.message;
+                erro.style.display = 'block';
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function aplicarFiltros() {
+            const filtroStatus = document.getElementById('filtroStatus').value;
+            statusAtual = filtroStatus;
+            
+            if (filtroStatus === 'todas') {
+                trocasFiltradas = todasTrocas;
+            } else {
+                trocasFiltradas = todasTrocas.filter(t => t.status === filtroStatus);
+            }
+            
+            renderizarTrocas();
+        }
+
+        function renderizarTrocas() {
+            const listaTrocas = document.getElementById('listaTrocas');
+            const vazio = document.getElementById('vazio');
+
+            if (trocasFiltradas.length === 0) {
+                listaTrocas.innerHTML = '';
+                vazio.style.display = 'block';
+                return;
+            }
+
+            vazio.style.display = 'none';
+
+            listaTrocas.innerHTML = trocasFiltradas.map(troca => {
+                const statusClass = troca.status === 'aprovada' ? 'text-success' : 'text-danger';
+                const statusTexto = troca.status === 'aprovada' ? '✓ Aprovada' : '✗ Recusada';
+                const dataFormatada = formatarData(troca.data_solicitada);
+                const substituto = troca.substituto_nome || 'Sem substituto especificado';
+
+                return `
+                    <div class="container-branco mb-3">
+                        <div class="container justify-content-center">
+                            <div class="row align-items-center">
+                                <div class="col-12 col-md-6 col-lg-6 mb-3 mb-lg-0">
+                                    <p><strong>Nome:</strong> ${troca.solicitante_nome}</p>
+                                    <p><strong>Substituído por:</strong> ${substituto}</p>
+                                    <p><strong>Motivo:</strong> ${troca.motivo || 'Não informado'}</p>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-3 mb-3 mb-lg-0">
+                                    <p><strong>Data:</strong> ${dataFormatada}</p>
+                                    <p><strong>Local:</strong> ${troca.solicitante_local || 'N/A'}</p>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-3 text-md-start text-lg-end">
+                                    <p class="fw-bold ${statusClass}">${statusTexto}</p>
+                                    <small class="text-muted">Solicitada em ${formatarData(troca.data_solicitacao)}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function formatarData(dataStr) {
+            if (!dataStr) return 'N/A';
+            const data = new Date(dataStr);
+            return data.toLocaleDateString('pt-BR');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+/* cores */
+:root {
+    --azul: #00466c;
+    --cinza: #d9d9d9;
+    --branco: #ffffff;
+    --preto: #000000;
+    --sombra: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+
+.conteiner-cinza {
+    box-shadow: var(--sombra);
+}
+
+
+
+.container-branco {
+    background-color: var(--branco);
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: var(--sombra);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    /* Alinha verticalmente no centro */
+    justify-content: space-between;
+    /* Distribui espaço entre eles (opcional) */
+    gap: 20px;
+}
+
+.fotoPerfil {
+    border-radius: 10px;
+    background: var(--preto);
+    width: 4.69rem;
+    height: 6.25rem;
+}
+
+.informacoes {
+    flex: 1;
+    /* Faz ocupar o espaço restante */
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--azul);
+    /* cor personalizada */
+    cursor: pointer;
+    box-shadow: none;
+}
+
+input[type="checkbox"]:hover {
+    transform: scale(1.1);
+    /* aumenta o tamanho ao passar o mouse */
+}
+
+input[type="search"] {
+    border-radius: 20px;
+}

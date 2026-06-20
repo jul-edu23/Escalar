@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escalar | Cadastrar Atestado</title>
+
+    <!--Google inter-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.x.x/font/bootstrap-icons.css">
+    <!--CSS global-->
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <!--CSS local-->
+
+</head>
+
+<body>
+
+    <div class="body">
+
+        <div class="menu-mobile">
+            <div class="offcanvas-lg offcanvas-start sidebar" tabindex="-1" id="offcanvasResponsive"
+                aria-labelledby="offcanvasResponsiveLabel">
+                <div class="offcanvas-header">
+                    <div class="logo mb-5 mt-3 text-center">
+                        <a class="navbar-brand" href="calendario.html">
+                            <img src="../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
+                                alt="Escalar">
+                        </a>
+                    </div>
+                    <button type="button" class="btn" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive"
+                        aria-label="Close"><i class="bi bi-list"></i></button>
+                </div>
+                <div class="offcanvas-body" id="offcanvasBodyContent" style="display: none;">
+
+                    <div class="menu-lateral">
+                        <ul class="nav nav-pills flex-column mb-auto" id="menu">
+                            <li class="nav-item">
+                                <a href="trocasDisponiveis.html" class="nav-link text-white">Trocas Disponíveis</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="solicitarTroca.html" class="nav-link text-white">Solicitar Troca</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="cadastrarFerias.html" class="nav-link text-white">Cadastrar Férias</a>
+                            </li>
+                            <li class="nav-item item-atual">
+                                <a href="cadastrarAtestado.html" class="nav-link text-white">Cadastrar Atestado</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="minhasSolicitacoes.html" class="nav-link text-white">Minhas Solicitações</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-desktop d-none d-lg-block bg-dark text-white">
+            <div class="sidebar p-3 min-vh-100">
+                <div class="logo mb-5 mt-3 text-center">
+                    <a class="navbar-brand" href="calendario.html">
+                        <img src="../assets/img/escalar-removebg-preview.png" width="150rem" height="auto"
+                            alt="Escalar">
+                    </a>
+                </div>
+                <div class="menu-lateral">
+                    <ul class="nav nav-pills flex-column mb-auto" id="menu">
+                        <li class="nav-item">
+                            <a href="trocasDisponiveis.html" class="nav-link text-white">Trocas Disponíveis</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="solicitarTroca.html" class="nav-link text-white">Solicitar Troca</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="cadastrarFerias.html" class="nav-link text-white">Cadastrar Férias</a>
+                        </li>
+                        <li class="nav-item item-atual">
+                            <a href="cadastrarAtestado.html" class="nav-link text-white">Cadastrar Atestado</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="minhasSolicitacoes.html" class="nav-link text-white">Minhas Solicitações</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="content flex-grow-1">
+
+            <header>
+                <nav class="navbar2 navbar-expand-lg bg-body-tertiary">
+                    <div class="container-fluid p-3">
+                        <div class="navbar-brand">
+                            <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive"><i
+                                    class="bi bi-list"></i></button>
+                        </div>
+                        <ul class="navbar-nav ms-auto">
+
+                            <li class="nav-item me-3">
+                                <a class="nav-link" href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="23" viewBox="0 0 37 34" fill="none">
+                                        <g clip-path="url(#clip0_230_407)">
+                                            <path
+                                                d="M18.5 33.9998C19.7266 33.9998 20.903 33.5521 21.7704 32.755C22.6377 31.958 23.125 30.877 23.125 29.7498H13.875C13.875 30.877 14.3623 31.958 15.2296 32.755C16.097 33.5521 17.2734 33.9998 18.5 33.9998ZM20.8009 2.3352C20.8332 2.03972 20.7977 1.74132 20.6968 1.45922C20.5959 1.17712 20.4317 0.917588 20.2149 0.697371C19.9981 0.477153 19.7335 0.301136 19.4381 0.180669C19.1427 0.0602031 18.8232 -0.00203705 18.5 -0.00203705C18.1768 -0.00203705 17.8573 0.0602031 17.5619 0.180669C17.2665 0.301136 17.0019 0.477153 16.7851 0.697371C16.5683 0.917588 16.4041 1.17712 16.3032 1.45922C16.2023 1.74132 16.1668 2.03972 16.1991 2.3352C13.5849 2.82299 11.2347 4.12639 9.54673 6.02448C7.85879 7.92256 6.93696 10.2986 6.9375 12.7498C6.9375 15.0831 5.78125 25.4998 2.3125 27.6248H34.6875C31.2188 25.4998 30.0625 15.0831 30.0625 12.7498C30.0625 7.60732 26.085 3.31482 20.8009 2.3352Z"
+                                                fill="#00476C" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_230_407">
+                                                <rect width="37" height="34" fill="white" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="nav-item me-3">
+                                <a class="nav-link" href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="29" viewBox="0 0 52 53" fill="none">
+                                        <g clip-path="url(#clip0_230_403)">
+                                            <path
+                                                d="M35.75 19.875C35.75 22.5106 34.7228 25.0382 32.8943 26.9019C31.0658 28.7655 28.5859 29.8125 26 29.8125C23.4141 29.8125 20.9342 28.7655 19.1057 26.9019C17.2772 25.0382 16.25 22.5106 16.25 19.875C16.25 17.2394 17.2772 14.7118 19.1057 12.8481C20.9342 10.9845 23.4141 9.9375 26 9.9375C28.5859 9.9375 31.0658 10.9845 32.8943 12.8481C34.7228 14.7118 35.75 17.2394 35.75 19.875Z"
+                                                fill="#00476C" />
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M0 26.5C0 19.4718 2.73928 12.7314 7.61522 7.76167C12.4912 2.79196 19.1044 0 26 0C32.8956 0 39.5088 2.79196 44.3848 7.76167C49.2607 12.7314 52 19.4718 52 26.5C52 33.5282 49.2607 40.2686 44.3848 45.2383C39.5088 50.208 32.8956 53 26 53C19.1044 53 12.4912 50.208 7.61522 45.2383C2.73928 40.2686 0 33.5282 0 26.5ZM26 3.3125C21.7158 3.31273 17.5187 4.54595 13.8918 6.87022C10.2649 9.19448 7.35567 12.5153 5.49888 16.4505C3.6421 20.3857 2.91326 24.7753 3.39624 29.1141C3.87923 33.4529 5.55442 37.5644 8.229 40.9756C10.5365 37.1861 15.6163 33.125 26 33.125C36.3838 33.125 41.4603 37.1828 43.771 40.9756C46.4456 37.5644 48.1208 33.4529 48.6038 29.1141C49.0867 24.7753 48.3579 20.3857 46.5011 16.4505C44.6443 12.5153 41.7351 9.19448 38.1082 6.87022C34.4813 4.54595 30.2842 3.31273 26 3.3125Z"
+                                                fill="#00476C" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_230_403">
+                                                <rect width="52" height="53" fill="white" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </nav>
+            </header>
+
+            <main>
+                <div class="container mt-4">
+
+                    <!-- Modal de Notificações -->
+                    <div id="modalNotificacoes" class="modal-notificacoes shadow-lg">
+                        <div class="notificacoes-header d-flex justify-content-between align-items-center">
+                            <h6>Notificações</h6>
+                            <button type="button" class="btn-close" id="fecharNotificacoes" aria-label="Close"></button>
+                        </div>
+                        <div class="notificacoes-body" id="listaNotificacoes">
+                            <p class="text-center text-muted m-3">Carregando notificações...</p>
+                        </div>
+                    </div>
+
+                    <div class="espaco"></div>
+                    <div class="centralizarConteiner">
+                        <h2>Cadastrar Atestado Médico</h2>
+                        
+                        <!-- Mensagem de feedback -->
+                        <div id="mensagem" style="display: none;" class="alert alert-dismissible fade show mb-3" role="alert">
+                            <span id="mensagem-texto"></span>
+                            <button type="button" class="btn-close" onclick="fecharMensagem()"></button>
+                        </div>
+                        
+                        <div class="container-cinza">
+                            <div class="formulario-pedirTroca">
+                                <form id="formAtestado">
+                                    <div class="mt-2">
+                                        <label for="dataInicio">Data de Início: *</label>
+                                        <input type="date" id="dataInicio" name="dataInicio" required>
+                                        <small class="text-muted">📅 Últimos 3 dias ou até 30 dias futuros</small>
+                                    </div>
+                                    
+                                    <div class="mt-2">
+                                        <label for="dataFim">Data de Fim: *</label>
+                                        <input type="date" id="dataFim" name="dataFim" required>
+                                        <small class="text-muted">📅 Data do último dia de afastamento</small>
+                                    </div>
+                                    
+                                    <div class="mt-2 d-flex">
+                                        <div class="w-50 me-3 d-inline-block">
+                                            <label for="diasAtestado">Quantidade de Dias:</label>
+                                            <input type="number" id="diasAtestado" name="diasAtestado" 
+                                                   min="1" max="15" readonly 
+                                                   placeholder="Calculado"
+                                                   style="background-color: #f0f0f0;">
+                                            <small class="text-muted">Máximo 15 dias</small>
+                                        </div>
+                                        <div class="w-50 d-inline-block">
+                                            <label for="motivo">CID/Motivo: *</label>
+                                            <input type="text" id="motivo" name="motivo" 
+                                                   placeholder="Ex: CID Z76.3" 
+                                                   maxlength="50" required>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-2">
+                                        <label for="arquivo">Anexar Foto do Atestado: (opcional)</label>
+                                        <input type="file" id="arquivo" name="arquivo" 
+                                               accept="image/*,.pdf">
+                                        <small class="text-muted">Formatos aceitos: JPG, PNG, PDF (máx 5MB) - Upload em desenvolvimento</small>
+                                    </div>
+                                    
+                                    <div class="mt-2" id="previewContainer" style="display: none;">
+                                        <label>Preview:</label>
+                                        <div id="previewImagem" class="border p-2 mt-1">
+                                            <img id="imgPreview" style="max-width: 100%; max-height: 300px;" />
+                                            <p id="pdfPreview" style="display: none;">
+                                                 <span id="nomeArquivo"></span> 
+                                                (<span id="tamanhoArquivo"></span>)
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </form>
+                                <div class="d-flex justify-content-end mt-4">
+                                    <button type="button" class="btn btn-azul" id="btnEnviar" onclick="enviarAtestado()">
+                                        <span id="btnTexto">
+                                            <i class="bi bi-send"></i> Enviar Atestado
+                                        </span>
+                                        <span id="btnLoading" style="display: none;">
+                                            <span class="spinner-border spinner-border-sm"></span>
+                                            Enviando...
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <!-- Importar validations.js e api.js -->
+    <script src="../assets/js/validations.js"></script>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/JScolaborador/cadastrarAtestado.js"></script>
+
+    <script>
+        const offcanvas = document.getElementById('offcanvasResponsive');
+        const bodyContent = document.getElementById('offcanvasBodyContent');
+        offcanvas.addEventListener('show.bs.offcanvas', function () {
+            bodyContent.style.display = 'block';
+        });
+        offcanvas.addEventListener('hide.bs.offcanvas', function () {
+            bodyContent.style.display = 'none';
+        });
+    </script>
+    
+    <script>
+        // Mostra mensagens pro usuário (sucesso, erro, etc)
+        function mostrarMensagem(texto, tipo = 'info') {
+            const mensagemDiv = document.getElementById('mensagem');
+            const mensagemTexto = document.getElementById('mensagem-texto');
+            
+            mensagemDiv.className = `alert alert-${tipo} alert-dismissible fade show`;
+            mensagemTexto.innerHTML = texto;
+            mensagemDiv.style.display = 'block';
+            mensagemDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            setTimeout(() => fecharMensagem(), 6000);
+        }
+
+        function fecharMensagem() {
+            document.getElementById('mensagem').style.display = 'none';
+        }
+
+        function mostrarSucesso(texto) {
+            mostrarMensagem(texto, 'success');
+        }
+
+        function mostrarErro(texto) {
+            mostrarMensagem(texto, 'danger');
+        }
+
+        function calcularDiasAtestado() {
+            const dataInicio = document.getElementById('dataInicio').value;
+            const dataFim = document.getElementById('dataFim').value;
+            const diasInput = document.getElementById('diasAtestado');
+            
+            if (dataInicio && dataFim) {
+                if (validarPeriodo(dataInicio, dataFim)) {
+                    const dias = calcularDias(dataInicio, dataFim);
+                    diasInput.value = dias;
+                    
+                    if (dias > 15) {
+                        diasInput.style.borderColor = '#dc3545';
+                        diasInput.style.backgroundColor = '#f8d7da';
+                    } else if (dias < 1) {
+                        diasInput.style.borderColor = '#dc3545';
+                        diasInput.style.backgroundColor = '#f8d7da';
+                    } else {
+                        diasInput.style.borderColor = '#28a745';
+                        diasInput.style.backgroundColor = '#d4edda';
+                    }
+                } else {
+                    diasInput.value = '';
+                    diasInput.style.borderColor = '#dc3545';
+                    diasInput.style.backgroundColor = '#f8d7da';
+                }
+            } else {
+                diasInput.value = '';
+                diasInput.style.borderColor = '';
+                diasInput.style.backgroundColor = '#f0f0f0';
+            }
+        }
+
+        function mostrarPreviewArquivo(arquivo) {
+            const previewContainer = document.getElementById('previewContainer');
+            const imgPreview = document.getElementById('imgPreview');
+            const pdfPreview = document.getElementById('pdfPreview');
+            const nomeArquivo = document.getElementById('nomeArquivo');
+            const tamanhoArquivo = document.getElementById('tamanhoArquivo');
+            
+            const tamanhoMB = (arquivo.size / (1024 * 1024)).toFixed(2);
+            
+            if (arquivo.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imgPreview.src = e.target.result;
+                    imgPreview.style.display = 'block';
+                    pdfPreview.style.display = 'none';
+                    previewContainer.style.display = 'block';
+                };
+                reader.readAsDataURL(arquivo);
+            } else if (arquivo.type === 'application/pdf') {
+                nomeArquivo.textContent = arquivo.name;
+                tamanhoArquivo.textContent = `${tamanhoMB} MB`;
+                imgPreview.style.display = 'none';
+                pdfPreview.style.display = 'block';
+                previewContainer.style.display = 'block';
+            }
+        }
+
+        async function enviarAtestado() {
+            const btnTexto = document.getElementById('btnTexto');
+            const btnLoading = document.getElementById('btnLoading');
+            const btnEnviar = document.getElementById('btnEnviar');
+            
+            const arquivo = document.getElementById('arquivo').files[0];
+            
+            const dados = {
+                data_inicio: document.getElementById('dataInicio').value.trim(),
+                data_fim: document.getElementById('dataFim').value.trim(),
+                motivo: document.getElementById('motivo').value.trim(),
+                arquivo: arquivo
+            };
+            
+            const validacao = validarFormularioCadastroAtestado(dados);
+            
+            if (!validacao.valido) {
+                mostrarErro('<strong>❌ Erro de Validação:</strong><br>' + 
+                           validacao.erros.map(e => `• ${e}`).join('<br>'));
+                return;
+            }
+            
+            dados.usuario_id = parseInt(localStorage.getItem('usuario_id'));
+            
+            if (!dados.usuario_id) {
+                mostrarErro('❌ Usuário não identificado. Faça login novamente.');
+                return;
+            }
+            
+            // Por enquanto, envia JSON sem arquivo (API não suporta upload ainda)
+            const dadosJSON = {
+                usuario_id: dados.usuario_id,
+                data_inicio: dados.data_inicio,
+                data_fim: dados.data_fim,
+                motivo: dados.motivo
+            };
+            
+            btnTexto.style.display = 'none';
+            btnLoading.style.display = 'inline-block';
+            btnEnviar.disabled = true;
+            
+            console.log('📤 Enviando atestado médico:', {
+                usuario_id: dados.usuario_id,
+                periodo: `${dados.data_inicio} a ${dados.data_fim}`,
+                motivo: dados.motivo,
+                arquivo: arquivo ? arquivo.name : 'Nenhum'
+            });
+            
+            try {
+                const resultado = await AtestadosAPI.enviar(dadosJSON);
+                
+                console.log('✅ Atestado enviado:', resultado);
+                
+                const diasCalculados = calcularDias(dados.data_inicio, dados.data_fim);
+                
+                mostrarSucesso(`
+                    <strong>✅ Atestado médico enviado com sucesso!</strong><br>
+                    <strong>Período:</strong> ${formatarDataBR(dados.data_inicio)} a ${formatarDataBR(dados.data_fim)}<br>
+                    <strong>Total:</strong> ${diasCalculados} dias<br>
+                    <strong>Motivo:</strong> ${dados.motivo}<br>
+                    <small>⏳ Aguarde a análise do coordenador.</small>
+                    ${arquivo ? '<br><small>ℹ️ Nota: O arquivo foi validado mas não foi enviado (funcionalidade em desenvolvimento).</small>' : ''}
+                `);
+                
+                document.getElementById('formAtestado').reset();
+                document.getElementById('diasAtestado').value = '';
+                document.getElementById('diasAtestado').style.borderColor = '';
+                document.getElementById('diasAtestado').style.backgroundColor = '#f0f0f0';
+                document.getElementById('previewContainer').style.display = 'none';
+                
+            } catch (error) {
+                console.error('❌ Erro ao enviar atestado:', error);
+                
+                let mensagemErro = error.message || 'Erro desconhecido';
+                
+                if (mensagemErro.includes('retroativo')) {
+                    mensagemErro += '<br><small>💡 Para atestados antigos, entre em contato com a coordenação.</small>';
+                } else if (mensagemErro.includes('15 dias')) {
+                    mensagemErro += '<br><small>💡 Para afastamentos longos, entre em contato com a coordenação.</small>';
+                }
+                
+                mostrarErro(`
+                    <strong>❌ Erro ao enviar atestado:</strong><br>
+                    ${mensagemErro}
+                `);
+                
+            } finally {
+                btnTexto.style.display = 'inline-block';
+                btnLoading.style.display = 'none';
+                btnEnviar.disabled = false;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // Permite datas dos últimos 3 dias até 30 dias no futuro
+            const hoje = new Date();
+            const tresDiasAtras = new Date(hoje);
+            tresDiasAtras.setDate(hoje.getDate() - 3);
+            const trintaDiasFuturo = new Date(hoje);
+            trintaDiasFuturo.setDate(hoje.getDate() + 30);
+            
+            const dataMin = tresDiasAtras.toISOString().split('T')[0];
+            const dataMax = trintaDiasFuturo.toISOString().split('T')[0];
+            
+            document.getElementById('dataInicio').setAttribute('min', dataMin);
+            document.getElementById('dataInicio').setAttribute('max', dataMax);
+            document.getElementById('dataFim').setAttribute('min', dataMin);
+            document.getElementById('dataFim').setAttribute('max', dataMax);
+            
+            document.getElementById('dataInicio').addEventListener('change', calcularDiasAtestado);
+            document.getElementById('dataFim').addEventListener('change', calcularDiasAtestado);
+            
+            document.getElementById('dataInicio').addEventListener('change', (e) => {
+                const dataInicio = e.target.value;
+                if (dataInicio) {
+                    document.getElementById('dataFim').setAttribute('min', dataInicio);
+                }
+            });
+            
+            document.getElementById('arquivo').addEventListener('change', (e) => {
+                const arquivo = e.target.files[0];
+                if (arquivo) {
+                    const tamanhoMB = arquivo.size / (1024 * 1024);
+                    if (tamanhoMB > 5) {
+                        mostrarErro('❌ O arquivo deve ter no máximo 5MB!');
+                        e.target.value = '';
+                        document.getElementById('previewContainer').style.display = 'none';
+                        return;
+                    }
+                    
+                    mostrarPreviewArquivo(arquivo);
+                }
+            });
+            
+            console.log('✅ CadastrarAtestado.html carregado - Período válido:', dataMin, 'a', dataMax);
+        });
+
+        console.log(' Sistema de cadastro de atestado integrado!');
+    </script>
+</body>
+
+</html>

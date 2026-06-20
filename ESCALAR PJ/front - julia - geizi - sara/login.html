@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escalar | Login</title>
+
+    <!--Google font - inter-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+
+    <!--Icones-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="assets/css/login.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+
+    <style>
+        
+        #mensagem {
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            color: var(--branco);
+            font-weight: 500;
+        }
+
+        .spinner-border-sm {
+            width: 1rem;
+            height: 1rem;
+            border-width: 0.2em;
+        }
+
+        .recuperarSenha a {
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .recuperarSenha a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 imagem d-none d-md-block logomarca p-0">
+                <div class="fundo">
+                    <div class="container d-flex flex-column justify-content-between" style="height: 100vh; max-width: 680px;">
+                        <div class="caixa align-self-start">a melhor maneira de</div>
+                        <div class="caixa logo m-5">
+                            <img src="assets/img/escalar-removebg-preview.png" class="img-fluid" alt="Escalar">
+                        </div>
+                        <div class="caixa align-self-end">sua gestão</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 container-login d-flex flex-column justify-content-center align-items-center">
+
+                <div class="logo logo-mobile mb-4" style="display: none; max-width: 319px;">
+                    <img src="assets/img/escalar-removebg-preview.png" class="img-fluid" alt="Escalar">
+                </div>
+                <div class="formulario-login w-75">
+                    <div class="text-center mb-4 textoSaudacao">
+                        <h2 style="font-size: 2.5rem;">Bem-vindo!</h2>
+                    </div>
+
+                    <!-- Aviso se não estiver na origem correta -->
+                    <div id="aviso-origem" class="alert alert-warning alert-dismissible fade" role="alert" style="display: none;">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        <strong>Atenção!</strong> Para o login funcionar, acesse: 
+                        <a href="http://127.0.0.1:5001/login" style="color: #856404; text-decoration: underline;">
+                            http://127.0.0.1:5001/login
+                        </a>
+                        <button type="button" class="btn-close" onclick="document.getElementById('aviso-origem').style.display='none'"></button>
+                    </div>
+
+                    <!-- Mensagens de feedback la -->
+                    <div id="mensagem" class="alert alert-dismissible fade" role="alert" style="display: none;">
+                        <span id="mensagem-texto"></span>
+                        <button type="button" class="btn-close" onclick="fecharMensagem()"></button>
+                    </div>
+
+                    <form id="formLogin" onsubmit="fazerLogin(event)">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" name="email" class="form-control" id="email" required placeholder="seu.email@exemplo.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="senha" class="form-label">Senha:</label>
+                            <input type="password" name="senha" id="senha" class="form-control" required placeholder="Digite sua senha">
+                        </div>
+                        
+                        <div class="recuperarSenha mb-3 text-center">
+                            <a href="recuperarSenha.html">
+                                <i class="bi bi-key"></i> Esqueci minha senha
+                            </a>
+                        </div>
+
+                        <div class="text-end">
+                            <button type="submit" class="botaoEntrar mt-4 mb-3" id="btnEntrar">
+                                <i class="bi bi-box-arrow-in-right iconeEntrar"></i> Entrar
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <small style="color: var(--branco); opacity: 0.8;">
+                            <i class="bi bi-info-circle"></i> 
+                            Primeira vez? Use seu CPF como senha.
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+                crossorigin="anonymous"></script>
+
+            <!-- Importar validations.js -->
+            <script src="assets/js/validations.js"></script>
+
+            <script>
+                // Como a página é servida pela porta 5001, usar a mesma porta para API
+                const API_BASE_URL = window.location.origin; // http://127.0.0.1:5001
+                
+                console.log('🔧 API Base URL:', API_BASE_URL);
+                
+                if (window.location.protocol === 'file:' || !window.location.origin.includes('5000')) {
+                    console.warn(' AVISO: Acesse via servidor Flask para melhor compatibilidade!');
+                    console.warn('URL recomendada: http://localhost:5000/login');
+                    
+                    const avisoDiv = document.getElementById('aviso-origem');
+                    if (avisoDiv) {
+                        avisoDiv.className = 'alert alert-warning alert-dismissible fade show';
+                        avisoDiv.style.display = 'block';
+                    }
+                }
+
+                function mostrarMensagem(texto, tipo = 'info') {
+                    const mensagemDiv = document.getElementById('mensagem');
+                    const mensagemTexto = document.getElementById('mensagem-texto');
+                    
+                    mensagemDiv.className = `alert alert-${tipo} alert-dismissible fade show`;
+                    mensagemTexto.innerHTML = texto; // Usar innerHTML para permitir HTML
+                    mensagemDiv.style.display = 'block';
+                    
+                    // Scroll para a mensagem
+                    mensagemDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    if (tipo !== 'danger') {
+                        setTimeout(() => {
+                            fecharMensagem();
+                        }, 5000);
+                    }
+                }
+
+                function fecharMensagem() {
+                    const mensagemDiv = document.getElementById('mensagem');
+                    mensagemDiv.style.display = 'none';
+                }
+
+                function mostrarSucesso(texto) {
+                    mostrarMensagem(texto, 'success');
+                }
+
+                function mostrarErro(texto) {
+                    mostrarMensagem(texto, 'danger');
+                }
+
+                async function fazerLogin(event) {
+                    event.preventDefault();
+                    
+                    const btnEntrar = document.getElementById('btnEntrar');
+                    const email = document.getElementById('email').value.trim();
+                    const senha = document.getElementById('senha').value;
+                    
+                    const validacao = validarFormularioLogin({ email, senha });
+                    
+                    if (!validacao.valido) {
+                        mostrarErro('<strong> Erro de Validação:</strong><br>' + 
+                                   validacao.erros.map(e => `• ${e}`).join('<br>'));
+                        return;
+                    }
+                    
+                    btnEntrar.disabled = true;
+                    const textoOriginal = btnEntrar.innerHTML;
+                    btnEntrar.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Entrando...';
+                    
+                    try {
+                        const response = await fetch(`${API_BASE_URL}/api/login`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            credentials: 'include',
+                            body: JSON.stringify({ email, senha })
+                        });
+                        
+                        const data = await response.json();
+                        
+                        console.log('📦 Resposta do servidor:', data);
+                        
+                        if (response.ok && data.success) {
+                            localStorage.setItem('usuario_id', data.usuario_id);
+                            localStorage.setItem('usuario_nome', data.usuario_nome);
+                            localStorage.setItem('usuario_cargo', data.usuario_cargo);
+                            
+                            console.log('✅ Dados salvos no localStorage');
+                            console.log('👤 Cargo:', data.usuario_cargo);
+                            
+                            mostrarSucesso(`
+                                <strong> Login bem-sucedido!</strong><br>
+                                Bem-vindo(a), <strong>${data.usuario_nome}</strong>!<br>
+                                <small>Redirecionando...</small>
+                            `);
+                            
+                            setTimeout(() => {
+                                // Usar a URL de redirecionamento fornecida pelo servidor
+                                const redirectUrl = data.redirect || '/calendario-colaborador';
+                                
+                                console.log('🔄 Redirecionando para:', redirectUrl);
+                                window.location.href = redirectUrl;
+                            }, 1500);
+                            
+                        } else {
+                            let mensagemErro = data.error || 'Email ou senha incorretos';
+                            
+                            if (mensagemErro.includes('CPF')) {
+                                mensagemErro += '<br><small><i class="bi bi-info-circle"></i> <strong>Primeira vez?</strong> Use seu CPF como senha (somente números).</small>';
+                            }
+                            
+                            mostrarErro(`<strong> Erro ao fazer login:</strong><br>${mensagemErro}`);
+                            
+                            btnEntrar.disabled = false;
+                            btnEntrar.innerHTML = textoOriginal;
+                        }
+                        
+                    } catch (error) {
+                        console.error('Erro de conexão:', error);
+                        mostrarErro(`
+                            <strong> Erro de Conexão!</strong><br>
+                            Não foi possível conectar ao servidor.<br>
+                            <small>Verifique se o Flask está rodando em <code>http://localhost:5000</code></small><br>
+                            <small>Execute: <code>python app.py</code></small>
+                        `);
+                        
+                        btnEntrar.disabled = false;
+                        btnEntrar.innerHTML = textoOriginal;
+                    }
+                }
+
+                window.addEventListener('DOMContentLoaded', () => {
+                    const usuarioId = localStorage.getItem('usuario_id');
+                    const usuarioCargo = localStorage.getItem('usuario_cargo');
+                    
+                    // Não redirecionar se já estamos na página de login
+                    if (window.location.pathname === '/login' || window.location.pathname === '/login.html' || window.location.pathname === '/') {
+                        if (usuarioId && usuarioCargo) {
+                            console.log('✓ Usuário já está logado, mas está na página de login');
+                            // Só redirecionar se tiver clicado em "já logado"
+                            // Por enquanto, não redireciona automaticamente
+                        }
+                    }
+                });
+
+                console.log(' Login.html carregado - Sistema de autenticação pronto!');
+            </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Coordenador - Escalar</title>
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+
+    <!--Icones-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.x.x/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/calendario.css">
+
+    <link rel="stylesheet" href="ccalendario.css">
+
+    <!--******************************** ATENÇÃO *****************************-->
+    <!--Os links para o bootstrap já estão todos nessa página, não precisa adicionar nenhum outro link; e eu apaguei os links do tailwind, por isso o calendário vai estar todo deesconfigurado. É so alterar as classes para as classes do bootstrap-->
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid mx-5 p-3">
+                <a class="navbar-brand" href="#">
+                    <img src="../assets/img/escalar-removebg-preview.png" width="150rem" height="auto" alt="Escalar">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="calendarioAdm.html">Calendário</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="quadroColaboradores.html">Painel do
+                                Coordenador</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="23" viewBox="0 0 37 34" fill="none">
+                                    <g clip-path="url(#clip0_205_352)">
+                                        <path
+                                            d="M18.5 33.9998C19.7266 33.9998 20.903 33.5521 21.7704 32.755C22.6377 31.958 23.125 30.877 23.125 29.7498H13.875C13.875 30.877 14.3623 31.958 15.2296 32.755C16.097 33.5521 17.2734 33.9998 18.5 33.9998ZM20.8009 2.33522C20.8332 2.03975 20.7977 1.74134 20.6968 1.45924C20.5959 1.17714 20.4317 0.917611 20.2149 0.697393C19.9981 0.477176 19.7335 0.301158 19.4381 0.180692C19.1427 0.060226 18.8232 -0.00201416 18.5 -0.00201416C18.1768 -0.00201416 17.8573 0.060226 17.5619 0.180692C17.2665 0.301158 17.0019 0.477176 16.7851 0.697393C16.5683 0.917611 16.4041 1.17714 16.3032 1.45924C16.2023 1.74134 16.1668 2.03975 16.1991 2.33522C13.5849 2.82302 11.2347 4.12641 9.54673 6.0245C7.85879 7.92259 6.93696 10.2986 6.9375 12.7498C6.9375 15.0831 5.78125 25.4998 2.3125 27.6248H34.6875C31.2188 25.4998 30.0625 15.0831 30.0625 12.7498C30.0625 7.60734 26.085 3.31484 20.8009 2.33522Z"
+                                            fill="white" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_205_352">
+                                            <rect width="37" height="34" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="29" viewBox="0 0 52 53" fill="none">
+                                    <g clip-path="url(#clip0_205_334)">
+                                        <path
+                                            d="M35.75 19.875C35.75 22.5106 34.7228 25.0382 32.8943 26.9019C31.0658 28.7655 28.5859 29.8125 26 29.8125C23.4141 29.8125 20.9342 28.7655 19.1057 26.9019C17.2772 25.0382 16.25 22.5106 16.25 19.875C16.25 17.2394 17.2772 14.7118 19.1057 12.8481C20.9342 10.9845 23.4141 9.9375 26 9.9375C28.5859 9.9375 31.0658 10.9845 32.8943 12.8481C34.7228 14.7118 35.75 17.2394 35.75 19.875Z"
+                                            fill="white" />
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M0 26.5C0 19.4718 2.73928 12.7314 7.61522 7.76167C12.4912 2.79196 19.1044 0 26 0C32.8956 0 39.5088 2.79196 44.3848 7.76167C49.2607 12.7314 52 19.4718 52 26.5C52 33.5282 49.2607 40.2686 44.3848 45.2383C39.5088 50.208 32.8956 53 26 53C19.1044 53 12.4912 50.208 7.61522 45.2383C2.73928 40.2686 0 33.5282 0 26.5ZM26 3.3125C21.7158 3.31273 17.5187 4.54595 13.8918 6.87022C10.2649 9.19448 7.35567 12.5153 5.49888 16.4505C3.6421 20.3857 2.91326 24.7753 3.39624 29.1141C3.87923 33.4529 5.55442 37.5644 8.229 40.9756C10.5365 37.1861 15.6163 33.125 26 33.125C36.3838 33.125 41.4603 37.1828 43.771 40.9756C46.4456 37.5644 48.1208 33.4529 48.6038 29.1141C49.0867 24.7753 48.3579 20.3857 46.5011 16.4505C44.6443 12.5153 41.7351 9.19448 38.1082 6.87022C34.4813 4.54595 30.2842 3.31273 26 3.3125Z"
+                                            fill="white" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_205_334">
+                                            <rect width="52" height="53" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Botão de Filtro separado do resptante do main POR ENQUANTO -->
+    <button type="button" class="btn btn-filtro" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <i class="bi bi-filter"></i>
+    </button>
+
+    <!--CALENDÁRIO-->
+    <!-- Conteúdo Principal -->
+    <main class="container mt-4 pt-2 pb-4">
+        <div class="row g-4">
+
+            <!-- Calendário (Esquerda) -->
+            <div class="col-12 col-lg-9">
+                <!-- Seletor de Mês e Título -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <select id="month-select" class="form-select fw-bold" style="width: auto; font-size: 1.5rem;">
+                    </select>
+                    <select id="year-select" class="form-select fw-bold d-none" style="width: auto; font-size: 1.5rem;">
+                    </select>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="fs-5 fw-semibold">Quadro geral</span>
+                        <button class="btn btn-sm btn-link text-secondary">
+                            <i class="bi bi-list"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Container do Calendário -->
+                <div class="bg-light p-4 rounded shadow-sm">
+                    <!-- Dias da Semana -->
+                    <div class="d-grid mb-2" style="grid-template-columns: repeat(7, 1fr); gap: 0.5rem;">
+                        <div class="text-center fw-semibold text-muted">Dom</div>
+                        <div class="text-center fw-semibold text-muted">Seg</div>
+                        <div class="text-center fw-semibold text-muted">Ter</div>
+                        <div class="text-center fw-semibold text-muted">Qua</div>
+                        <div class="text-center fw-semibold text-muted">Qui</div>
+                        <div class="text-center fw-semibold text-muted">Sex</div>
+                        <div class="text-center fw-semibold text-muted">Sáb</div>
+                    </div>
+
+                    <!-- Grid dos Dias (será preenchido pelo JS) -->
+                    <div id="calendar-grid" class="d-grid" style="grid-template-columns: repeat(7, 1fr); gap: 0.5rem;">
+                        <!-- Dias aparecerão aqui -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Legenda (Direita) -->
+            <aside class="col-12 col-lg-3" style="margin-top: 70px;">
+                <h3 class="fs-5 fw-semibold mb-3">Legenda</h3>
+                <div class="d-flex flex-column" style="gap: 0.75rem;">
+                    <div class="d-flex align-items-center">
+                        <span class="rounded-circle bg-primary me-3" style="width: 20px; height: 20px;"></span>
+                        <span>Dia de Trabalho</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="rounded-circle me-3" style="width: 20px; height: 20px; background-color: rgba(127, 38, 193, 0.5);"></span>
+                        <span>Dia de Folga</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="rounded-circle bg-danger me-3" style="width: 20px; height: 20px;"></span>
+                        <span>Falta</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="rounded-circle bg-warning me-3" style="width: 20px; height: 20px;"></span>
+                        <span>Falta Justificada</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="rounded-circle bg-info me-3" style="width: 20px; height: 20px;"></span>
+                        <span>Férias</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="rounded-circle me-3" style="width: 20px; height: 20px; background-color: #ffcc00;"></span>
+                        <span>Substituição</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="rounded-circle me-3" style="width: 20px; height: 20px; background-color: #865300;"></span>
+                        <span>Atestado</span>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+    <!--Fim do calendário-->
+
+    <!-- Modal de Detalhes do Dia -->
+    <div class="modal fade" id="modalDetalhesDia" tabindex="-1" aria-labelledby="modalDetalhesDiaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="modalDetalhesDiaLabel">
+                        <i class="bi bi-calendar-day"></i> 
+                        <span id="tituloDataModal">Detalhes do Dia</span>
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Loading -->
+                    <div id="modalLoading" class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                        <p class="mt-3 text-muted">Buscando colaboradores...</p>
+                    </div>
+
+                    <!-- Conteúdo do Modal -->
+                    <div id="modalConteudo" class="d-none">
+                        <!-- Resumo -->
+                        <div class="alert alert-info d-flex align-items-center mb-4" role="alert">
+                            <i class="bi bi-info-circle-fill me-2"></i>
+                            <div>
+                                <strong id="resumoTotal">0 colaboradores</strong> escalados para este dia
+                            </div>
+                        </div>
+
+                        <!-- Abas de Status -->
+                        <ul class="nav nav-tabs mb-3" id="statusTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="trabalho-tab" data-bs-toggle="tab" data-bs-target="#trabalho-panel" type="button" role="tab">
+                                    <i class="bi bi-briefcase-fill"></i> Trabalho <span class="badge bg-primary ms-1" id="countTrabalho">0</span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="folga-tab" data-bs-toggle="tab" data-bs-target="#folga-panel" type="button" role="tab">
+                                    <i class="bi bi-moon-fill"></i> Folga <span class="badge bg-secondary ms-1" id="countFolga">0</span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="ferias-tab" data-bs-toggle="tab" data-bs-target="#ferias-panel" type="button" role="tab">
+                                    <i class="bi bi-airplane-fill"></i> Férias <span class="badge bg-info ms-1" id="countFerias">0</span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="atestado-tab" data-bs-toggle="tab" data-bs-target="#atestado-panel" type="button" role="tab">
+                                    <i class="bi bi-file-medical-fill"></i> Atestado <span class="badge bg-warning ms-1" id="countAtestado">0</span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="substituicao-tab" data-bs-toggle="tab" data-bs-target="#substituicao-panel" type="button" role="tab">
+                                    <i class="bi bi-arrow-repeat"></i> Substituição <span class="badge bg-warning ms-1" id="countSubstituicao">0</span>
+                                </button>
+                            </li>
+                        </ul>
+
+                        <!-- Conteúdo das Abas -->
+                        <div class="tab-content" id="statusTabsContent">
+                            <!-- Trabalho -->
+                            <div class="tab-pane fade show active" id="trabalho-panel" role="tabpanel">
+                                <div id="listaTrabalho"></div>
+                            </div>
+                            <!-- Folga -->
+                            <div class="tab-pane fade" id="folga-panel" role="tabpanel">
+                                <div id="listaFolga"></div>
+                            </div>
+                            <!-- Férias -->
+                            <div class="tab-pane fade" id="ferias-panel" role="tabpanel">
+                                <div id="listaFerias"></div>
+                            </div>
+                            <!-- Atestado -->
+                            <div class="tab-pane fade" id="atestado-panel" role="tabpanel">
+                                <div id="listaAtestado"></div>
+                            </div>
+                            <!-- Substituição -->
+                            <div class="tab-pane fade" id="substituicao-panel" role="tabpanel">
+                                <div id="listaSubstituicao"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle"></i> Fechar
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btnExportarDia">
+                        <i class="bi bi-download"></i> Exportar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Notificações -->
+    <div id="modalNotificacoes" class="modal-notificacoes shadow-lg">
+        <div class="notificacoes-header d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
+            <h6 class="mb-0">Notificações</h6>
+            <button class="btn-close btn-sm" id="fecharNotificacoes"></button>
+        </div>
+        <div class="notificacoes-body" id="listaNotificacoes">
+            <p class="text-center text-muted m-3">Sem notificações</p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content" style="background-color: #fff!important;">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="bi bi-filter"></i> Filtar por:</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-cinza mb-3">
+                        <h5>Turno:</h5>
+                        <form action="" id="turno">
+                            <div class="d-lg-flex d-md-flex justify-content-between">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="diurno1" id="turnoDiurno1">
+                                    <label class="form-check-label mt-1" for="turnoDiurno1">
+                                        Diurno 1
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="diurno2" id="turnoDiurno2">
+                                    <label class="form-check-label mt-1" for="turnoDiurno2">
+                                        Diurno 2
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="noturno1" id="turnoNoturno1">
+                                    <label class="form-check-label mt-1" for="turnoNoturno1">
+                                        Noturno 1
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="noturno2" id="turnoNoturno2">
+                                    <label class="form-check-label mt-1" for="turnoNoturno2">
+                                        Noturno 2
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="container-cinza mb-3">
+                        <h5>Tipo de escala:</h5>
+                        <form action="" id="tipoEscala">
+                            <div class="d-lg-flex d-md-flex justify-content-between">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="dozeTrintaESeis"
+                                        id="dozeTrintaESeis">
+                                    <label class="form-check-label mt-1" for="dozeTrintaESeis">
+                                        12 X 36
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="cincoPorDois"
+                                        id="cincoPorDois">
+                                    <label class="form-check-label mt-1" for="cincoPorDois">
+                                        5 X 2
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="container-cinza mb-3">
+                        <h5>Tipo de escala:</h5>
+                        <form action="" id="local">
+                            <div class="d-lg-flex d-md-flex justify-content-between">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="campusPrincipal"
+                                        id="campusPrincipal">
+                                    <label class="form-check-label mt-1" for="campusPrincipal">
+                                        Campus Principal
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="cce" id="cce">
+                                    <label class="form-check-label mt-1" for="cce">
+                                        <abbr title="Centro de Convenções e Eventos">CCE</abbr>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="cco" id="cco">
+                                    <label class="form-check-label mt-1" for="cco">
+                                        <abbr title="Centro Clínico Odontologico">CCO</abbr>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="ccv" id="ccv">
+                                    <label class="form-check-label mt-1" for="ccv">
+                                        <abbr title="Centro Clínico Veterinário">CCV</abbr>
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <hr>
+
+                    <form action="" id="outrosFiltros">
+                        <div class="d-lg-flex d-md-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="atestados" id="atestados">
+                                <label class="form-check-label mt-1" for="atestados">
+                                    Atestados
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="atestados" id="atestados">
+                                <label class="form-check-label mt-1" for="atestados">
+                                    Substituições
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="atestados" id="atestados">
+                                <label class="form-check-label mt-1 for=" atestados">
+                                    Férias
+                                </label>
+                            </div>
+                        </div>
+                        <div class="d-lg-flex d-md-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="atestados" id="atestados">
+                                <label class="form-check-label mt-1 for=" atestados">
+                                    Faltas
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="atestados" id="atestados">
+                                <label class="form-check-label mt-1" for="atestados">
+                                    Dias de trabalho regulares
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-vermelho" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-azul">Filtar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script do calendário do coordenador -->
+    <script src="../assets/js/JScoordenador/calendarioADM_completo.js"></script>
+    
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
